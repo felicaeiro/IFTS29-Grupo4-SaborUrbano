@@ -5,7 +5,7 @@
         "total": 191.11,
         "tipo": "Presencial",
         "id_cliente": 29,
-        "id_producto": 3
+        "productos": [3, 8, 10, 12, 18, 19]
     },
     {
         "id": 2,
@@ -13,7 +13,7 @@
         "total": 1357.56,
         "tipo": "Presencial",
         "id_cliente": 42,
-        "id_producto": 11
+        "productos": [2, 11, 15, 16, 17, 19, 20]
     },
     {
         "id": 3,
@@ -21,7 +21,7 @@
         "total": 3853.43,
         "tipo": "Presencial",
         "id_cliente": 17,
-        "id_producto": 5
+        "productos": [5, 7, 10, 13, 14]
     },
     {
         "id": 4,
@@ -29,7 +29,7 @@
         "total": 3800.49,
         "tipo": "Online",
         "id_cliente": 5,
-        "id_producto": 1
+        "productos": [1, 4, 9, 11, 18]
     },
     {
         "id": 5,
@@ -37,7 +37,7 @@
         "total": 2535.58,
         "tipo": "Presencial",
         "id_cliente": 8,
-        "id_producto": 5
+        "productos": [5, 6, 12, 14, 16, 17, 18]
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "total": 2124.36,
         "tipo": "Online",
         "id_cliente": 14,
-        "id_producto": 7
+        "productos": [7, 9, 13]
     },
     {
         "id": 7,
@@ -53,7 +53,7 @@
         "total": 2421.96,
         "tipo": "Presencial",
         "id_cliente": 18,
-        "id_producto": 7
+        "productos": [1, 7, 10, 15, 19]
     },
     {
         "id": 8,
@@ -61,7 +61,7 @@
         "total": 2982.03,
         "tipo": "Presencial",
         "id_cliente": 43,
-        "id_producto": 11
+        "productos": [2, 6, 11, 13, 18, 20]
     },
     {
         "id": 9,
@@ -69,7 +69,7 @@
         "total": 2748.21,
         "tipo": "Presencial",
         "id_cliente": 35,
-        "id_producto": 3
+        "productos": [3, 4, 8, 10, 14, 17]
     },
     {
         "id": 10,
@@ -77,7 +77,7 @@
         "total": 4581.93,
         "tipo": "Presencial",
         "id_cliente": 5,
-        "id_producto": 9
+        "productos": [1, 9, 12, 16, 19]
     },
     {
         "id": 11,
@@ -85,7 +85,7 @@
         "total": 337.51,
         "tipo": "Presencial",
         "id_cliente": 29,
-        "id_producto": 11
+        "productos": [4, 11, 15, 17]
     },
     {
         "id": 12,
@@ -93,7 +93,7 @@
         "total": 366.56,
         "tipo": "Presencial",
         "id_cliente": 4,
-        "id_producto": 11
+        "productos": [2, 5, 11, 13, 18, 19, 20]
     },
     {
         "id": 13,
@@ -101,7 +101,7 @@
         "total": 1242.43,
         "tipo": "Presencial",
         "id_cliente": 37,
-        "id_producto": 5
+        "productos": [5, 8, 10, 14]
     },
     {
         "id": 14,
@@ -109,7 +109,7 @@
         "total": 1325.05,
         "tipo": "Online",
         "id_cliente": 29,
-        "id_producto": 18
+        "productos": [3, 6, 10, 18]
     },
     {
         "id": 15,
@@ -117,7 +117,7 @@
         "total": 3480.03,
         "tipo": "Online",
         "id_cliente": 7,
-        "id_producto": 19
+        "productos": [1, 4, 19]
     },
     {
         "id": 16,
@@ -125,7 +125,7 @@
         "total": 129.71,
         "tipo": "Presencial",
         "id_cliente": 49,
-        "id_producto": 2
+        "productos": [2, 7, 9, 12, 15, 16]
     },
     {
         "id": 17,
@@ -133,7 +133,7 @@
         "total": 4077.26,
         "tipo": "Presencial",
         "id_cliente": 34,
-        "id_producto": 15
+        "productos": [3, 8, 15, 17, 20]
     },
     {
         "id": 18,
@@ -141,7 +141,7 @@
         "total": 108.4,
         "tipo": "Online",
         "id_cliente": 45,
-        "id_producto": 18
+        "productos": [1, 5, 10, 18]
     },
     {
         "id": 19,
@@ -149,7 +149,7 @@
         "total": 1531.52,
         "tipo": "Online",
         "id_cliente": 15,
-        "id_producto": 18
+        "productos": [2, 6, 13, 18, 20]
     },
     {
         "id": 20,
@@ -157,7 +157,7 @@
         "total": 161.23,
         "tipo": "Presencial",
         "id_cliente": 7,
-        "id_producto": 8
+        "productos": [4, 8, 9, 11, 14, 16, 17]
     },
     {
         "id": 21,
@@ -165,7 +165,7 @@
         "total": 2672.68,
         "tipo": "Online",
         "id_cliente": 10,
-        "id_producto": 11
+        "productos": [1, 2, 11, 15, 19]
     },
     {
         "id": 22,
@@ -173,7 +173,7 @@
         "total": 4143.06,
         "tipo": "Online",
         "id_cliente": 4,
-        "id_producto": 6
+        "productos": [3, 6, 8, 10, 12, 17, 20]
     },
     {
         "id": 23,
@@ -181,7 +181,7 @@
         "total": 3559.47,
         "tipo": "Online",
         "id_cliente": 33,
-        "id_producto": 16
+        "productos": [4, 9, 16]
     },
     {
         "id": 24,
@@ -189,7 +189,7 @@
         "total": 3318.16,
         "tipo": "Online",
         "id_cliente": 10,
-        "id_producto": 5
+        "productos": [5, 7, 13, 14, 18]
     },
     {
         "id": 25,
@@ -197,7 +197,7 @@
         "total": 3517.56,
         "tipo": "Presencial",
         "id_cliente": 33,
-        "id_producto": 12
+        "productos": [1, 6, 12, 15, 19]
     },
     {
         "id": 26,
@@ -205,7 +205,7 @@
         "total": 716.91,
         "tipo": "Online",
         "id_cliente": 40,
-        "id_producto": 18
+        "productos": [2, 7, 11, 18]
     },
     {
         "id": 27,
@@ -213,7 +213,7 @@
         "total": 1456.56,
         "tipo": "Online",
         "id_cliente": 17,
-        "id_producto": 12
+        "productos": [3, 4, 12, 16, 17, 20]
     },
     {
         "id": 28,
@@ -221,7 +221,7 @@
         "total": 4860.51,
         "tipo": "Online",
         "id_cliente": 30,
-        "id_producto": 19
+        "productos": [1, 5, 8, 13, 19]
     },
     {
         "id": 29,
@@ -229,7 +229,7 @@
         "total": 1129.27,
         "tipo": "Online",
         "id_cliente": 46,
-        "id_producto": 14
+        "productos": [2, 6, 9, 14, 15, 17]
     },
     {
         "id": 30,
@@ -237,7 +237,7 @@
         "total": 807.64,
         "tipo": "Presencial",
         "id_cliente": 17,
-        "id_producto": 6
+        "productos": [6, 7, 10, 11, 18, 20]
     },
     {
         "id": 31,
@@ -245,7 +245,7 @@
         "total": 947.62,
         "tipo": "Online",
         "id_cliente": 23,
-        "id_producto": 15
+        "productos": [1, 3, 4, 15, 16]
     },
     {
         "id": 32,
@@ -253,7 +253,7 @@
         "total": 3910.18,
         "tipo": "Online",
         "id_cliente": 32,
-        "id_producto": 19
+        "productos": [2, 5, 8, 12, 19]
     },
     {
         "id": 33,
@@ -261,7 +261,7 @@
         "total": 4787.33,
         "tipo": "Online",
         "id_cliente": 27,
-        "id_producto": 20
+        "productos": [1, 7, 9, 13, 17, 20]
     },
     {
         "id": 34,
@@ -269,7 +269,7 @@
         "total": 4179.61,
         "tipo": "Online",
         "id_cliente": 41,
-        "id_producto": 5
+        "productos": [5, 6, 10, 14, 15, 18]
     },
     {
         "id": 35,
@@ -277,7 +277,7 @@
         "total": 1680.67,
         "tipo": "Presencial",
         "id_cliente": 24,
-        "id_producto": 3
+        "productos": [3, 4, 9, 11, 16]
     },
     {
         "id": 36,
@@ -285,7 +285,7 @@
         "total": 4159.25,
         "tipo": "Online",
         "id_cliente": 43,
-        "id_producto": 16
+        "productos": [2, 7, 12, 16]
     },
     {
         "id": 37,
@@ -293,7 +293,7 @@
         "total": 878.63,
         "tipo": "Online",
         "id_cliente": 33,
-        "id_producto": 5
+        "productos": [1, 5, 8, 13, 17, 19]
     },
     {
         "id": 38,
@@ -301,7 +301,7 @@
         "total": 2243.89,
         "tipo": "Online",
         "id_cliente": 10,
-        "id_producto": 14
+        "productos": [3, 6, 9, 14]
     },
     {
         "id": 39,
@@ -309,7 +309,7 @@
         "total": 2235.27,
         "tipo": "Presencial",
         "id_cliente": 21,
-        "id_producto": 10
+        "productos": [2, 4, 10, 15, 18, 20]
     },
     {
         "id": 40,
@@ -317,7 +317,7 @@
         "total": 2463.42,
         "tipo": "Presencial",
         "id_cliente": 38,
-        "id_producto": 20
+        "productos": [1, 5, 7, 11, 16, 20]
     },
     {
         "id": 41,
@@ -325,7 +325,7 @@
         "total": 4328.62,
         "tipo": "Online",
         "id_cliente": 44,
-        "id_producto": 9
+        "productos": [3, 6, 9, 12, 17]
     },
     {
         "id": 42,
@@ -333,7 +333,7 @@
         "total": 161.42,
         "tipo": "Online",
         "id_cliente": 32,
-        "id_producto": 3
+        "productos": [3, 8, 10, 13, 14, 19]
     },
     {
         "id": 43,
@@ -341,7 +341,7 @@
         "total": 4637.8,
         "tipo": "Online",
         "id_cliente": 46,
-        "id_producto": 19
+        "productos": [2, 4, 7, 15, 19]
     },
     {
         "id": 44,
@@ -349,7 +349,7 @@
         "total": 1816.64,
         "tipo": "Online",
         "id_cliente": 14,
-        "id_producto": 1
+        "productos": [1, 5, 9, 11, 16, 18]
     },
     {
         "id": 45,
@@ -357,7 +357,7 @@
         "total": 3780.29,
         "tipo": "Online",
         "id_cliente": 1,
-        "id_producto": 13
+        "productos": [2, 6, 13, 17, 20]
     },
     {
         "id": 46,
@@ -365,7 +365,7 @@
         "total": 4502.33,
         "tipo": "Online",
         "id_cliente": 17,
-        "id_producto": 4
+        "productos": [4, 7, 8, 10, 12, 15]
     },
     {
         "id": 47,
@@ -373,7 +373,7 @@
         "total": 499.01,
         "tipo": "Presencial",
         "id_cliente": 41,
-        "id_producto": 18
+        "productos": [1, 3, 5, 18, 19]
     },
     {
         "id": 48,
@@ -381,7 +381,7 @@
         "total": 4786.75,
         "tipo": "Online",
         "id_cliente": 23,
-        "id_producto": 18
+        "productos": [2, 6, 9, 11, 14, 18]
     },
     {
         "id": 49,
@@ -389,7 +389,7 @@
         "total": 3974.84,
         "tipo": "Presencial",
         "id_cliente": 27,
-        "id_producto": 14
+        "productos": [4, 7, 10, 14]
     },
     {
         "id": 50,
@@ -397,6 +397,6 @@
         "total": 4140.19,
         "tipo": "Online",
         "id_cliente": 25,
-        "id_producto": 7
+        "productos": [1, 5, 7, 12, 16]
     }
 ]
