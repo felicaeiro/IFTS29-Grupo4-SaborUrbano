@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nombre": "Milanesa a la Napolitana",
+    "descripcion": "Milanesa de carne con salsa de tomate, jamón y queso gratinado.",
+    "precio": 10000.00
+  },
+  {
+    "id": 2,
+    "nombre": "Asado de Tira",
+    "descripcion": "Costilla de res a la parrilla, servida con chimichurri.",
+    "precio": 25000.00
+  },
+  {
+    "id": 3,
+    "nombre": "Empanada Salteña",
+    "descripcion": "Empanada rellena de carne cortada a cuchillo, papa y especias.",
+    "precio": 1200.00
+  },
+  {
+    "id": 4,
+    "nombre": "Provoleta",
+    "descripcion": "Queso provolone a la parrilla con orégano y ají molido.",
+    "precio": 4000.00
+  },
+  {
+    "id": 5,
+    "nombre": "Matambre a la Pizza",
+    "descripcion": "Corte de carne cubierto con salsa de tomate, queso y morrones.",
+    "precio": 15000.00
+  },
+  {
+    "id": 6,
+    "nombre": "Locro",
+    "descripcion": "Guiso tradicional con maíz, zapallo, porotos y carnes.",
+    "precio": 10000.00
+  },
+  {
+    "id": 7,
+    "nombre": "Tamales",
+    "descripcion": "Masa de maíz rellena de carne y envuelta en chala.",
+    "precio": 7000.00
+  },
+  {
+    "id": 8,
+    "nombre": "Humita en Chala",
+    "descripcion": "Preparación de maíz tierno con queso, envuelta en hojas de choclo.",
+    "precio": 400.00
+  },
+  {
+    "id": 9,
+    "nombre": "Bife de Chorizo",
+    "descripcion": "Clásico corte argentino de carne a la parrilla.",
+    "precio": 28000.00
+  },
+  {
+    "id": 10,
+    "nombre": "Choripán",
+    "descripcion": "Chorizo a la parrilla en pan francés con chimichurri.",
+    "precio": 7000.00
+  },
+  {
+    "id": 11,
+    "nombre": "Bondiola Braseada",
+    "descripcion": "Bondiola de cerdo cocida lentamente con salsa criolla.",
+    "precio": 19000.00
+  },
+  {
+    "id": 12,
+    "nombre": "Guiso de Lentejas",
+    "descripcion": "Plato casero con lentejas, chorizo colorado y panceta.",
+    "precio": 8000.00
+  },
+  {
+    "id": 13,
+    "nombre": "Flan Casero",
+    "descripcion": "Flan de huevo acompañado de dulce de leche y crema.",
+    "precio": 4000.00
+  },
+  {
+    "id": 14,
+    "nombre": "Panqueque de Dulce de Leche",
+    "descripcion": "Clásico panqueque relleno con abundante dulce de leche.",
+    "precio": 3500.00
+  },
+  {
+    "id": 15,
+    "nombre": "Helado Artesanal",
+    "descripcion": "Helado de elaboración propia, sabores:vainilla, dulce de leche o chocolate.",
+    "precio": 3500.00
+  },
+  {
+    "id": 16,
+    "nombre": "Vino Malbec",
+    "descripcion": "Botella de vino tinto Malbec, clásico argentino.",
+    "precio": 16000.00
+  },
+  {
+    "id": 17,
+    "nombre": "Quilmes Cristal",
+    "descripcion": "Cerveza rubia en botella de 1 litro.",
+    "precio": 10000.00
+  },
+  {
+    "id": 18,
+    "nombre": "Fernet con Coca",
+    "descripcion": "Trago típico cordobés con fernet y cola.",
+    "precio": 5000.00
+  },
+  {
+    "id": 19,
+    "nombre": "Gaseosa",
+    "descripcion": "Botella de 500ml de gaseosa.",
+    "precio": 2000.00
+  },
+  {
+    "id": 20,
+    "nombre": "Agua Mineral",
+    "descripcion": "Botella de agua mineral sin gas 500ml.",
+    "precio": 1000.00
+  }
+]
