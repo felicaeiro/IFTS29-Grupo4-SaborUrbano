@@ -7,4 +7,4 @@ class Producto {
   }
 }
 
-module.exports = new Producto();
+module.exports = { Producto };

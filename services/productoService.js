@@ -1,4 +1,3 @@
-const { v4 } = require('uuid');
 const { Producto } = require('../models/productoModel.js');
 const { readData, writeData } = require('../config/db.js');
 const FILE = 'productos.json';
@@ -10,20 +9,20 @@ const getProductById = async (id) => {
   return products.find((p) => p.id === id);
 };
 
-const createProduct = async (nombre, precio) => {
+const createProduct = async (id, nombre, descripcion, precio) => {
   const products = await readData(FILE);
-  const newProduct = new Producto(v4(), nombre, precio);
+  const newProduct = new Producto(id, nombre, descripcion, precio);
   products.push(newProduct);
   await writeData(FILE, products);
   return newProduct;
 };
 
-const updateProduct = async (id, { nombre, precio }) => {
+const updateProduct = async (id, { nombre, descripcion, precio }) => {
   const products = await readData(FILE);
   const index = products.findIndex((p) => p.id === id);
   if (index === -1) return null;
 
-  const updatedProduct = new Producto(id, nombre, precio);
+  const updatedProduct = new Producto(id, nombre, descripcion, precio);
   products[index] = updatedProduct;
 
   await writeData(FILE, products);
