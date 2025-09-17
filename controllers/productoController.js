@@ -15,9 +15,45 @@ const getProduct = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const { nombre, precio } = req.body;
-  const newProduct = await productoService.createProduct(nombre, precio);
+  console.log(req.body);
+  const { id, nombre, precio, descripcion } = req.body;
+  if (!id || !nombre || precio == null) {
+    return res.status(400).json({ message: 'Faltan datos requeridos' });
+  }
+
+  const newProduct = await productoService.createProduct(
+    id,
+    nombre,
+    precio,
+    descripcion
+  );
   res.status(201).json(newProduct);
+};
+
+const updateProduct = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { nombre, descripcion, precio } = req.body;
+
+  const updatedProduct = await productoService.updateProduct(id, {
+    nombre,
+    descripcion,
+    precio,
+  });
+
+  updatedProduct
+    ? res.json(updatedProduct)
+    : res.status(404).json({ message: 'Producto no encontrado' });
+};
+
+const patchProduct = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const fields = req.body;
+
+  const patchedProduct = await productoService.patchProduct(id, fields);
+
+  patchedProduct
+    ? res.json(patchedProduct)
+    : res.status(404).json({ message: 'Producto no encontrado' });
 };
 
 const removeProduct = async (req, res) => {
@@ -27,4 +63,11 @@ const removeProduct = async (req, res) => {
   res.json({ message: 'Producto eliminado' });
 };
 
-module.exports = { getProducts, getProduct, addProduct, removeProduct };
+module.exports = {
+  getProducts,
+  getProduct,
+  addProduct,
+  patchProduct,
+  updateProduct,
+  removeProduct,
+};
