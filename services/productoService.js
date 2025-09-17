@@ -46,6 +46,7 @@ const deleteProduct = async (id) => {
   products = products.filter((p) => p.id !== id);
   await writeData(FILE, products);
 };
+
 module.exports = {
   getAllProducts,
   getProductById,

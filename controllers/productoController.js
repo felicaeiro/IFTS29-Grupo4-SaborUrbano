@@ -6,7 +6,8 @@ const getProducts = async (req, res) => {
 };
 
 const getProduct = async (req, res) => {
-  const product = await productoService.getProductById(req.params.id);
+  const id = parseInt(req.params.id);
+  const product = await productoService.getProductById(id);
   console.log(product);
   product
     ? res.json(product)
@@ -20,7 +21,10 @@ const addProduct = async (req, res) => {
 };
 
 const removeProduct = async (req, res) => {
-  await productoService.deleteProduct(req.params.id);
+  const id = parseInt(req.params.id);
+
+  await productoService.deleteProduct(id);
   res.json({ message: 'Producto eliminado' });
 };
+
 module.exports = { getProducts, getProduct, addProduct, removeProduct };
