@@ -13,4 +13,4 @@ class Pedido {
         this.id_cliente = id_cliente;
     }
 }
-module.exports = new Pedido();
+module.exports = { Pedido };
