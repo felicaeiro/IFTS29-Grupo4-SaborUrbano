@@ -9,7 +9,7 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Sabor Urbano - App funcionando 🚀');
+  res.send('Sabor Urbano - App funcionando');
 });
 
 app.use(express.json());
