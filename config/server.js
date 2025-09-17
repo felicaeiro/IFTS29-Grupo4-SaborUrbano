@@ -12,12 +12,11 @@ app.get('/', (req, res) => {
   res.send('Sabor Urbano - App funcionando 🚀');
 });
 
+app.use(express.json());
 
 // ROUTES
 app.use('/productos', productoRoutes);
 app.use('/pedidos', pedidoRoutes);
-
-
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
