@@ -1,9 +1,19 @@
 const pedidoService = require("../services/pedidoService");
 
+// const getPedidos = async (req, res) => {
+//   const pedidos = await pedidoService.getAllPedidos();
+//   res.json(pedidos);
+// };
+
 const getPedidos = async (req, res) => {
-  const pedidos = await pedidoService.getAllPedidos();
-  res.json(pedidos);
+  try {
+    const pedidos = await pedidoService.getAllPedidos();
+    res.render('pedidos', { pedidos });
+  } catch (error) {
+    res.status(500).send('Error al cargar pedidos');
+  }
 };
+
 
 const getPedido = async (req, res) => {
   const id = parseInt(req.params.id);
