@@ -1,11 +1,5 @@
 [
   {
-    "id": 1,
-    "nombre": "Milanesa a la Napolitana",
-    "descripcion": "Milanesa de carne con salsa de tomate, jamón y queso gratinado.",
-    "precio": 10000
-  },
-  {
     "id": 2,
     "nombre": "Asado de Tira",
     "descripcion": "Costilla de res a la parrilla, servida con chimichurri.",
