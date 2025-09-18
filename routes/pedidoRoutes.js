@@ -3,7 +3,8 @@ const {
     getPedidos,
     getPedido,
     addPedido,
-    // updatePedido,
+    updatePedido,
+    patchPedido,
     deletePedido
 } = require("../controllers/pedidoController");
 
@@ -13,7 +14,8 @@ const router = express.Router();
 router.get("/", getPedidos);
 router.get("/:id", getPedido);
 router.post("/", addPedido);
-// router.put("/:id", updatePedido);
+router.put("/:id", updatePedido);
+router.patch("/:id", patchPedido);
 router.delete("/:id", deletePedido);
 
 
