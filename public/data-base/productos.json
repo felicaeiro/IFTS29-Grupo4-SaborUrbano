@@ -12,12 +12,6 @@
     "precio": 25000
   },
   {
-    "id": 3,
-    "nombre": "Empanada Salteña",
-    "descripcion": "Empanada rellena de carne cortada a cuchillo, papa y especias.",
-    "precio": 1200
-  },
-  {
     "id": 4,
     "nombre": "Provoleta",
     "descripcion": "Queso provolone a la parrilla con orégano y ají molido.",
