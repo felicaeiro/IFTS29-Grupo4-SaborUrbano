@@ -10,20 +10,20 @@ const getPedidoById = async (id) => {
   return pedido.find((p) => p.id === id);
 };
 
-const createPedido = async (id, fecha, total, tipo, id_cliente) => {
+const createPedido = async (id, fecha, total, tipo, id_cliente, productos) => {
   const pedido = await readData(FILE);
-  const newPedido = new Pedido(id, fecha, total, tipo, id_cliente);
+  const newPedido = new Pedido( id, fecha, total, tipo, id_cliente, productos);
   pedido.push(newPedido);
   await writeData(FILE, pedido);
   return newPedido;
 };
 
-const updatePedido = async (id, { fecha, total, tipo, id_cliente }) => {
+const updatePedido = async (id, { fecha, total, tipo, id_cliente, productos }) => {
   const pedido = await readData(FILE);
   const index = pedido.findIndex((p) => p.id === id);
   if (index === -1) return null;
 
-  const updatedPedido = new Pedido(id,fecha, total, tipo, id_cliente);
+  const updatedPedido = new Pedido(id,fecha, total, tipo, id_cliente, productos);
   pedido[index] = updatedPedido;
 
   await writeData(FILE, pedido);
