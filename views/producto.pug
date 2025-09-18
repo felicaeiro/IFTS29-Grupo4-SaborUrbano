@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title= titulo
+  body
+    h1= titulo
+    ul
+      each p in products
+        li #{p.id} - #{p.nombre} ($#{p.precio})
