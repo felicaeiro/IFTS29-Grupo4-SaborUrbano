@@ -5,4 +5,11 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
     body
-        h1 FUNCIONAN LOS PEDIDOS
+        h1 Pedidos
+        if pedidos.lenght
+            ul
+                each pedido in pedidos
+                    li 
+                        p pedido.fecha
+                        p pedido.total
+        
