@@ -1,9 +1,15 @@
 doctype html
 html
   head
+    link(rel="stylesheet", href="/css/styles.css")
     title= titulo
   body
     h1= titulo
     ul
       each p in products
-        li #{p.id} - #{p.nombre} ($#{p.precio})
+        li
+          | #{p.id} - #{p.nombre} ($#{p.precio}) 
+          a(href=`/productos/${p.id}`)
+            button Ver Detalle
+          form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
+            button(type="submit") Eliminar Producto

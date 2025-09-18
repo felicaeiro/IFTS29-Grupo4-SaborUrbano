@@ -2,16 +2,19 @@ const productoService = require('../services/productoService.js');
 
 const getProducts = async (req, res) => {
   const products = await productoService.getAllProducts();
-  res.render('producto', {titulo: 'Lista de productos', products})
+  res.render('producto', { titulo: 'Lista de productos', products });
 };
 
 const getProduct = async (req, res) => {
   const id = parseInt(req.params.id);
   const product = await productoService.getProductById(id);
-  console.log(product);
-  product
-    ? res.json(product)
-    : res.status(404).json({ message: 'Producto no encontrado' });
+  if (!product) {
+    return res
+      .status(404)
+      .render('error', { message: 'Producto no encontrado' });
+  }
+
+  res.render('detalleProducto', { product });
 };
 
 const addProduct = async (req, res) => {
@@ -60,7 +63,7 @@ const removeProduct = async (req, res) => {
   const id = parseInt(req.params.id);
 
   await productoService.deleteProduct(id);
-  res.json({ message: 'Producto eliminado' });
+  res.redirect('/productos');
 };
 
 module.exports = {
