@@ -1,8 +1,35 @@
 doctype html
-html(lang="en")
+html
     head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        link(rel="stylesheet", href="/css/styles.css")
+        title Pedidos
     body
-        h1 FUNCIONAN LOS PEDIDOS
+        h1 Pedidos
+        form(method="GET", action="/pedidos/nuevo")
+            button.btn(type="submit") Nuevo pedido
+
+        ul
+        .ul-pedidos
+            each pedido in pedidos
+                li 
+                    p 
+                        strong Fecha: 
+                        | #{pedido.fecha}
+
+                    p #{pedido.tipo}
+
+                    p 
+                        strong Productos: 
+                        | #{pedido.productos.join(", ")}
+                    
+                    p 
+                        strong Total: 
+                        | $#{pedido.total}
+
+
+
+                    //- form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
+                    button(type="submit") Editar pedido
+                    button(type="submit") Eliminar pedido
+
+                br

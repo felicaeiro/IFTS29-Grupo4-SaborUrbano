@@ -724,5 +724,38 @@
       18,
       20
     ]
+  },
+  {
+    "id": "b846d339-e593-43bc-90fb-a87413254a2c",
+    "fecha": "2025-01-01",
+    "total": "200000",
+    "tipo": "Presencial",
+    "id_cliente": "1",
+    "productos": [
+      19,
+      20
+    ]
+  },
+  {
+    "id": "79556de5-9aec-40ac-b02d-6f3ad9ebb033",
+    "fecha": "2025-02-01",
+    "total": "50000",
+    "tipo": "Presencial",
+    "id_cliente": "1",
+    "productos": [
+      19,
+      20
+    ]
+  },
+  {
+    "id": "e24b1e93-c568-40cb-9573-7e545cb89c8c",
+    "fecha": "1100-01-01",
+    "total": "456",
+    "tipo": "Presencial",
+    "id_cliente": "1",
+    "productos": [
+      14,
+      16
+    ]
   }
 ]

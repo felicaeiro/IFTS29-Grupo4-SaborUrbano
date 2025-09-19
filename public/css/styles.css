@@ -7,9 +7,11 @@
   font-weight: bold;
   cursor: pointer;
 }
+
 .btn:hover {
   background: #0056b3;
 }
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
@@ -26,6 +28,10 @@ ul {
   padding: 0;
   max-width: 600px;
   margin: 20px auto;
+}
+
+.ul-pedidos {
+  width: 100%;
 }
 
 li {
@@ -71,6 +77,12 @@ li button:last-of-type {
 li button:last-of-type:hover {
   background-color: #a71d2a;
 }
+
+.li-pedidos {
+  display: flex;
+  /* flex-direction: column; */
+}
+
 .container {
   max-width: 600px;
   margin: 40px auto;
