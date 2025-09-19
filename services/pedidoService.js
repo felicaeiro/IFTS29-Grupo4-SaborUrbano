@@ -10,9 +10,9 @@ const getPedidoById = async (id) => {
   return pedido.find((p) => p.id === id);
 };
 
-const createPedido = async (id, fecha, total, tipo, id_cliente, productos) => {
+const createPedido = async (fecha, total, tipo, id_cliente, productos) => {
   const pedido = await readData(FILE);
-  const newPedido = new Pedido( id, fecha, total, tipo, id_cliente, productos);
+  const newPedido = new Pedido(v4(), fecha, total, tipo, id_cliente, productos);
   pedido.push(newPedido);
   await writeData(FILE, pedido);
   return newPedido;

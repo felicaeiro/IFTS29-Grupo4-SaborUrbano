@@ -1,10 +1,15 @@
 doctype html
 html
     head
+        link(rel="stylesheet", href="/css/styles.css")
         title Pedidos
     body
         h1 Pedidos
+        form(method="GET", action="/pedidos/nuevo")
+            button.btn(type="submit") Nuevo pedido
+
         ul
+        .ul-pedidos
             each pedido in pedidos
                 li 
                     p 
@@ -21,8 +26,10 @@ html
                         strong Total: 
                         | $#{pedido.total}
 
-                    form(action=`/pedidos/${pedido.id}` method="POST")
-                    input(type="hidden" name="_method" value="PUT")
-                    button(type="submit") Modificar pedido
+
+
+                    //- form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
+                    button(type="submit") Editar pedido
+                    button(type="submit") Eliminar pedido
 
                 br

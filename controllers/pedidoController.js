@@ -1,4 +1,6 @@
 const pedidoService = require("../services/pedidoService");
+const productoService = require("../services/productoService"); 
+
 const productos = require("../public/data-base/productos.json")
 
 const getPedidos = async (req, res) => {
@@ -32,17 +34,26 @@ const getPedido = async (req, res) => {
 
 
 const addPedido = async (req, res) => {
-  const { id, fecha, total, tipo, id_cliente, productos } = req.body;
+  let { fecha, total, tipo, id_cliente, productos } = req.body;
+
+  if (!Array.isArray(productos)) {
+    productos = productos ? [productos] : [];
+  }
+
+  productos = productos.map(p => parseInt(p));
+
   const newPedido = await pedidoService.createPedido(
-    id,
     fecha,
     total,
     tipo,
     id_cliente,
     productos
   );
-  res.status(201).json(newPedido);
+  const todosProductos = await productoService.getAllProducts();
+  res.render("nuevoPedido", { pedido: newPedido, productos: todosProductos });
 };
+
+
 
 
 const updatePedido = async (req, res) => {

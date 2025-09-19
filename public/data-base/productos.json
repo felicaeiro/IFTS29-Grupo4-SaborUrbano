@@ -1,11 +1,5 @@
 [
   {
-    "id": 2,
-    "nombre": "Asado de Tira",
-    "descripcion": "Costilla de res a la parrilla, servida con chimichurri.",
-    "precio": 25000
-  },
-  {
     "id": 4,
     "nombre": "Provoleta",
     "descripcion": "Queso provolone a la parrilla con orégano y ají molido.",
