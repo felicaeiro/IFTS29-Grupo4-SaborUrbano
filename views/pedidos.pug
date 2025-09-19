@@ -1,15 +1,28 @@
 doctype html
-html(lang="en")
+html
     head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Pedidos
     body
         h1 Pedidos
-        if pedidos.lenght
-            ul
-                each pedido in pedidos
-                    li 
-                        p pedido.fecha
-                        p pedido.total
-        
+        ul
+            each pedido in pedidos
+                li 
+                    p 
+                        strong Fecha: 
+                        | #{pedido.fecha}
+
+                    p #{pedido.tipo}
+
+                    p 
+                        strong Productos: 
+                        | #{pedido.productos.join(", ")}
+                    
+                    p 
+                        strong Total: 
+                        | $#{pedido.total}
+
+                    form(action=`/pedidos/${pedido.id}` method="POST")
+                    input(type="hidden" name="_method" value="PUT")
+                    button(type="submit") Modificar pedido
+
+                br
