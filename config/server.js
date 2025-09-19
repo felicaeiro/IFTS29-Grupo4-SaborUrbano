@@ -1,10 +1,10 @@
 const express = require('express');
 const productoRoutes = require('../routes/productoRoutes');
 const pedidoRoutes = require('../routes/pedidoRoutes');
-
+const clientesRoutes = require('../mongo/ClientesRoutes');
 const path = require("path");
 
-const clientesRoutes = require('../routes/clientesRoutes');
+
 const { fileURLToPath } = require('url');
 const methodOverride = require('method-override');
 
