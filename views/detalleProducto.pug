@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Detalle del producto
+    link(rel="stylesheet", href="/css/styles.css")
+  body
+    .container
+      h1 Detalle del producto
+      .card
+        p
+          strong ID:
+          |  #{product.id}
+        p
+          strong Nombre:
+          |  #{product.nombre}
+        p
+          strong Descripción:
+          |  #{product.descripcion}
+        p
+          strong Precio:
+          |  $#{product.precio}
+      a(href="/productos")
+        button.btn Volver a la lista
