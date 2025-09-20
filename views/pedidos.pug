@@ -27,9 +27,11 @@ html
                         | $#{pedido.total}
 
 
+                    a(href=`/pedidos/editar/${pedido.id}`)
+                        button Editar pedido
 
-                    //- form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
-                    button(type="submit") Editar pedido
-                    button(type="submit") Eliminar pedido
+
+                    form(action=`/pedidos/${pedido.id}?_method=DELETE`, method="POST", style="display:inline")
+                        button(type="submit") Eliminar pedido
 
                 br

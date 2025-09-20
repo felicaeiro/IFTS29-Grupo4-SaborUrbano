@@ -1,61 +1,16 @@
 [
   {
-    "id": 1,
-    "fecha": "2025-04-24",
-    "total": 191.11,
-    "tipo": "Presencial",
-    "id_cliente": 29,
-    "productos": [
-      3,
-      8,
-      10,
-      12,
-      18,
-      19
-    ]
-  },
-  {
-    "id": 2,
-    "fecha": "2024-10-14",
-    "total": 1357.56,
-    "tipo": "Presencial",
-    "id_cliente": 42,
-    "productos": [
-      2,
-      11,
-      15,
-      16,
-      17,
-      19,
-      20
-    ]
-  },
-  {
     "id": 3,
-    "fecha": "2024-12-17",
-    "total": 3853.43,
-    "tipo": "Presencial",
-    "id_cliente": 17,
+    "fecha": "2025-09-17",
+    "total": "38531.99",
+    "tipo": "Online",
+    "id_cliente": "17",
     "productos": [
       5,
       7,
       10,
       13,
       14
-    ]
-  },
-  {
-    "id": 4,
-    "fecha": "2025-02-10",
-    "total": 3800.49,
-    "tipo": "Online",
-    "id_cliente": 5,
-    "productos": [
-      1,
-      4,
-      9,
-      11,
-      18
     ]
   },
   {
@@ -726,36 +681,28 @@
     ]
   },
   {
-    "id": "b846d339-e593-43bc-90fb-a87413254a2c",
-    "fecha": "2025-01-01",
-    "total": "200000",
+    "id": 52,
+    "fecha": "2025-09-19",
+    "total": "5000000",
     "tipo": "Presencial",
-    "id_cliente": "1",
+    "id_cliente": "10",
     "productos": [
-      19,
-      20
+      4,
+      5
     ]
   },
   {
-    "id": "79556de5-9aec-40ac-b02d-6f3ad9ebb033",
-    "fecha": "2025-02-01",
-    "total": "50000",
-    "tipo": "Presencial",
-    "id_cliente": "1",
+    "id": 53,
+    "fecha": "2025-09-20",
+    "total": "99999.99",
+    "tipo": "Online",
+    "id_cliente": "20",
     "productos": [
-      19,
+      9,
+      10,
+      13,
+      15,
       20
-    ]
-  },
-  {
-    "id": "e24b1e93-c568-40cb-9573-7e545cb89c8c",
-    "fecha": "1100-01-01",
-    "total": "456",
-    "tipo": "Presencial",
-    "id_cliente": "1",
-    "productos": [
-      14,
-      16
     ]
   }
 ]

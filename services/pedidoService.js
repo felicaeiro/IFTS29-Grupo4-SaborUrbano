@@ -10,25 +10,40 @@ const getPedidoById = async (id) => {
   return pedido.find((p) => p.id === id);
 };
 
+// const createPedido = async (fecha, total, tipo, id_cliente, productos) => {
+//   const pedido = await readData(FILE);
+//   const newPedido = new Pedido(v4(), fecha, total, tipo, id_cliente, productos);
+//   pedido.push(newPedido);
+//   await writeData(FILE, pedido);
+//   return newPedido;
+// };
+
 const createPedido = async (fecha, total, tipo, id_cliente, productos) => {
-  const pedido = await readData(FILE);
-  const newPedido = new Pedido(v4(), fecha, total, tipo, id_cliente, productos);
-  pedido.push(newPedido);
-  await writeData(FILE, pedido);
+  const pedidos = await readData(FILE);
+
+  const ultimoId = pedidos.length > 0 ? Math.max(...pedidos.map(p => p.id)) : 0;
+  const nuevoId = ultimoId + 1;
+
+  const newPedido = new Pedido(nuevoId, fecha, total, tipo, id_cliente, productos);
+  pedidos.push(newPedido);
+
+  await writeData(FILE, pedidos);
   return newPedido;
 };
 
-const updatePedido = async (id, { fecha, total, tipo, id_cliente, productos }) => {
-  const pedido = await readData(FILE);
-  const index = pedido.findIndex((p) => p.id === id);
+
+const updatePedido = async (id, data) => {
+  const pedidos = await readData(FILE);
+  const index = pedidos.findIndex((p) => p.id === id);
   if (index === -1) return null;
+  
+  pedidos[index] = { ...pedidos[index], ...data };
 
-  const updatedPedido = new Pedido(id,fecha, total, tipo, id_cliente, productos);
-  pedido[index] = updatedPedido;
-
-  await writeData(FILE, pedido);
-  return updatedPedido;
+  await writeData(FILE, pedidos);
+  return pedidos[index];
 };
+
+
 
 const patchPedido = async (id, fields) => {
   const pedido = await readData(FILE);
@@ -46,6 +61,8 @@ const deletePedido = async (id) => {
   pedido = pedido.filter((p) => p.id !== id);
   await writeData(FILE, pedido);
 };
+
+
 module.exports = {
   getAllPedidos,
   getPedidoById,
