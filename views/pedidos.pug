@@ -11,7 +11,7 @@ html
         ul
         .ul-pedidos
             each pedido in pedidos
-                li 
+                li.li-pedidos
                     p 
                         strong Fecha: 
                         | #{pedido.fecha}
@@ -27,11 +27,12 @@ html
                         | $#{pedido.total}
 
 
-                    a(href=`/pedidos/editar/${pedido.id}`)
-                        button Editar pedido
+                    div.div-btn
+                        a(href=`/pedidos/editar/${pedido.id}`)
+                            button.btn.btn-editar-pedido.btn-float Editar pedido
 
 
-                    form(action=`/pedidos/${pedido.id}?_method=DELETE`, method="POST", style="display:inline")
-                        button(type="submit") Eliminar pedido
+                        form(action=`/pedidos/${pedido.id}?_method=DELETE`, method="POST", style="display:inline")
+                            button.btn.btn-float(type="submit") Eliminar pedido
 
                 br
