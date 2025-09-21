@@ -16,9 +16,9 @@
   {
     "id": 5,
     "fecha": "2024-10-14",
-    "total": 2535.58,
+    "total": "2535.58",
     "tipo": "Presencial",
-    "id_cliente": 8,
+    "id_cliente": "8",
     "productos": [
       5,
       6,
@@ -683,8 +683,8 @@
   {
     "id": 52,
     "fecha": "2025-09-19",
-    "total": "5000000",
-    "tipo": "Presencial",
+    "total": "7000000",
+    "tipo": "Online",
     "id_cliente": "10",
     "productos": [
       4,
