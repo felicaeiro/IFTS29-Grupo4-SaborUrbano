@@ -12,11 +12,19 @@ connectDB();
 const getPedidos = async (req, res) => {
     try {
         const pedidos = await PedidoRepositorio.getPedidos();
-        res.json(pedidos);
+
+        // Asegurarse que se carguen los datos de cliente y productos
+        const pedidosConDatos = await Pedido.find({})
+            .populate('id_cliente')
+            .populate('productos');
+
+        // Renderizamos la vista "pedidos.pug" con los datos
+        res.render('pedidos', { pedidos: pedidosConDatos });
     } catch (error) {
-        res.status(500).json({message: error.message});
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 const getPedidoById = async (req,res) => {
     try {
@@ -24,7 +32,7 @@ const getPedidoById = async (req,res) => {
         if (!pedido) {
             return res.status(404).json({message: 'Pedido no encontrado'});
         }
-        res.json(pedido);
+        res.render('pedidos', { pedidos });
     } catch (error) {
         res.status(500).json({message: error.message});
 
@@ -33,7 +41,6 @@ const getPedidoById = async (req,res) => {
 }
 
 const createPedido = async (req,res) => {
-
     try {
         const pedido = await PedidoRepositorio.createPedido(req.body);
         res.status(201).json(pedido);
