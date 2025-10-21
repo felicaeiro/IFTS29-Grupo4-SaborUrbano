@@ -1,38 +1,43 @@
 doctype html
 html
-    head
-        link(rel="stylesheet", href="/css/styles.css")
-        title Pedidos
-    body
-        h1 Pedidos
-        form(method="GET", action="/pedidos/nuevo")
-            button.btn(type="submit") Nuevo pedido
+  head
+    link(rel="stylesheet", href="/css/styles.css")
+    title Pedidos
+  body
+    h1 Pedidos
+    form(method="GET", action="/pedidos/nuevo")
+      button.btn(type="submit") Nuevo pedido
 
-        ul
-        .ul-pedidos
-            each pedido in pedidos
-                li.li-pedidos
-                    p 
-                        strong Fecha: 
-                        | #{pedido.fecha}
+    .ul-pedidos
+      each pedido in pedidos
+        li.li-pedidos
+          p
+            strong Fecha:
+            | #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
+          
+          p
+            strong Tipo:
+            | #{pedido.tipo}
+          
+          p
+            strong Cliente:
+            | #{pedido.id_cliente ? pedido.id_cliente.nombre + ' ' + pedido.id_cliente.apellido : 'Sin cliente'}
 
-                    p #{pedido.tipo}
+          p
+            strong Productos:
+            ul
+              each producto in pedido.productos
+                li #{producto.nombre} ($#{producto.precio})
 
-                    p 
-                        strong Productos: 
-                        | #{pedido.productos.join(", ")}
-                    
-                    p 
-                        strong Total: 
-                        | $#{pedido.total}
+          p
+            strong Total:
+            | $#{pedido.total}
 
+          div.div-btn
+            a(href=`/pedidos/editar/${pedido._id}`)
+              button.btn.btn-editar-pedido.btn-float Editar pedido
 
-                    div.div-btn
-                        a(href=`/pedidos/editar/${pedido.id}`)
-                            button.btn.btn-editar-pedido.btn-float Editar pedido
+            form(action=`/pedidos/${pedido._id}?_method=DELETE`, method="POST", style="display:inline")
+              button.btn.btn-float(type="submit") Eliminar pedido
 
-
-                        form(action=`/pedidos/${pedido.id}?_method=DELETE`, method="POST", style="display:inline")
-                            button.btn.btn-float(type="submit") Eliminar pedido
-
-                br
+        br
