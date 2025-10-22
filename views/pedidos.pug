@@ -6,7 +6,7 @@ html
   body
     h1 Pedidos
     form(method="GET", action="/pedidos/nuevo")
-      button.btn(type="submit") Nuevo pedido
+      button.btn.btn-nuevo-pedido(type="submit") Nuevo pedido
 
     .ul-pedidos
       each pedido in pedidos
@@ -25,7 +25,7 @@ html
 
           p
             strong Productos:
-            ul
+            ul.ul-productos
               each producto in pedido.productos
                 li #{producto.nombre} ($#{producto.precio})
 

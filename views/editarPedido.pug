@@ -8,13 +8,20 @@ html
 
         form.form-nuevoPedido(action=`/pedidos/${pedido.id}?_method=PUT`, method="POST")
             div.div-top
+
                 div.div-element
                     label(for="fecha") Fecha:
-                    input.form-input(type="date" name="fecha" value=pedido.fecha)
+                    - const fechaFormateada = pedido.fecha ? new Date(pedido.fecha).toISOString().substring(0, 10) : ''
+                    input.form-input(type="date", name="fecha", required, value=fechaFormateada)
 
                 div.div-element
                     label(for="id_cliente") Cliente:
-                    input.form-input(type="number" name="id_cliente" value=pedido.id_cliente)
+                    select.form-input(name="id_cliente" required)
+                        each c in clientes
+                            if c._id.toString() === pedido.id_cliente.toString()
+                                option(value=c._id, selected) #{c.nombre} #{c.apellido}
+                            else
+                                option(value=c._id) #{c.nombre} #{c.apellido}
 
                 div.div-element
                     label(for="total") Total:

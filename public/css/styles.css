@@ -78,11 +78,6 @@ li button:last-of-type:hover {
   background-color: #a71d2a;
 }
 
-.li-pedidos {
-  display: flex;
-  /* flex-direction: column; */
-}
-
 .container {
   max-width: 600px;
   margin: 40px auto;
@@ -114,6 +109,8 @@ button.btn {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+  height: 40px;
+
 }
 
 button.btn:hover {
@@ -214,6 +211,9 @@ a {
   text-decoration: none;
 }
 
+strong {
+  margin-right: 4px;
+}
 
 
 /* Pedidos */
@@ -226,13 +226,12 @@ li button.btn-editar-pedido:hover {
 }
 
 li.li-pedidos {
-  justify-content: start;
+  justify-content: space-between;
   gap: 30px;
+
 }
 
 li div.div-btn {
-  position: absolute;
-  right: 0;
   width: 330px;
 }
 
@@ -240,3 +239,61 @@ li div.div-btn {
   margin-right: 1rem;
 }
 
+.btn-nuevo-pedido {
+  margin-bottom: 1rem;
+}
+
+.li-pedidos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ul-productos {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 100%;
+}
+
+
+
+
+
+/* QUERIES */
+@media (max-width: 1080px) {
+  p {
+    margin: 0;
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  .ul-pedidos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+  }
+  .li-pedidos {
+    flex-direction: column;
+    max-width: 40%;
+    margin: 0 auto;
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .li-pedidos {
+    max-width: 50%;
+  }
+}
+
+
+
+
+@media (max-width: 375px) {}
