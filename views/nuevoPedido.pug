@@ -15,7 +15,10 @@ html
                 
                 div.div-element
                     label(for="id_cliente") Cliente:
-                    input.form-input(type="number" name="id_cliente" required)
+                    select.form-input(name="id_cliente" required)
+                        option(value="") Seleccione un cliente
+                        each c in clientes
+                            option(value=c._id) #{c.nombre} #{c.apellido}
 
                 div.div-element
                     label(for="tipo") Tipo:
