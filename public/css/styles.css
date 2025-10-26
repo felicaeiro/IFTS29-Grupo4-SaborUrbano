@@ -1,4 +1,4 @@
-.btn {
+.btn, button.btn-pedidos  {
   padding: 10px 20px;
   background: #007bff;
   border: none;
@@ -100,30 +100,31 @@ li button:last-of-type:hover {
   margin: 10px 0;
 }
 
-button.btn {
+button.btn, button.btn-pedidos {
+  font-size: 13px;
   padding: 8px 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 6px;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
   height: 40px;
 
 }
 
-button.btn:hover {
+button.btn:hover, button.btn-pedidos:hover {
   background-color: #0056b3;
 }
 
-button.btn-last {
-  background-color: #dc3545;
+button.btn-last, .btn-danger {
+  background-color: #dc3545 !important;
   color: #fff;
 }
 
-button.btn-last:hover {
-  background-color: #a71d2a;
+button.btn-last:hover, .btn-danger:hover {
+  background-color: #a71d2a !important;
 }
 
 
@@ -158,25 +159,24 @@ input:hover {
   outline: 1px solid lightgrey;
 }
 
+.div-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.div-bottom {
+  margin: 50px auto;
+  line-height: 30px;
+}
+
 .div-element {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
-  width: 20%;
-}
-
-.div-top {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.div-bottom {
-  margin: 20px auto;
-  line-height: 30px;
+  gap: 10px
 }
 
 .form-nuevoPedido button {
@@ -197,6 +197,7 @@ div.form-div-btn button {
   width: 40%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .btn-last {
@@ -261,12 +262,13 @@ li div.div-btn {
   display: flex;
   flex-direction: column;
 }
+
 .div-ticket-container {
   width: 80vw;
   display: flex;
   flex-direction: column;
   margin: auto;
-  border:  1px groove rgba(128, 128, 128, 0.347);
+  border: 1px groove rgba(128, 128, 128, 0.347);
   padding: 2rem;
 }
 
@@ -318,6 +320,12 @@ hr {
   p {
     margin: 0;
   }
+
+  .div-top {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
 }
 
 
@@ -331,6 +339,7 @@ hr {
     gap: 1rem;
     width: 100%;
   }
+
   .li-pedidos {
     flex-direction: column;
     max-width: 40%;
@@ -342,7 +351,7 @@ hr {
 
 
 @media (max-width: 480px) {
-    .li-pedidos {
+  .li-pedidos {
     max-width: 50%;
   }
 }
