@@ -18,22 +18,22 @@ html
                     label(for="id_cliente") Cliente:
                     select.form-input(name="id_cliente" required)
                         each c in clientes
-                            if c._id.toString() === pedido.id_cliente.toString()
+                            if c._id.toString() === pedido.id_cliente._id.toString()
                                 option(value=c._id, selected) #{c.nombre} #{c.apellido}
                             else
                                 option(value=c._id) #{c.nombre} #{c.apellido}
-
-                div.div-element
-                    label(for="total") Total:
-                    input.form-input(type="number" step="0.01" name="total" value=pedido.total)
                 
                 div.div-element
                     label(for="tipo") Tipo:
                     select.form-input(name="tipo")
                         option(value="Presencial" selected=(pedido.tipo === 'Presencial')) Presencial
                         option(value="Online" selected=(pedido.tipo === 'Online')) Online
-                        
-            br
+
+                div.div-element
+                    label(for="total") Total:
+                    input.form-input#total(type="number", step="0.01", name="total", readonly, value=pedido.total ? pedido.total.toFixed(2) : 0)
+
+                br
 
             div.div-bottom
                 each p in productos
@@ -43,13 +43,30 @@ html
                             type="checkbox", 
                             name="productos", 
                             value=p._id, 
+                            data-precio=p.precio, 
                             checked=checked
                         )
                         | #{p.nombre}
-                        
+
             div.form-div-btn
                 button.btn(type="submit") Guardar cambios
 
         a(href="/pedidos")
             button.btn.btn-last Volver a la lista de pedidos
+    
+
+
+    //- Actualizar el total en tiempo real
+    script.
+        const totalInput = document.getElementById('total');
+        const checkboxes = document.querySelectorAll('input[name="productos"]');
+
+        function actualizarTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) total += parseFloat(cb.dataset.precio);
+            });
+            totalInput.value = total.toFixed(2);
+        }
+        checkboxes.forEach(cb => cb.addEventListener('change', actualizarTotal));
 

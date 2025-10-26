@@ -28,15 +28,15 @@ html
 
                 div.div-element
                     label(for="total") Total:
-                    input.form-input(type="number" step="0.01" name="total" required)
+                    input.form-input#total(type="number", step="0.01", name="total", readonly, value=0)
 
-            br
-            
+                br
+
             div.div-bottom
-                    each p in productos
-                        div
-                            input.checkbox(type="checkbox", name="productos", value=p.id)
-                            | #{p.nombre}
+                each p in productos
+                    div
+                        input(type="checkbox", name="productos", value=p._id, data-precio=p.precio)
+                        | #{p.nombre}
 
             div.form-div-btn
                 button.btn(type="submit") Crear pedido
@@ -44,3 +44,18 @@ html
         a(href="/pedidos")
             button.btn.btn-last Volver a la lista de pedidos
 
+
+
+        //- Actualizar el total en tiempo real
+    script.
+        const totalInput = document.getElementById('total');
+        const checkboxes = document.querySelectorAll('input[name="productos"]');
+
+        function actualizarTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) total += parseFloat(cb.dataset.precio);
+            });
+            totalInput.value = total.toFixed(2);
+        }
+        checkboxes.forEach(cb => cb.addEventListener('change', actualizarTotal));
