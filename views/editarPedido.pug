@@ -36,14 +36,20 @@ html
             br
 
             div.div-bottom
-                    each p in productos
-                        div
-                            input(type="checkbox" name="productos" value=p.id checked=pedido.productos.includes(p.id))
-                            | #{p.nombre}
-
+                each p in productos
+                    div
+                        - const checked = pedido.productos && pedido.productos.some(prod => prod._id.toString() === p._id.toString())
+                        input(
+                            type="checkbox", 
+                            name="productos", 
+                            value=p._id, 
+                            checked=checked
+                        )
+                        | #{p.nombre}
+                        
             div.form-div-btn
                 button.btn(type="submit") Guardar cambios
-                
+
         a(href="/pedidos")
             button.btn.btn-last Volver a la lista de pedidos
 
