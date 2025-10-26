@@ -1,45 +1,56 @@
-const productoService = require("../services/productoService");
-const pedidoService = require("../services/pedidoService"); 
-
-// pedidoRoutes.js
-const express = require("express");
-const {
-    getPedidos,
-    getPedido,
-    addPedido,
-    updatePedido,
-    patchPedido,
-    deletePedido
-} = require("../controllers/pedidoController");
-
+const express = require('express');
 const router = express.Router();
 
+const {
+    getPedidos,
+    getPedidoById,
+    createPedido,
+    updatePedido,
+    deletePedido,
+} = require('../controllers/pedidoController');
 
-// Ruta para el form de nuevo pedido
+const ProductoRepositorio = require('../services/ProductoRepositorio');
+const PedidoRepositorio = require('../services/PedidoRepositorio');
+const ClienteRepositorio = require('../services/ClienteRepositorio');
+
+// Formulario para crear nuevo pedido
 router.get("/nuevo", async (req, res) => {
-    const productos = await productoService.getAllProducts();
-    res.render("nuevoPedido", { productos }); 
+    const productos = await ProductoRepositorio.getProductos();
+    const clientes = await ClienteRepositorio.getClientes();
+    res.render("nuevoPedido", { productos, clientes });
 });
 
 
-// Ruta para el form de editar pedido
+// Formulario para editar pedido existente
 router.get("/editar/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
-    const pedido = await pedidoService.getPedidoById(id);
-    const productos = await productoService.getAllProducts(); 
+    const id = req.params.id;
+    const pedido = await PedidoRepositorio.getPedidoById(id);
+    const productos = await ProductoRepositorio.getProductos();
+    const clientes = await ClienteRepositorio.getClientes();
 
     if (!pedido) return res.status(404).send("Pedido no encontrado");
-    res.render("editarPedido", { pedido, productos }); 
+
+    res.render("editarPedido", { pedido, productos, clientes });
 });
 
 
-router.get("/", getPedidos);
-router.get("/:id", getPedido);
-router.post("/", addPedido);
-router.put("/:id", updatePedido);
-router.patch("/:id", patchPedido);
-router.delete("/:id", deletePedido);
+// Ticket del pedido
+router.get("/ticket/:id", async (req, res) => {
+    const id = req.params.id;
+    const pedido = await PedidoRepositorio.getPedidoById(id);
+    const productos = await ProductoRepositorio.getProductos();
+    const clientes = await ClienteRepositorio.getClientes();
+    
+    if (!pedido) return res.status(404).send("Pedido no encontrado");
 
+    res.render("ticketPedido", { pedido, productos, clientes });
+});
 
+// CRUD API
+router.get('/', getPedidos);
+router.get('/:id', getPedidoById);
+router.post('/', createPedido);
+router.put('/:id', updatePedido);
+router.delete('/:id', deletePedido);
 
 module.exports = router;

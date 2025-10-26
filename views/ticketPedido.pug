@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    link(rel="stylesheet", href="/css/styles.css")
+    title Ticket Pedido
+  body.body
+    div.div-ticket-container 
+        h1 Sabor Urbano
+
+        strong.strong-cliente #{pedido.id_cliente ? pedido.id_cliente.nombre + ' ' + pedido.id_cliente.apellido : 'Sin cliente'}
+
+        div.div-tipo-fecha
+            p #{pedido.tipo}
+            p #{pedido.fecha.toISOString().substring(0,10)}
+
+        hr
+
+        ul
+        each p in pedido.productos
+            li 
+                span #{p.nombre}
+                span #{p.precio}
+
+        hr
+
+        p.ticket-total
+            strong TOTAL:
+            strong $#{pedido.total}
+        
+        p.p-visita *** Gracias por su visita ***
+        
+    button.btn.btn-ticket Imprimir
+
+    a(href="/pedidos")
+        button.btn.btn-last.btn-last-ticket Volver a la lista de pedidos 
