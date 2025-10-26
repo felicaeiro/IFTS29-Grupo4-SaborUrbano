@@ -25,17 +25,31 @@ const getPedidos = async (req, res) => {
   }
 };
 
+
+
 const getPedidoById = async (req, res) => {
   try {
-    const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
-    if (!pedido) {
-      return res.status(404).json({ message: "Pedido no encontrado" });
-    }
-    res.render("pedidos", { pedidos });
+    const pedido = await PedidoRepositorio.getPedidoById(req.params.id)
+      .populate('productos')
+      .populate('id_cliente');
+
+    if (!pedido) return res.status(404).send("Pedido no encontrado");
+
+    const productos = await ProductoRepositorio.getProductos();
+    const clientes = await ClienteRepositorio.getClientes();
+    const productosPedidoIds = Array.isArray(pedido.productos)
+      ? pedido.productos.map(p => p._id.toString())
+      : [];    res.render("editarPedido", { pedido, productos, clientes, productosPedidoIds });
+
+    res.render("editarPedido", { pedido, productos, clientes, productosPedidoIds });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 const createPedido = async (req, res) => {
   try {
@@ -52,6 +66,8 @@ const createPedido = async (req, res) => {
   }
 };
 
+
+
 const deletePedido = async (req, res) => {
   try {
     const pedido = await PedidoRepositorio.deletePedido(req.params.id);
@@ -60,6 +76,8 @@ const deletePedido = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 const updatePedido = async (req, res) => {
   try {
@@ -73,8 +91,9 @@ const updatePedido = async (req, res) => {
       req.params.id,
       pedidoData
     );
+    res.redirect(`/pedidos/ticket/${pedido._id}`);
 
-    res.status(200).json(pedido);
+    // res.status(200).json(pedido);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

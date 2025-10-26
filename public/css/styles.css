@@ -256,6 +256,60 @@ li div.div-btn {
 }
 
 
+/* Ticket */
+.body {
+  display: flex;
+  flex-direction: column;
+}
+.div-ticket-container {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border:  1px groove rgba(128, 128, 128, 0.347);
+  padding: 2rem;
+}
+
+.div-ticket-container p.p-visita {
+  margin-top: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.strong-cliente {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  margin: 2rem 0;
+}
+
+.div-tipo-fecha {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket-total {
+  align-self: flex-end;
+  margin-top: 2rem;
+}
+
+hr {
+  color: rgb(77, 77, 77);
+  width: 100%;
+  border-style: dotted;
+  margin-top: 2rem;
+}
+
+.btn-ticket {
+  width: 50%;
+  align-self: center;
+  margin-top: 2rem;
+}
+
+.btn-last-ticket {
+  margin-top: 1rem;
+  width: 50%;
+}
 
 
 
