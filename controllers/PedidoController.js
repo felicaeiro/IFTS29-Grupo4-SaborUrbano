@@ -4,6 +4,7 @@ const PedidoRepositorio = require("../services/PedidoRepositorio");
 const ProductoRepositorio = require("../services/ProductoRepositorio");
 const Pedido = require("../models/Pedido");
 const Producto = require("../models/Producto");
+const ClienteRepositorio = require("../services/ClienteRepositorio");
 
 const app = express();
 app.use(express.json());
@@ -11,29 +12,18 @@ app.use(express.json());
 // Conectar a la base de datos
 connectDB();
 
-
 const getPedidos = async (req, res) => {
   try {
-    const pedidos = await PedidoRepositorio.getPedidos();
-
-    // Asegurarse que se carguen los datos de cliente y productos
-    const pedidosConDatos = await Pedido.find({})
-      .populate("id_cliente")
-      .populate("productos");
-
-    // Renderizamos la vista "pedidos.pug" con los datos
-    res.render("pedidos", { pedidos: pedidosConDatos });
+    const pedidosPendientes = await PedidoRepositorio.getPedidos();
+    res.render("pedidos", { pedidos: pedidosPendientes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 const getPedidoById = async (req, res) => {
   try {
-    const pedido = await PedidoRepositorio.getPedidoById(req.params.id)
-      .populate("productos")
-      .populate("id_cliente");
+    const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
 
     if (!pedido) return res.status(404).send("Pedido no encontrado");
 
@@ -48,18 +38,10 @@ const getPedidoById = async (req, res) => {
       clientes,
       productosPedidoIds,
     });
-
-    res.render("editarPedido", {
-      pedido,
-      productos,
-      clientes,
-      productosPedidoIds,
-    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 const createPedido = async (req, res) => {
   try {
@@ -89,17 +71,14 @@ const createPedido = async (req, res) => {
   }
 };
 
-
 const deletePedido = async (req, res) => {
   try {
     await PedidoRepositorio.deletePedido(req.params.id);
-    res.redirect('/pedidos');
-    
+    res.redirect("/pedidos");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 const updatePedido = async (req, res) => {
   try {
@@ -142,10 +121,44 @@ function calcularMontoTotal(productos) {
   return total;
 }
 
+// Finalizar pedido
+const finalizarPedido = async (req, res) => {
+  try {
+    const finalizar = await PedidoRepositorio.finalizarPedido(req.params.id);
+    res.status(200).json({ message: 'Pedido finalizado', finalizar });
+    } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Obtener los pedidos finalizados
+const getPedidosFinalizados = async (req, res) => {
+  try {
+    const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
+    const finalizados = await PedidoRepositorio.getPedidosFinalizados();
+    const clientes = await ClienteRepositorio.getClientes();
+    const productosPedidoIds = Array.isArray(pedido.productos)
+      ? pedido.productos.map((p) => p._id.toString())
+      : [];
+
+    res.render(
+      "pedidosFinalizados",
+      { pedidos: finalizados,
+      pedido,
+      clientes,
+      productosPedidoIds
+      });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getPedidos,
   getPedidoById,
   createPedido,
   deletePedido,
   updatePedido,
+  finalizarPedido,
+  getPedidosFinalizados,
 };
