@@ -14,6 +14,11 @@ const PedidoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    estado: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
     id_cliente:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cliente',
