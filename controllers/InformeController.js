@@ -11,12 +11,9 @@ class InformeController {
     async obtenerInforme(req, res) {
         try {
             const informe = await this.informeService.generarInforme();
-            res.status(200).json({
-                success: true,
-                data: informe
-            });
+            res.status(200).render('informe', informe);
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Error al generar el informe.', error: error.message });
+            res.status(500).render('error', { message: 'Error al generar el informe', error: error });
         }
     }
 }
