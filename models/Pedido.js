@@ -16,7 +16,6 @@ const PedidoSchema = new mongoose.Schema({
     },
     estado: {
         type: Boolean,
-        required: false,
         default: false,
     },
     id_cliente:{
@@ -24,11 +23,20 @@ const PedidoSchema = new mongoose.Schema({
         ref: 'Cliente',
         required: true
     },
-    productos:{
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Producto',
-        required: true
-    }
+    productos: [
+            {
+            producto: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Producto',
+                required: true
+            },
+            cantidad: {
+                type: Number,
+                required: true,
+                default: 0
+            }
+        }
+    ],
 });
 
 module.exports = mongoose.model('Pedido', PedidoSchema);

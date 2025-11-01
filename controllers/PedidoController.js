@@ -134,24 +134,22 @@ const finalizarPedido = async (req, res) => {
 // Obtener los pedidos finalizados
 const getPedidosFinalizados = async (req, res) => {
   try {
-    const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
     const finalizados = await PedidoRepositorio.getPedidosFinalizados();
     const clientes = await ClienteRepositorio.getClientes();
-    const productosPedidoIds = Array.isArray(pedido.productos)
-      ? pedido.productos.map((p) => p._id.toString())
-      : [];
+    const productos = await ProductoRepositorio.getProductos();
 
     res.render(
       "pedidosFinalizados",
       { pedidos: finalizados,
-      pedido,
       clientes,
-      productosPedidoIds
+      productos
       });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 module.exports = {
   getPedidos,
