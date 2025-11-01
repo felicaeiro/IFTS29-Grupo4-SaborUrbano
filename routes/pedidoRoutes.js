@@ -49,8 +49,8 @@ router.get("/ticket/:id", async (req, res) => {
 });
 
 
-router.get("/finalizar", finalizarPedido);
-router.put("/finalizar/:id", getPedidosFinalizados);
+router.get("/finalizados", getPedidosFinalizados);
+router.put("/finalizar/:id", finalizarPedido);
 
 
 // CRUD API

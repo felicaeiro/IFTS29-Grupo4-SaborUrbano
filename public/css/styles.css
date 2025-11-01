@@ -252,6 +252,11 @@ li div.div-btn {
   margin-bottom: 1rem;
 }
 
+.div-btn-pedidos-nuevo-finalizado {
+  display: flex;
+  gap: 1rem;
+}
+
 .li-pedidos {
   display: flex;
   flex-wrap: wrap;

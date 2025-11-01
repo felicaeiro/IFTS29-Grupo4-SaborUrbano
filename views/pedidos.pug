@@ -9,8 +9,13 @@ html
   body
     h1 Pedidos
 
-    form(method="GET", action="/pedidos/nuevo")
-      button.btn-pedidos.btn-nuevo-pedido(type="submit") Nuevo pedido
+    div.div-btn-pedidos-nuevo-finalizado
+      form(method="GET", action="/pedidos/nuevo")
+        button.btn-pedidos.btn-nuevo-pedido(type="submit") Nuevo pedido
+      
+      a(href="/pedidos/finalizados")
+        button.btn-pedidos.btn-finalizar Pedidos finalizados
+
 
     .ul-pedidos
       each pedido in pedidos
@@ -73,32 +78,29 @@ html
 
 //- Ocultar el pedido finalizado de la lista de pedidos
 script.
-  document.querySelectorAll('.btn-finalizar').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const pedidoId = e.target.dataset.id;
-      
-      try {
-        const res = await fetch(`/pedidos/finalizar/${pedidoId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if(res.ok){
-          const liPedido = e.target.closest('li.li-pedidos');
-          if(liPedido) liPedido.remove();
-        } else {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-finalizar').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = e.target.dataset.id;
+        try {
+          const res = await fetch(`/pedidos/finalizar/${id}`, {
+            method: 'PUT'
+          });
           const data = await res.json();
-          alert('Error: ' + data.message);
-        }
 
-      } catch (err) {
-        console.error(err);
-        alert('Error al finalizar el pedido');
-      }
+          if (res.ok) {
+            const li = e.target.closest('li.li-pedidos');
+            if (li) li.remove();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        } catch (err) {
+          alert('Error al conectar con el servidor');
+        }
+      });
     });
   });
+
 
 
 
