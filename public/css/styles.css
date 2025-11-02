@@ -167,6 +167,13 @@ input:hover {
   outline: 1px solid lightgrey;
 }
 
+.input-cantidad {
+  height: 30px;
+  margin-left: 2rem;
+  outline: none;
+  border: 1px solid lightgray;
+}
+
 .div-top {
   display: flex;
   flex-wrap: wrap;
@@ -177,7 +184,12 @@ input:hover {
 
 .div-bottom {
   margin: 50px auto;
-  line-height: 30px;
+  line-height: 50px;
+}
+
+div.producto-item input[type=checkbox] {
+  background-color: red !important;
+  color: red !important;
 }
 
 .div-element {
@@ -269,6 +281,12 @@ li div.div-btn {
   width: 100%;
 }
 
+.producto-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 /* Ticket */
 .body {
@@ -357,6 +375,11 @@ hr {
     flex-direction: column;
     max-width: 40%;
     margin: 0 auto;
+  }
+
+  .producto-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

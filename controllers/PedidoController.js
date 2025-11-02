@@ -9,7 +9,6 @@ const ClienteRepositorio = require("../services/ClienteRepositorio");
 const app = express();
 app.use(express.json());
 
-// Conectar a la base de datos
 connectDB();
 
 const getPedidos = async (req, res) => {
@@ -56,20 +55,30 @@ const createPedido = async (req, res) => {
       productosIds = [productosIds];
     }
 
-    const productosSeleccionados = productosIds.length
-      ? await Producto.find({ _id: { $in: productosIds } })
-      : [];
+    const productosArray = productosIds.map(id => ({
+      producto: id,
+      cantidad: parseInt(pedidoData.cantidades[id]) || 1
+    }));
 
-    const montoTotal = calcularMontoTotal(productosSeleccionados);
-    pedidoData.total = montoTotal;
+    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
+    const montoTotal = productosSeleccionados.reduce((total, p) => {
+      const cantidad = parseInt(pedidoData.cantidades[p._id]) || 1;
+      return total + p.precio * cantidad;
+    }, 0);
 
-    const pedido = await PedidoRepositorio.createPedido(pedidoData);
+    const pedido = await PedidoRepositorio.createPedido({
+      ...pedidoData,
+      productos: productosArray,
+      total: montoTotal
+    });
 
     res.redirect(`/pedidos/ticket/${pedido._id}`);
   } catch (error) {
+    console.error("Error al crear pedido:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 const deletePedido = async (req, res) => {
   try {
@@ -79,6 +88,7 @@ const deletePedido = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 const updatePedido = async (req, res) => {
   try {
@@ -93,12 +103,16 @@ const updatePedido = async (req, res) => {
       productosIds = [productosIds];
     }
 
-    const productosSeleccionados = await Producto.find({
-      _id: { $in: productosIds },
-    });
+    pedidoData.productos = productosIds.map(id => ({
+      producto: id,
+      cantidad: parseInt(pedidoData.cantidades[id]) || 1
+    }));
 
-    const montoTotal = calcularMontoTotal(productosSeleccionados);
-    pedidoData.total = montoTotal;
+    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
+    pedidoData.total = productosSeleccionados.reduce((total, p) => {
+      const cantidad = parseInt(pedidoData.cantidades[p._id]) || 1;
+      return total + p.precio * cantidad;
+    }, 0);
 
     const pedido = await PedidoRepositorio.updatePedido(
       req.params.id,
@@ -111,6 +125,9 @@ const updatePedido = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 // Función para calcular el total de productos seleccionados
 function calcularMontoTotal(productos) {

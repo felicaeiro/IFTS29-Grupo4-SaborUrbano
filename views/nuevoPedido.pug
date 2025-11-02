@@ -34,9 +34,13 @@ html
 
             div.div-bottom
                 each p in productos
-                    div
-                        input(type="checkbox", name="productos", value=p._id, data-precio=p.precio)
-                        | #{p.nombre}
+                    div.producto-item
+                        div
+                            input(type="checkbox", name="productos", value=p._id, data-precio=p.precio)
+                            | #{p.nombre}
+                        div
+                            input.input-cantidad(type="number", name=`cantidades[${p._id}]`, min="1", value="1", class="cantidad-producto", data-precio=p.precio, disabled=true)
+
 
             div.form-div-btn
                 button.btn(type="submit") Crear pedido
@@ -46,16 +50,42 @@ html
 
 
 
-        //- Actualizar el total en tiempo real
+    //- --------------------------------------------------------------------------------
     script.
-        const totalInput = document.getElementById('total');
-        const checkboxes = document.querySelectorAll('input[name="productos"]');
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalInput = document.getElementById('total');
 
-        function actualizarTotal() {
-            let total = 0;
-            checkboxes.forEach(cb => {
-                if (cb.checked) total += parseFloat(cb.dataset.precio);
+            // Actualizar el total en tiempo real
+            function calcularTotal() {
+                let total = 0;
+                document.querySelectorAll('.producto-item').forEach(item => {
+                        const checkbox = item.querySelector('input[type="checkbox"]');
+                        const cantidadInput = item.querySelector('.cantidad-producto');
+                    if (checkbox.checked) {
+                        const precio = parseFloat(cantidadInput.dataset.precio);
+                        const cantidad = parseInt(cantidadInput.value) || 0;
+                        total += precio * cantidad;
+                    }
             });
             totalInput.value = total.toFixed(2);
-        }
-        checkboxes.forEach(cb => cb.addEventListener('change', actualizarTotal));
+            }
+
+            // Activar/desactivar cantidad según checkbox
+            function toggleCantidad(checkbox) {
+                const cantidadInput = checkbox.closest('.producto-item').querySelector('.cantidad-producto');
+                cantidadInput.disabled = !checkbox.checked;
+                calcularTotal();
+            }
+
+            document.querySelectorAll('.producto-item input[type="checkbox"]').forEach(checkbox => {
+            if (checkbox.checked) toggleCantidad(checkbox);
+                checkbox.addEventListener('change', e => toggleCantidad(e.target));
+            });
+            document.querySelectorAll('.cantidad-producto').forEach(input => {
+            input.addEventListener('input', calcularTotal);
+            });
+
+            calcularTotal();
+        });
+
+
