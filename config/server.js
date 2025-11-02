@@ -3,6 +3,7 @@ const productoRoutes = require('../routes/productoRoutes');
 const pedidoRoutes = require('../routes/pedidoRoutes');
 const datosRoutes = require('../routes/dataRoutes');
 const informeRoutes = require('../routes/InformeRoutes');
+const usuarioRoutes = require('../routes/UsuarioRoutes')
 
 const path = require("path");
 
@@ -32,9 +33,10 @@ app.use(express.json());
 // ROUTES
 app.use('/productos', productoRoutes);
 app.use('/pedidos', pedidoRoutes);
-app.use('/clientes', clientesRoutes)
-app.use('/datos',datosRoutes)
-app.use('/informe',informeRoutes)
+app.use('/clientes', clientesRoutes);
+app.use('/datos',datosRoutes);
+app.use('/informe',informeRoutes);
+app.use('/usuarios', usuarioRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
