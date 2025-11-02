@@ -35,9 +35,12 @@ html
           p
             strong Productos:
             ul.ul-productos
-              each producto in pedido.productos
-                li #{producto.nombre} ($#{producto.precio})
-
+              each p in pedido.productos
+                if p.producto
+                  li #{p.cantidad} #{p.producto.nombre} ($#{p.producto.precio})
+                else
+                  li Producto no encontrado
+          
           p
             strong Total:
             | $#{pedido.total}
