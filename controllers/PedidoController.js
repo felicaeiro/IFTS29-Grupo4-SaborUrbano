@@ -4,36 +4,25 @@ const PedidoRepositorio = require("../services/PedidoRepositorio");
 const ProductoRepositorio = require("../services/ProductoRepositorio");
 const Pedido = require("../models/Pedido");
 const Producto = require("../models/Producto");
+const ClienteRepositorio = require("../services/ClienteRepositorio");
 
 const app = express();
 app.use(express.json());
 
-// Conectar a la base de datos
 connectDB();
-
 
 const getPedidos = async (req, res) => {
   try {
-    const pedidos = await PedidoRepositorio.getPedidos();
-
-    // Asegurarse que se carguen los datos de cliente y productos
-    const pedidosConDatos = await Pedido.find({})
-      .populate("id_cliente")
-      .populate("productos");
-
-    // Renderizamos la vista "pedidos.pug" con los datos
-    res.render("pedidos", { pedidos: pedidosConDatos });
+    const pedidosPendientes = await PedidoRepositorio.getPedidos();
+    res.render("pedidos", { pedidos: pedidosPendientes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 const getPedidoById = async (req, res) => {
   try {
-    const pedido = await PedidoRepositorio.getPedidoById(req.params.id)
-      .populate("productos")
-      .populate("id_cliente");
+    const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
 
     if (!pedido) return res.status(404).send("Pedido no encontrado");
 
@@ -48,18 +37,10 @@ const getPedidoById = async (req, res) => {
       clientes,
       productosPedidoIds,
     });
-
-    res.render("editarPedido", {
-      pedido,
-      productos,
-      clientes,
-      productosPedidoIds,
-    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 const createPedido = async (req, res) => {
   try {
@@ -74,17 +55,26 @@ const createPedido = async (req, res) => {
       productosIds = [productosIds];
     }
 
-    const productosSeleccionados = productosIds.length
-      ? await Producto.find({ _id: { $in: productosIds } })
-      : [];
+    const productosArray = productosIds.map(id => ({
+      producto: id,
+      cantidad: parseInt(pedidoData.cantidades[id]) || 1
+    }));
 
-    const montoTotal = calcularMontoTotal(productosSeleccionados);
-    pedidoData.total = montoTotal;
+    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
+    const montoTotal = productosSeleccionados.reduce((total, p) => {
+      const cantidad = parseInt(pedidoData.cantidades[p._id]) || 1;
+      return total + p.precio * cantidad;
+    }, 0);
 
-    const pedido = await PedidoRepositorio.createPedido(pedidoData);
+    const pedido = await PedidoRepositorio.createPedido({
+      ...pedidoData,
+      productos: productosArray,
+      total: montoTotal
+    });
 
     res.redirect(`/pedidos/ticket/${pedido._id}`);
   } catch (error) {
+    console.error("Error al crear pedido:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -93,8 +83,7 @@ const createPedido = async (req, res) => {
 const deletePedido = async (req, res) => {
   try {
     await PedidoRepositorio.deletePedido(req.params.id);
-    res.redirect('/pedidos');
-    
+    res.redirect("/pedidos");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -114,12 +103,16 @@ const updatePedido = async (req, res) => {
       productosIds = [productosIds];
     }
 
-    const productosSeleccionados = await Producto.find({
-      _id: { $in: productosIds },
-    });
+    pedidoData.productos = productosIds.map(id => ({
+      producto: id,
+      cantidad: parseInt(pedidoData.cantidades[id]) || 1
+    }));
 
-    const montoTotal = calcularMontoTotal(productosSeleccionados);
-    pedidoData.total = montoTotal;
+    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
+    pedidoData.total = productosSeleccionados.reduce((total, p) => {
+      const cantidad = parseInt(pedidoData.cantidades[p._id]) || 1;
+      return total + p.precio * cantidad;
+    }, 0);
 
     const pedido = await PedidoRepositorio.updatePedido(
       req.params.id,
@@ -133,6 +126,9 @@ const updatePedido = async (req, res) => {
   }
 };
 
+
+
+
 // Función para calcular el total de productos seleccionados
 function calcularMontoTotal(productos) {
   let total = 0;
@@ -142,10 +138,42 @@ function calcularMontoTotal(productos) {
   return total;
 }
 
+// Finalizar pedido
+const finalizarPedido = async (req, res) => {
+  try {
+    const finalizar = await PedidoRepositorio.finalizarPedido(req.params.id);
+    res.status(200).json({ message: 'Pedido finalizado', finalizar });
+    } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Obtener los pedidos finalizados
+const getPedidosFinalizados = async (req, res) => {
+  try {
+    const finalizados = await PedidoRepositorio.getPedidosFinalizados();
+    const clientes = await ClienteRepositorio.getClientes();
+    const productos = await ProductoRepositorio.getProductos();
+
+    res.render(
+      "pedidosFinalizados",
+      { pedidos: finalizados,
+      clientes,
+      productos
+      });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
 module.exports = {
   getPedidos,
   getPedidoById,
   createPedido,
   deletePedido,
   updatePedido,
+  finalizarPedido,
+  getPedidosFinalizados,
 };

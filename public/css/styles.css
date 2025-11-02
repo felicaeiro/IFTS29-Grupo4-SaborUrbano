@@ -111,7 +111,6 @@ button.btn, button.btn-pedidos {
   cursor: pointer;
   transition: background 0.3s;
   height: 40px;
-
 }
 
 button.btn:hover, button.btn-pedidos:hover {
@@ -126,6 +125,15 @@ button.btn-last, .btn-danger {
 button.btn-last:hover, .btn-danger:hover {
   background-color: #a71d2a !important;
 }
+
+button.btn-finalizar {
+  background-color: rgb(7, 178, 90) !important;
+}
+
+button.btn-finalizar:hover {
+  background-color: rgb(6, 124, 63) !important;
+}
+
 
 
 /* NuevoPedido / EditarPedido */
@@ -159,6 +167,13 @@ input:hover {
   outline: 1px solid lightgrey;
 }
 
+.input-cantidad {
+  height: 30px;
+  margin-left: 2rem;
+  outline: none;
+  border: 1px solid lightgray;
+}
+
 .div-top {
   display: flex;
   flex-wrap: wrap;
@@ -169,7 +184,12 @@ input:hover {
 
 .div-bottom {
   margin: 50px auto;
-  line-height: 30px;
+  line-height: 50px;
+}
+
+div.producto-item input[type=checkbox] {
+  background-color: red !important;
+  color: red !important;
 }
 
 .div-element {
@@ -244,6 +264,11 @@ li div.div-btn {
   margin-bottom: 1rem;
 }
 
+.div-btn-pedidos-nuevo-finalizado {
+  display: flex;
+  gap: 1rem;
+}
+
 .li-pedidos {
   display: flex;
   flex-wrap: wrap;
@@ -254,6 +279,12 @@ li div.div-btn {
   flex-wrap: wrap;
   margin: 0;
   width: 100%;
+}
+
+.producto-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 
@@ -344,6 +375,11 @@ hr {
     flex-direction: column;
     max-width: 40%;
     margin: 0 auto;
+  }
+
+  .producto-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

@@ -15,11 +15,12 @@ html
 
         hr
 
-        ul
+        ul.ul-ticket
         each p in pedido.productos
-            li 
-                span #{p.nombre}
-                span #{p.precio}
+            li.li-ticket
+                span #{p.cantidad}
+                span #{p.producto.nombre}
+                span $#{p.producto.precio}
 
         hr
 

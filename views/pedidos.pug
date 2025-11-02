@@ -9,8 +9,13 @@ html
   body
     h1 Pedidos
 
-    form(method="GET", action="/pedidos/nuevo")
-      button.btn-pedidos.btn-nuevo-pedido(type="submit") Nuevo pedido
+    div.div-btn-pedidos-nuevo-finalizado
+      form(method="GET", action="/pedidos/nuevo")
+        button.btn-pedidos.btn-nuevo-pedido(type="submit") Nuevo pedido
+      
+      a(href="/pedidos/finalizados")
+        button.btn-pedidos.btn-finalizar Pedidos finalizados
+
 
     .ul-pedidos
       each pedido in pedidos
@@ -30,19 +35,26 @@ html
           p
             strong Productos:
             ul.ul-productos
-              each producto in pedido.productos
-                li #{producto.nombre} ($#{producto.precio})
-
+              each p in pedido.productos
+                if p.producto
+                  li #{p.cantidad} #{p.producto.nombre} ($#{p.producto.precio})
+                else
+                  li Producto no encontrado
+          
           p
             strong Total:
             | $#{pedido.total}
+            
 
           div.div-btn
+            button.btn-pedidos.btn-finalizar(type="button", data-id=pedido._id) Finalizar
+
             a(href=`/pedidos/editar/${pedido._id}`)
-              button.btn-pedidos.btn-editar-pedido.btn-float Editar pedido
+              button.btn-pedidos.btn-editar-pedido.btn-float Editar
 
             button.btn-pedidos.btn-float(type="button", data-bs-toggle="modal", data-bs-target=`#modalEliminar-${pedido._id}`)
-              | Eliminar pedido
+              | Eliminar
+            
 
 
 
@@ -61,6 +73,37 @@ html
                 form(action=`/pedidos/${pedido._id}?_method=DELETE`, method="POST", style="display:inline")
                   button.btn.btn-danger(type="submit") Eliminar
 
-        br
+
 
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")
+
+
+
+//- Ocultar el pedido finalizado de la lista de pedidos
+script.
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-finalizar').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = e.target.dataset.id;
+        try {
+          const res = await fetch(`/pedidos/finalizar/${id}`, {
+            method: 'PUT'
+          });
+          const data = await res.json();
+
+          if (res.ok) {
+            const li = e.target.closest('li.li-pedidos');
+            if (li) li.remove();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        } catch (err) {
+          alert('Error al conectar con el servidor');
+        }
+      });
+    });
+  });
+
+
+
+

@@ -7,6 +7,8 @@ const {
     createPedido,
     updatePedido,
     deletePedido,
+    finalizarPedido,
+    getPedidosFinalizados,
 } = require('../controllers/pedidoController');
 
 const ProductoRepositorio = require('../services/ProductoRepositorio');
@@ -45,6 +47,11 @@ router.get("/ticket/:id", async (req, res) => {
 
     res.render("ticketPedido", { pedido, productos, clientes });
 });
+
+
+router.get("/finalizados", getPedidosFinalizados);
+router.put("/finalizar/:id", finalizarPedido);
+
 
 // CRUD API
 router.get('/', getPedidos);
