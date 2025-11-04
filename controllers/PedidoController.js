@@ -153,13 +153,12 @@ const getPedidosFinalizados = async (req, res) => {
   try {
     const finalizados = await PedidoRepositorio.getPedidosFinalizados();
     const clientes = await ClienteRepositorio.getClientes();
-    const productos = await ProductoRepositorio.getProductos();
 
     res.render(
       "pedidosFinalizados",
       { pedidos: finalizados,
       clientes,
-      productos
+      productos: finalizados.productos
       });
   } catch (error) {
     res.status(500).json({ message: error.message });

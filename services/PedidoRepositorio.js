@@ -1,16 +1,16 @@
-const Pedido = require("../models/Pedido");
+const Pedido = require('../models/Pedido');
 
 class PedidoRepositorio {
   async getPedidos() {
-    return await Pedido.find({ estado: false })
-      .populate("id_cliente")
-      .populate("productos.producto");
+    return await Pedido.find()
+      .populate('id_cliente')
+      .populate('productos.producto');
   }
 
   async getPedidoById(id) {
     return await Pedido.findById(id)
-      .populate("id_cliente")
-      .populate("productos.producto");
+      .populate('id_cliente')
+      .populate('productos.producto');
   }
 
   async createPedido(pedidoData) {
@@ -29,15 +29,13 @@ class PedidoRepositorio {
   async finalizarPedido(id) {
     return await Pedido.findByIdAndUpdate(
       id,
-      { $set: { estado: true } },
+      { $set: { estado: 'entregado' } },
       { new: true }
     );
   }
 
   async getPedidosFinalizados() {
-    return await Pedido.find({ estado: true })
-      .populate("id_cliente")
-      .populate("productos.producto");
+    return await Pedido.find({ estado: 'entregado' }).populate('id_cliente');
   }
 }
 
