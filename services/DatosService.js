@@ -23,20 +23,24 @@ class DatosService {
         precio: 10000,
       },
       {
-        nombre: 'Tamales',
-        descripcion: 'Masa de maíz rellena de carne y envuelta en chala.',
-        precio: 7000,
+        nombre: 'Milanesa Napolitana',
+        descripcion: 'Milanesa de carne vacuna cubierta con jamón, salsa de tomate y queso derretido.',
+        precio: 12000
       },
       {
-        nombre: 'Humita en Chala',
-        descripcion:
-          'Preparación de maíz tierno con queso, envuelta en hojas de choclo.',
-        precio: 400,
+        nombre: 'Pollo al Disco',
+        descripcion: 'Pollo cocinado en disco de arado con verduras, vino y especias, típico de las reuniones familiares.',
+        precio: 13000
+      },
+      {
+        nombre: 'Lomito Completo',
+        descripcion: 'Sándwich de lomo vacuno con jamón, queso, lechuga, tomate, huevo y papas fritas.',
+        precio: 10500
       },
       {
         nombre: 'Bife de Chorizo',
         descripcion: 'Clásico corte argentino de carne a la parrilla.',
-        precio: 28000,
+        precio: 8500,
       },
       {
         nombre: 'Choripán',
@@ -66,8 +70,20 @@ class DatosService {
       {
         nombre: 'Helado Artesanal',
         descripcion:
-          'Helado de elaboración propia, sabores:vainilla, dulce de leche o chocolate.',
+          'Helado de elaboración propia, sabores: vainilla, dulce de leche o chocolate.',
         precio: 3500,
+      },
+            {
+        nombre: 'Coca Cola (500ml)',
+        descripcion:
+          'Coca cola 500ml.',
+        precio: 4800,
+      },
+            {
+        nombre: 'Agua Saborizada (500ml)',
+        descripcion:
+          'Agua saborizada, sabores: pomelo, mango y naranchelo.',
+        precio: 4200,
       },
     ];
 
@@ -279,14 +295,12 @@ class DatosService {
       }
 
       const pedidos = [];
-      const tipos = ['delivery', 'local'];
+      const tipos = ['Presencial', 'Online'];
 
       for (let i = 0; i < 20; i++) {
-        // 1. Seleccionar cliente aleatorio
         const clienteAleatorio =
           clientes[Math.floor(Math.random() * clientes.length)];
 
-        // 2. Seleccionar productos aleatorios (entre 1 y 4)
         const cantidadProductos = Math.floor(Math.random() * 4) + 1;
         const productosPedido = [];
         let totalPedido = 0;
@@ -306,15 +320,15 @@ class DatosService {
             producto: productoSeleccionado._id,
             nombre: productoSeleccionado.nombre,
             precio: productoSeleccionado.precio,
-            cantidad: 1,
+            cantidad: getRandomCantidad(1, 10),
           });
           totalPedido += productoSeleccionado.precio;
         }
-        // 3. Crear el pedido
+
         const nuevoPedido = {
           fecha: new Date(
             new Date() - Math.random() * (365 * 24 * 60 * 60 * 1000)
-          ), // Fecha aleatoria en el último año
+          ), 
           total: totalPedido,
           tipo: tipos[Math.floor(Math.random() * tipos.length)],
           id_cliente: clienteAleatorio._id,
@@ -322,6 +336,14 @@ class DatosService {
         };
         pedidos.push(nuevoPedido);
       }
+    
+
+      function getRandomCantidad(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
 
       await Pedido.insertMany(pedidos);
       console.log('20 pedidos aleatorios creados exitosamente.');

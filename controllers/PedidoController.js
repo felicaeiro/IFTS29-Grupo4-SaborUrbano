@@ -55,21 +55,24 @@ const createPedido = async (req, res) => {
       productosIds = [productosIds];
     }
 
-    const productosArray = productosIds.map(id => ({
-      producto: id,
-      cantidad: parseInt(pedidoData.cantidades[id]) || 1
+    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
+
+    const productosArray = productosSeleccionados.map(p => ({
+      producto: p._id,
+      nombre: p.nombre,
+      precio: p.precio,
+      cantidad: parseInt(pedidoData.cantidades[p._id]) || 1,
     }));
 
-    const productosSeleccionados = await Producto.find({ _id: { $in: productosIds } });
-    const montoTotal = productosSeleccionados.reduce((total, p) => {
-      const cantidad = parseInt(pedidoData.cantidades[p._id]) || 1;
-      return total + p.precio * cantidad;
-    }, 0);
+    const montoTotal = productosArray.reduce((total, p) => total + p.precio * p.cantidad, 0);
 
     const pedido = await PedidoRepositorio.createPedido({
-      ...pedidoData,
+      fecha: pedidoData.fecha,
+      total: montoTotal,
+      tipo: pedidoData.tipo,
+      estado: pedidoData.estado || "pendiente",
+      id_cliente: pedidoData.id_cliente,
       productos: productosArray,
-      total: montoTotal
     });
 
     res.redirect(`/pedidos/ticket/${pedido._id}`);
@@ -78,7 +81,6 @@ const createPedido = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 const deletePedido = async (req, res) => {
   try {
@@ -141,6 +143,7 @@ function calcularMontoTotal(productos) {
 // Finalizar pedido
 const finalizarPedido = async (req, res) => {
   try {
+    console.log('*** ID recibido ***:', req.params.id);
     const finalizar = await PedidoRepositorio.finalizarPedido(req.params.id);
     res.status(200).json({ message: 'Pedido finalizado', finalizar });
     } catch (error) {
