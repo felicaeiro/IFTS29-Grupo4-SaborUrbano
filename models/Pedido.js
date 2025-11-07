@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Pago = require('./Pago');
 
 const PedidoSchema = new mongoose.Schema({
   fecha: {
@@ -11,6 +12,7 @@ const PedidoSchema = new mongoose.Schema({
   },
   tipo: {
     type: String,
+    enum:['Presencial', 'Online'],
     required: true,
   },
   estado: {
@@ -22,6 +24,14 @@ const PedidoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Cliente',
     required: true,
+  },
+  pago: {
+    type: Pago.schema,
+    required: false,
+  },
+  pagado: {
+    type: Boolean,
+    require: true,
   },
   productos: [
     {

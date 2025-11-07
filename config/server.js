@@ -9,6 +9,7 @@ const datosRoutes = require('../routes/dataRoutes');
 const informeRoutes = require('../routes/InformeRoutes');
 const usuarioRoutes = require('../routes/UsuarioRoutes');
 const authRoutes = require('../routes/authRoutes');
+const cajaRoutes = require('../routes/cajaRoutes');
 
 const clientesRoutes = require('../routes/clientesRoutes');
 const { fileURLToPath } = require('url');
@@ -40,6 +41,7 @@ app.use('/clientes', clientesRoutes);
 app.use('/datos', datosRoutes);
 app.use('/informe', informeRoutes);
 app.use('/usuarios', usuarioRoutes);
+app.use('/caja', cajaRoutes);
 
 app.get('/', (req, res) => {
   if (!req.session.usuario) {

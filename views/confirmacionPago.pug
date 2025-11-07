@@ -1,0 +1,68 @@
+doctype html
+html(lang="es")
+  head
+    link(rel="stylesheet", href="/css/styles.css")
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Pago confirmado — Sabor Urbano
+  body
+    header
+      h2 Pago confirmado
+      div
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
+    main.container
+      .card
+        h3 ✅ #{mensaje}
+        div.pedido-container
+                div.pedido-column
+                    div
+                        strong Pedido:
+                        span #{pedido._id}
+                    div
+                        strong Cliente: 
+                        span #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}
+                
+                    div
+                        strong Medio de pago: 
+                        span #{pedido.pago.medio}
+                        
+                div.pedido-column    
+                    div
+                    div
+                        strong Fecha: 
+                        span #{new Date(pedido.pago.fecha).toLocaleDateString()}
+                    div
+                        strong Comprobante: 
+                        span #{pedido.pago.tipoComprobante} Nº #{pedido.pago.nroComprobante}
+        if pedido.productos && pedido.productos.length
+                h4 Detalle del pedido
+                table.productos-table
+                    thead
+                    tr
+                        th Producto
+                        th Cantidad
+                        th Precio unitario
+                        th Subtotal
+                    tbody
+                    each item in pedido.productos
+                        tr
+                        td #{item.nombre}
+                        td #{item.cantidad}
+                        td $#{item.precio.toFixed(2)}
+                        td $#{(item.precio * item.cantidad).toFixed(2)}
+                div.total-container
+                    strong Total: 
+                    span $#{pedido.pago.monto}
+
+      .btn-container
+        a.btn.btn-finalizar(href=`/caja/factura/${pedido._id}`, target="_blank") 🧾 Imprimir #{pedido.pago.tipoComprobante}
+        a.btn(href="/caja") ← Volver a Caja
+
+    script.
+      window.onload = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('autoPrint') === 'true') window.print();
+      };

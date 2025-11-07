@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
 
     if (user.rol === 'admin') res.redirect('/');
     else if (user.rol === 'cocina') res.redirect('/pedidos');
-    else if (user.rol === 'caja') res.redirect('/informe');
+    else if (user.rol === 'caja') res.redirect('/caja');
     else res.redirect('/');
   } catch (error) {
     console.error(error);

@@ -24,18 +24,21 @@ class DatosService {
       },
       {
         nombre: 'Milanesa Napolitana',
-        descripcion: 'Milanesa de carne vacuna cubierta con jamón, salsa de tomate y queso derretido.',
-        precio: 12000
+        descripcion:
+          'Milanesa de carne vacuna cubierta con jamón, salsa de tomate y queso derretido.',
+        precio: 12000,
       },
       {
         nombre: 'Pollo al Disco',
-        descripcion: 'Pollo cocinado en disco de arado con verduras, vino y especias, típico de las reuniones familiares.',
-        precio: 13000
+        descripcion:
+          'Pollo cocinado en disco de arado con verduras, vino y especias, típico de las reuniones familiares.',
+        precio: 13000,
       },
       {
         nombre: 'Lomito Completo',
-        descripcion: 'Sándwich de lomo vacuno con jamón, queso, lechuga, tomate, huevo y papas fritas.',
-        precio: 10500
+        descripcion:
+          'Sándwich de lomo vacuno con jamón, queso, lechuga, tomate, huevo y papas fritas.',
+        precio: 10500,
       },
       {
         nombre: 'Bife de Chorizo',
@@ -73,16 +76,14 @@ class DatosService {
           'Helado de elaboración propia, sabores: vainilla, dulce de leche o chocolate.',
         precio: 3500,
       },
-            {
+      {
         nombre: 'Coca Cola (500ml)',
-        descripcion:
-          'Coca cola 500ml.',
+        descripcion: 'Coca cola 500ml.',
         precio: 4800,
       },
-            {
+      {
         nombre: 'Agua Saborizada (500ml)',
-        descripcion:
-          'Agua saborizada, sabores: pomelo, mango y naranchelo.',
+        descripcion: 'Agua saborizada, sabores: pomelo, mango y naranchelo.',
         precio: 4200,
       },
     ];
@@ -283,73 +284,90 @@ class DatosService {
   }
 
   async crearPedidos() {
-    try {
-      const clientes = await Cliente.find({}, '_id');
-      const productos = await Producto.find({}, '_id nombre precio');
+    const clientes = await Cliente.find({}, '_id');
+    const productos = await Producto.find({}, '_id nombre precio');
 
-      if (clientes.length === 0 || productos.length === 0) {
-        console.log(
-          'No hay suficientes clientes o productos en la base de datos para crear pedidos.'
-        );
-        return;
-      }
-
-      const pedidos = [];
-      const tipos = ['Presencial', 'Online'];
-
-      for (let i = 0; i < 20; i++) {
-        const clienteAleatorio =
-          clientes[Math.floor(Math.random() * clientes.length)];
-
-        const cantidadProductos = Math.floor(Math.random() * 4) + 1;
-        const productosPedido = [];
-        let totalPedido = 0;
-        const productosDisponibles = [...productos];
-
-        for (let j = 0; j < cantidadProductos; j++) {
-          if (productosDisponibles.length === 0) break;
-          const indiceProducto = Math.floor(
-            Math.random() * productosDisponibles.length
-          );
-          const productoSeleccionado = productosDisponibles.splice(
-            indiceProducto,
-            1
-          )[0];
-
-          productosPedido.push({
-            producto: productoSeleccionado._id,
-            nombre: productoSeleccionado.nombre,
-            precio: productoSeleccionado.precio,
-            cantidad: getRandomCantidad(1, 10),
-          });
-          totalPedido += productoSeleccionado.precio;
-        }
-
-        const nuevoPedido = {
-          fecha: new Date(
-            new Date() - Math.random() * (365 * 24 * 60 * 60 * 1000)
-          ), 
-          total: totalPedido,
-          tipo: tipos[Math.floor(Math.random() * tipos.length)],
-          id_cliente: clienteAleatorio._id,
-          productos: productosPedido,
-        };
-        pedidos.push(nuevoPedido);
-      }
-    
-
-      function getRandomCantidad(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-
-      await Pedido.insertMany(pedidos);
-      console.log('20 pedidos aleatorios creados exitosamente.');
-    } catch (error) {
-      console.error('Error al crear los pedidos:', error);
+    if (clientes.length === 0 || productos.length === 0) {
+      console.log(
+        'No hay suficientes clientes o productos en la base de datos para crear pedidos.'
+      );
+      return;
     }
+
+    const pedidos = [];
+    const tipos = ['Presencial', 'Online'];
+    const estados = ['pendiente', 'preparando', 'entregado'];
+
+    for (let i = 0; i < 20; i++) {
+      const clienteAleatorio =
+        clientes[Math.floor(Math.random() * clientes.length)];
+
+      const cantidadProductos = Math.floor(Math.random() * 4) + 1;
+      const estado = estados[Math.floor(Math.random() * estados.length)];
+      const productosPedido = [];
+      let totalPedido = 0;
+      const productosDisponibles = [...productos];
+
+      for (let j = 0; j < cantidadProductos; j++) {
+        if (productosDisponibles.length === 0) break;
+        const indiceProducto = Math.floor(
+          Math.random() * productosDisponibles.length
+        );
+        const productoSeleccionado = productosDisponibles.splice(
+          indiceProducto,
+          1
+        )[0];
+        const cantidad = getRandomCantidad(1, 5);
+
+        productosPedido.push({
+          producto: productoSeleccionado._id,
+          nombre: productoSeleccionado.nombre,
+          precio: productoSeleccionado.precio,
+          cantidad,
+        });
+        totalPedido += productoSeleccionado.precio * cantidad;
+      }
+      const nuevoPedido = {
+        fecha: new Date(
+          new Date() - Math.random() * (365 * 24 * 60 * 60 * 1000)
+        ),
+        total: totalPedido,
+        tipo: tipos[Math.floor(Math.random() * tipos.length)],
+        estado,
+        id_cliente: clienteAleatorio._id,
+        productos: productosPedido,
+        pagado: false,
+      };
+
+      if (nuevoPedido.tipo === 'Online') {
+        const medioPago = ['Tarjeta', 'Transferencia'][
+          Math.floor(Math.random() * 2)
+        ];
+        const tipoComprobante = ['Ticket', 'Factura'][
+          Math.floor(Math.random() * 2)
+        ];
+
+        nuevoPedido.pagado = true;
+        nuevoPedido.pago = {
+          monto: totalPedido,
+          medio: medioPago,
+          tipoComprobante,
+          nroComprobante: `C${Math.floor(Math.random() * 1000000)}`,
+          fecha: nuevoPedido.fecha,
+        };
+      }
+
+      pedidos.push(nuevoPedido);
+    }
+
+    function getRandomCantidad(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    await Pedido.insertMany(pedidos);
+    console.log('20 pedidos aleatorios creados exitosamente.');
   }
 
   async crearUsuariosIniciales() {
