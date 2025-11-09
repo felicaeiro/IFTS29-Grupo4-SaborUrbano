@@ -3,6 +3,7 @@ body {
   background-color: #f8f9fa;
   margin: 0;
 }
+
 header {
   background: #222;
   color: #fff;
@@ -11,13 +12,23 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
+.header {
+  margin-bottom: 2rem;
+}
+
 header h2 {
   margin: 0 10px;
+  font-size: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
 }
+
 header form {
   display: inline;
   margin-left: 10px;
 }
+
 header button {
   background: transparent;
   border: 1px solid #fff;
@@ -26,6 +37,7 @@ header button {
   cursor: pointer;
   border-radius: 4px;
 }
+
 main {
   max-width: 900px;
   margin: 2rem auto;
@@ -34,11 +46,13 @@ main {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 nav {
   display: flex;
   border-bottom: 2px solid #ddd;
   margin-bottom: 1.5rem;
 }
+
 nav button {
   flex: 1;
   padding: 0.8rem;
@@ -47,6 +61,7 @@ nav button {
   cursor: pointer;
   font-weight: bold;
 }
+
 nav button.active {
   background: #333;
   color: white;
@@ -63,6 +78,7 @@ ul {
   max-width: 600px;
   margin: 20px auto;
 }
+
 .btn,
 button.btn-pedidos {
   padding: 10px 20px;
@@ -176,6 +192,7 @@ button.btn-last:hover,
 .btn-danger:hover {
   background-color: #a71d2a !important;
 }
+
 a.btn-finalizar,
 button.btn-finalizar {
   background-color: rgb(7, 178, 90) !important;
@@ -429,24 +446,28 @@ hr {
   }
 }
 
-@media (max-width: 375px) {
-}
+@media (max-width: 375px) {}
+
 .badge {
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   font-size: 0.85rem;
 }
+
 .badge.pendiente {
   background: #ffce54;
 }
+
 .badge.preparando {
   background: #5bc0de;
   color: #fff;
 }
-.badge.entregado {
+
+.badge.finalizado {
   background: #5cb85c;
   color: #fff;
 }
+
 form.pago-form {
   border-top: solid 1px #ccc;
   margin-top: 1rem;
@@ -454,6 +475,7 @@ form.pago-form {
   align-items: flex-end;
   justify-content: space-between;
 }
+
 select,
 button,
 input {
@@ -463,22 +485,26 @@ input {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+
 .pedido {
   padding: 15px;
   margin: 10px;
   border: solid 1px #dddd;
   border-radius: 15px;
 }
+
 .pedido-container {
   display: flex;
   align-items: flex-end;
   gap: 30px;
 }
+
 .pedido-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .productos-table {
   width: 100%;
   border-collapse: collapse;
@@ -496,13 +522,27 @@ input {
   background-color: #f5f5f5;
   font-weight: bold;
 }
+
 .total-container {
   display: flex;
   justify-content: flex-end;
   margin: 5px;
 }
+
 .btn-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+@media print {
+  button, .btn, header {
+    display: none;
+  }
+
+  body {
+    background: white;
+  }
 }

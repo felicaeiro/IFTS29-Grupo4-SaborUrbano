@@ -5,7 +5,13 @@ html
     link(rel="stylesheet", href="/css/styles.css")
 
   body
-    h1 Crear un nuevo pedido
+    header.header
+      h2 Nuevo pedido
+      div
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
 
     form.form-nuevoPedido(method="POST", action="/pedidos")
       div.div-top
