@@ -296,7 +296,7 @@ class DatosService {
 
     const pedidos = [];
     const tipos = ['Presencial', 'Online'];
-    const estados = ['pendiente', 'preparando', 'entregado'];
+    const estados = ['pendiente', 'preparando', 'finalizado'];
 
     for (let i = 0; i < 20; i++) {
       const clienteAleatorio =

@@ -4,8 +4,14 @@ html
     link(rel="stylesheet", href="/css/styles.css")
     title Ticket Pedido
   body.body
+    header.header
+        h2 
+        div
+            span Bienvenido #{usuario}
+            form(method="POST", action="/logout")
+            button(type="submit") Cerrar sesión
+
     div.div-ticket-container 
-        h1 Sabor Urbano
 
         strong.strong-cliente #{pedido.id_cliente ? pedido.id_cliente.nombre + ' ' + pedido.id_cliente.apellido : 'Sin cliente'}
 
@@ -30,7 +36,7 @@ html
         
         p.p-visita *** Gracias por su visita ***
         
-    button.btn.btn-ticket Imprimir
+    button.btn.btn-ticket(type="button", onclick="window.print()") Imprimir
 
     a(href="/pedidos")
         button.btn.btn-last.btn-last-ticket Volver a la lista de pedidos 

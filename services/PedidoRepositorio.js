@@ -2,7 +2,7 @@ const Pedido = require('../models/Pedido');
 
 class PedidoRepositorio {
   async getPedidos() {
-    return await Pedido.find()
+    return await Pedido.find({ estado: { $in: ["pendiente", "preparando"] } })
       .populate('id_cliente')
       .populate('productos.producto');
   }
@@ -29,13 +29,13 @@ class PedidoRepositorio {
   async finalizarPedido(id) {
     return await Pedido.findByIdAndUpdate(
       id,
-      { $set: { estado: 'entregado' } },
+      { $set: { estado: 'finalizado' } },
       { new: true }
     );
   }
 
   async getPedidosFinalizados() {
-    return await Pedido.find({ estado: 'entregado' }).populate('id_cliente');
+    return await Pedido.find({ estado: 'finalizado' }).populate('id_cliente');
   }
 }
 

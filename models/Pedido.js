@@ -17,7 +17,7 @@ const PedidoSchema = new mongoose.Schema({
   },
   estado: {
     type: String,
-    enum: ['pendiente', 'preparando', 'entregado'],
+    enum: ['pendiente', 'preparando', 'finalizado'],
     default: 'pendiente',
   },
   id_cliente: {

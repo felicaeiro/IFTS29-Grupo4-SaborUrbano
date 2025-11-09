@@ -7,7 +7,12 @@ html
     title Pedidos
 
   body
-    h1 Pedidos
+    header.header
+      h2 Pedidos
+      div
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
 
     div.div-btn-pedidos-nuevo-finalizado
       form(method="GET", action="/pedidos/nuevo")
