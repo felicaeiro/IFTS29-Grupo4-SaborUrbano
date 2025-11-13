@@ -49,7 +49,7 @@ router.get("/ticket/:id", async (req, res) => {
 });
 
 
-    router.get("/finalizados", getPedidosFinalizados);
+router.get("/finalizados", getPedidosFinalizados);
 router.put("/finalizar/:id", finalizarPedido);
 
 

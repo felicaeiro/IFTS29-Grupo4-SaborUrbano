@@ -4,11 +4,23 @@ html
     link(rel="stylesheet", href="/css/styles.css")
     title= titulo
   body
+    header.header
+      h2 Productos
+      div
+        div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/informe").a-inicio Informes
+
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
     h1= titulo
     ul
-      each p in products
+      each p in productos
         li
-          | #{p.id} - #{p.nombre} ($#{p.precio}) 
+          |#{p.nombre} ($#{p.precio}) 
           a(href=`/productos/${p.id}`)
             button Ver Detalle
           form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")

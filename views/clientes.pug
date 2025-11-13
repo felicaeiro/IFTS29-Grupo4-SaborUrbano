@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    link(rel="stylesheet", href="/css/styles.css")
+    title Clientes
+  body
+    header.header
+      h2 Clientes
+      div
+        div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/clientes").a-inicio Clientes
+          a(href="/informe").a-inicio Informes
+
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
+    ul
+      each cliente in clientes
+        li.li-clientes
+          |#{cliente.apellido} #{cliente.nombre}
+
+          span 
+            strong Domicilio: 
+            | #{cliente.domicilio}
+            
+          span 
+            img(src="../images/editar.png", alt="editar")
+            img(src="../images/eliminar.png", alt="eliminar")
+
+        //-   a(href=`/productos/${p.id}`)
+        //-     button Ver Detalle
+        //-   form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
+        //-     button(type="submit") Eliminar Producto
