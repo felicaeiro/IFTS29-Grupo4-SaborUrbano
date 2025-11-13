@@ -6,13 +6,13 @@ const Cliente = require('../models/Cliente');
 const app = express();
 app.use(express.json());
 
-// Conectar a la base de datos
 connectDB();
 
 const getClientes = async (req, res) => {
     try {
         const clientes = await ClienteRepositorio.getClientes();
-        res.json(clientes);
+        res.render("clientes", {clientes: clientes});
+
     } catch (error) {
         res.status(500).json({message: error.message});
     }

@@ -4,20 +4,29 @@ html
     title Detalle del producto
     link(rel="stylesheet", href="/css/styles.css")
   body
+    header.header
+      h2 Productos
+      div
+        div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/informe").a-inicio Informes
+
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
     .container
       h1 Detalle del producto
       .card
         p
-          strong ID:
-          |  #{product.id}
-        p
           strong Nombre:
-          |  #{product.nombre}
+          |  #{producto.nombre}
         p
           strong Descripción:
-          |  #{product.descripcion}
+          |  #{producto.descripcion}
         p
           strong Precio:
-          |  $#{product.precio}
+          |  $#{producto.precio}
       a(href="/productos")
         button.btn Volver a la lista

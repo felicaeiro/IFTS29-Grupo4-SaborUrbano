@@ -38,6 +38,30 @@ header button {
   border-radius: 4px;
 }
 
+header div {
+  display: flex;
+  align-items: center;
+}
+
+header span {
+  color: rgb(190, 190, 190);
+}
+
+.a-inicio {
+  color: white;
+  font-weight: 600;
+}
+
+.a-inicio:hover {
+  color: rgb(190, 190, 190);
+  border-bottom: 2px solid rgb(190, 190, 190);
+}
+
+.div-menu {
+  margin-right: 1rem;
+  gap: 1rem;
+}
+
 main {
   max-width: 900px;
   margin: 2rem auto;
@@ -407,6 +431,25 @@ hr {
   width: 50%;
 }
 
+
+
+
+/* CLIENTES */
+.li-clientes img {
+  width: 24px;
+  margin-left: 10px;
+}
+
+.li-clientes img:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+
+
+
+/* ___________________________________________________________________ */
+/* ___________________________________________________________________ */
 /* QUERIES */
 @media (max-width: 1080px) {
   p {

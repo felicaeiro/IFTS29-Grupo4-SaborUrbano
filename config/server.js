@@ -43,7 +43,17 @@ app.use('/informe', informeRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/caja', cajaRoutes);
 
+
 app.get('/', (req, res) => {
+  if (!req.session.usuario) {
+    return res.redirect('/login');
+  }
+  return res.redirect('/inicio');
+});
+
+
+
+app.get('/inicio', (req, res) => {
   if (!req.session.usuario) {
     return res.redirect('/login');
   }
@@ -53,6 +63,7 @@ app.get('/', (req, res) => {
     rol: req.session.rol,
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);

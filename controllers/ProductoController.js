@@ -6,13 +6,12 @@ const Producto = require('../models/Producto');
 const app = express();
 app.use(express.json());
 
-// Conectar a la base de datos
 connectDB();
 
 const getProductos = async (req, res) => {
     try {
         const productos = await ProductoRepositorio.getProductos();
-        res.json(productos);
+        res.render("producto", { productos: productos });
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -24,7 +23,7 @@ const getProductoById = async (req,res) => {
         if (!producto) {
             return res.status(404).json({message: 'Producto no encontrado'});
         }
-        res.json(producto);
+        res.render("detalleProducto", {producto});
     } catch (error) {
         res.status(500).json({message: error.message});
 
