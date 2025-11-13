@@ -33,7 +33,7 @@ class InformeService{
         return Pedido.aggregate([
 
             { $unwind: '$productos' },
-            { $group: { _id: '$productos', cantidadVendida: { $sum: 1 } } },
+            { $group: { _id: '$productos.producto', cantidadVendida: { $sum: '$productos.cantidad' } } },
             { $sort: { cantidadVendida: -1 } },
             { $limit: limit },
             {
@@ -112,4 +112,3 @@ class InformeService{
 }
 
 module.exports = InformeService;
-

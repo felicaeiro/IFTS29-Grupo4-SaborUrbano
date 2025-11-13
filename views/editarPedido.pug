@@ -4,7 +4,13 @@ html
         title Nuevo Pedido
         link(rel="stylesheet", href="/css/styles.css")
     body
-        h1 Editar pedido
+        header.header
+            h2 Editar pedido
+            div
+                span Bienvenido #{usuario}
+                form(method="POST", action="/logout")
+                button(type="submit") Cerrar sesión
+
 
         form.form-nuevoPedido(action=`/pedidos/${pedido.id}?_method=PUT`, method="POST")
             div.div-top

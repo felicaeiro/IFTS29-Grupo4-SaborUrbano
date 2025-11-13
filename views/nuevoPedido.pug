@@ -1,91 +1,101 @@
 doctype html
 html
-    head
-        title Nuevo Pedido
-        link(rel="stylesheet", href="/css/styles.css")
-        
-    body
-        h1 Crear un nuevo pedido
+  head
+    title Nuevo Pedido
+    link(rel="stylesheet", href="/css/styles.css")
 
-        form.form-nuevoPedido(method="POST", action="/pedidos")
-            div.div-top
-                div.div-element
-                    label(for="fecha") Fecha:
-                    input.form-input(type="date" name="fecha" required)
-                
-                div.div-element
-                    label(for="id_cliente") Cliente:
-                    select.form-input(name="id_cliente" required)
-                        option(value="") Seleccione un cliente
-                        each c in clientes
-                            option(value=c._id) #{c.nombre} #{c.apellido}
-
-                div.div-element
-                    label(for="tipo") Tipo:
-                    select.form-input(name="tipo")
-                        option(value="Presencial") Presencial
-                        option(value="Online") Online
-
-                div.div-element
-                    label(for="total") Total:
-                    input.form-input#total(type="number", step="0.01", name="total", readonly, value=0)
-
-                br
-
-            div.div-bottom
-                each p in productos
-                    div.producto-item
-                        div
-                            input(type="checkbox", name="productos", value=p._id, data-precio=p.precio)
-                            | #{p.nombre}
-                        div
-                            input.input-cantidad(type="number", name=`cantidades[${p._id}]`, min="1", value="1", class="cantidad-producto", data-precio=p.precio, disabled=true)
+  body
+    header.header
+      h2 Nuevo pedido
+      div
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
 
 
-            div.form-div-btn
-                button.btn(type="submit") Crear pedido
-                
-        a(href="/pedidos")
-            button.btn.btn-last Volver a la lista de pedidos
+    form.form-nuevoPedido(method="POST", action="/pedidos")
+      div.div-top
+        div.div-element
+          label(for="fecha") Fecha:
+          input.form-input(type="date", name="fecha", required)
+
+        div.div-element
+          label(for="id_cliente") Cliente:
+          select.form-input(name="id_cliente", required)
+            option(value="") Seleccione un cliente
+            each c in clientes
+              option(value=c._id) #{c.nombre} #{c.apellido}
+
+        div.div-element
+          label(for="tipo") Tipo:
+          select.form-input(name="tipo")
+            option(value="Presencial") Presencial
+            option(value="Online") Online
+
+        div.div-element
+          label(for="total") Total:
+          input.form-input#total(type="number", step="0.01", name="total", readonly, value=0)
+
+      br
+
+      div.div-bottom
+        each p in productos
+          div.producto-item
+            label
+              input(type="checkbox", name="productos", value=p._id, data-precio=p.precio)
+              | #{p.nombre} ($#{p.precio})
+            input.input-cantidad(
+              type="number",
+              name=`cantidades[${p._id}]`,
+              min="1",
+              value="1",
+              class="cantidad-producto",
+              data-precio=p.precio,
+              disabled=true
+            )
+
+      div.form-div-btn
+        button.btn(type="submit") Crear pedido
+
+    a(href="/pedidos")
+      button.btn.btn-last Volver a la lista de pedidos
 
 
 
-    //- --------------------------------------------------------------------------------
+
+
+    // -------------------------------------------------------------------------
     script.
-        document.addEventListener('DOMContentLoaded', () => {
-            const totalInput = document.getElementById('total');
+      document.addEventListener('DOMContentLoaded', () => {
+        const totalInput = document.getElementById('total');
 
-            // Actualizar el total en tiempo real
-            function calcularTotal() {
-                let total = 0;
-                document.querySelectorAll('.producto-item').forEach(item => {
-                        const checkbox = item.querySelector('input[type="checkbox"]');
-                        const cantidadInput = item.querySelector('.cantidad-producto');
-                    if (checkbox.checked) {
-                        const precio = parseFloat(cantidadInput.dataset.precio);
-                        const cantidad = parseInt(cantidadInput.value) || 0;
-                        total += precio * cantidad;
-                    }
-            });
-            totalInput.value = total.toFixed(2);
+        function calcularTotal() {
+          let total = 0;
+          document.querySelectorAll('.producto-item').forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const cantidadInput = item.querySelector('.cantidad-producto');
+            if (checkbox.checked) {
+              const precio = parseFloat(cantidadInput.dataset.precio);
+              const cantidad = parseInt(cantidadInput.value) || 0;
+              total += precio * cantidad;
             }
+          });
+          totalInput.value = total.toFixed(2);
+        }
 
-            // Activar/desactivar cantidad según checkbox
-            function toggleCantidad(checkbox) {
-                const cantidadInput = checkbox.closest('.producto-item').querySelector('.cantidad-producto');
-                cantidadInput.disabled = !checkbox.checked;
-                calcularTotal();
-            }
+        function toggleCantidad(checkbox) {
+          const cantidadInput = checkbox.closest('.producto-item').querySelector('.cantidad-producto');
+          cantidadInput.disabled = !checkbox.checked;
+          calcularTotal();
+        }
 
-            document.querySelectorAll('.producto-item input[type="checkbox"]').forEach(checkbox => {
-            if (checkbox.checked) toggleCantidad(checkbox);
-                checkbox.addEventListener('change', e => toggleCantidad(e.target));
-            });
-            document.querySelectorAll('.cantidad-producto').forEach(input => {
-            input.addEventListener('input', calcularTotal);
-            });
-
-            calcularTotal();
+        document.querySelectorAll('.producto-item input[type="checkbox"]').forEach(checkbox => {
+          checkbox.addEventListener('change', e => toggleCantidad(e.target));
         });
 
+        document.querySelectorAll('.cantidad-producto').forEach(input => {
+          input.addEventListener('input', calcularTotal);
+        });
 
+        calcularTotal();
+      });

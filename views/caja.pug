@@ -1,0 +1,108 @@
+doctype html
+html(lang="es")
+  head
+    link(rel="stylesheet", href="/css/styles.css")
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Módulo de Caja — Sabor Urbano
+
+
+  body
+    header
+      h2 Módulo de Caja
+      div
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
+    main
+      nav
+        button#btnPendientes.active(type="button") Pedidos pendientes
+        button#btnHistorial(type="button") Historial de pagos
+
+      section#pendientes.active
+        if pedidos && pedidos.length
+          each pedido in pedidos
+            .pedido
+              h3 Pedido #{Math.floor(Math.random() * 1000000)} 
+              div.pedido-container
+                div.pedido-column
+                    div
+                        strong Fecha:
+                        span #{new Date(pedido.fecha).toLocaleDateString()}
+                    div
+                        strong Total: 
+                        span $#{pedido.total}
+                div.pedido-column
+                    div
+                        strong Cliente: 
+                        span #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}
+                    div
+                        strong Estado: 
+                        - const estadoCapitalizado = pedido.estado.charAt(0).toUpperCase() + pedido.estado.slice(1);
+                        span.badge(class=pedido.estado)= estadoCapitalizado
+                
+              form.pago-form(method="POST", action=`/caja/pagos/${pedido._id}`)
+                div
+                  label
+                    strong Medio de pago:
+                  select(name="medio", required)
+                    option(value="Tarjeta") Tarjeta
+                    option(value="Transferencia") Transferencia
+                    option(value="Efectivo") Efectivo
+                  br
+                  label 
+                    strong Tipo de comprobante:
+                  select(name="tipoComprobante", required)
+                    option(value="Ticket") Ticket
+                    option(value="Factura") Factura
+                div
+                  br
+                  button.btn-pedidos.btn-editar-pedido.btn-float(type="submit") Registrar pago
+          
+        else
+          p No hay pedidos pendientes de pago.
+
+      section#historial(style="display:none;")
+        if historial && historial.length
+          table
+            thead
+              tr
+                th Pedido
+                th Cliente
+                th Fecha
+                th Medio
+                th Monto
+                th Comprobante
+            tbody
+              each pago in historial
+                tr
+                  td #{pago.id_pedido._id}
+                  td #{pago.id_pedido.id_cliente.nombre}
+                  td #{new Date(pedido.pago.fecha).toLocaleDateString()}
+                  td #{pago.medio}
+                  td $#{pago.monto}
+                  td #{pago.tipoComprobante} Nº #{pago.nroComprobante}
+        else
+          p No hay pagos registrados aún.
+
+
+    script.
+        const btnPend = document.getElementById('btnPendientes');
+        const btnHist = document.getElementById('btnHistorial');
+        const secPend = document.getElementById('pendientes');
+        const secHist = document.getElementById('historial');
+
+        btnPend.addEventListener('click', () => {
+            btnPend.classList.add('active');
+            btnHist.classList.remove('active');
+            secPend.style.display = 'block';
+            secHist.style.display = 'none';
+        });
+
+        btnHist.addEventListener('click', () => {
+            btnHist.classList.add('active');
+            btnPend.classList.remove('active');
+            secPend.style.display = 'none';
+            secHist.style.display = 'block';
+        });

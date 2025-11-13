@@ -6,19 +6,37 @@ html
     link(rel="stylesheet", href="/css/styles.css")
     title= title
   body
+    header.header
+      h2 Inicio
+      div
+        div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/informe").a-inicio Informes
+
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
     block content
 
 block content
   h1 Sabor Urbano
   div.menu-option
-    p Restaurante tradicional. Ve la carta:
+    p Ver los productos
     a(href="/productos")
-      button.btn Ver Productos
+      button.btn Productos
+
   div.menu-option
     p Ingresar a los pedidos:
     a(href="/pedidos")
       button.btn Pedidos
+
+  div.menu-option
+    p Ingresar a los clientes:
+    a(href="/clientes")
+      button.btn Clientes
+
   div.menu-option
     p Consultar el informe de ventas:
     a(href="/informe")
-      button.btn Ver Informe
+      button.btn Informe

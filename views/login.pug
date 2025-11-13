@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title Iniciar sesión
+    script. 
+        async function inicializarBD() {
+            try {
+            const response = await fetch('/datos', {
+                method: 'GET'
+            });
+
+            if (response.ok) {
+                alert('Base de datos inicializada con éxito.');
+            } else {
+                const text = await response.text();
+                alert('Error: ' + text);
+            }
+            } catch (error) {
+            console.error(error);
+            alert('Ocurrió un error al inicializar la base de datos.');
+            }
+      }
+    link(rel="stylesheet", href="/css/login-styles.css")
+  
+  body
+    .login-container
+      h2 Iniciar sesión
+      form(method="POST", action="/login")
+        div
+          label(for="usuario") Usuario
+          input(type="text", name="usuario", placeholder="Tu usuario", required)
+
+        div
+          label(for="clave") Clave
+          input(type="password", name="clave", placeholder="Tu clave", required)
+
+        button(type="submit") Ingresar
+
+      if error
+        p.error #{error}
+
+button(onclick="inicializarBD()").db-btn Popular base de datos
