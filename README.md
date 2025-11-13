@@ -10,27 +10,65 @@
 ---
 
 ## Descripción
-API REST para el restaurante **Sabor Urbano**, permite gestionar **clientes**, **productos** y **pedidos** usando **Node.js**, **Express** y **JSON** como base de datos.  
-Se integrará **Pug** para vistas dinámicas.  
+API REST para el restaurante **Sabor Urbano**, desarrollada con **Node.js** y **Express**, que permite gestionar **clientes**, **productos** y **pedidos**.  
+El proyecto incluye integración con **Pug** para vistas dinámicas.
 
 ---
 
-## Tecnologías
-- Node.js v22  
-- Express v5  
-- Pug v3  
-- JSON (persistencia de datos)  
+## 🚀 Tecnologías utilizadas
+
+- **Node.js** v22  
+- **Express** v5  
+- **Pug** v3  
+- **MongoDB + Mongoose** 
 
 ---
 
-## Funcionamiento
+
+## 🧠 Funcionalidades principales
+
+- 🔐 **Autenticación y sesiones de usuario**
+  - Inicio y cierre de sesión con control de acceso según rol.
+  - Protección de rutas y persistencia de sesión mediante `express-session`.
+
+- 🧾 **Gestión de productos**
+  - Alta, baja, modificación y consulta de productos.
+
+- 👥 **Gestión de clientes**
+  - Registro, actualización y eliminación de clientes.
+  - Asociación de clientes a pedidos existentes.
+
+- 🍽️ **Gestión de pedidos**
+  - Creación y edición de pedidos.
+  - Control de estados: `pendiente`, `preparando`, `finalizado`.
+  - Actualización visual en Pug mediante `fetch()` y recarga dinámica.
+
+- 📊 **Módulo de informes**
+  - Reportes automáticos de:
+    - *Productos más vendidos*
+    - *Clientes más recurrentes*
+  - Datos generados a partir de los pedidos realizados.
+
+- 💾 **Persistencia de datos**
+  - Manejo de información mediante **MongoDB**.
+
+- 💡 **Interfaz dinámica con Pug**
+  - Vistas limpias.
+  - Integración con formularios.
+
+---
+
+## ⚙️ Funcionamiento
 - Ejecutar:  
 ```bash
 npm install
 npm run dev
 ```
+Antes de iniciar sesión, asegurate de tener la base de datos poblada con usuarios y datos de ejemplo.
 
-## Endpoints principales:
+---
+
+## 📦 Endpoints principales:
 
 /api/productos
 
@@ -40,7 +78,7 @@ npm run dev
 
 Operaciones: GET, POST, PUT, PATCH, DELETE
 
-Los datos se leen y escriben en JSON (public/data-base).
+---
 
 ## Bibliografía
 
