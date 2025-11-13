@@ -24,7 +24,7 @@ const getClienteById = async (req,res) => {
         if (!cliente) {
             return res.status(404).json({message: 'Cliente no encontrado'});
         }
-        res.json(cliente);
+        res.render("detalleCliente", {cliente: cliente});
     } catch (error) {
         res.status(500).json({message: error.message});
 
@@ -46,7 +46,7 @@ const createCliente = async (req,res) => {
 const deleteCliente = async (req,res) => {
     try{
         const cliente = await ClienteRepositorio.deleteCliente(req.params.id);
-        res.status(200).json(cliente);
+        res.redirect("/clientes");
     } catch (error) {
         res.status(500).json({message: error.message});
     }

@@ -5,7 +5,7 @@ html
     link(rel="stylesheet", href="/css/styles.css")
   body
     header.header
-      h2 Productos
+      h2 Clientes
       div
         div.div-menu
           a(href="/inicio").a-inicio Inicio
@@ -19,16 +19,21 @@ html
           button(type="submit") Cerrar sesión
 
     .container
-      h1 Detalle del producto
+      h1 Detalle del cliente
       .card
         p
-          strong Nombre:
-          |  #{producto.nombre}
+          strong Nombre completo:
+          |  #{cliente.nombre} #{cliente.apellido}
         p
-          strong Descripción:
-          |  #{producto.descripcion}
+          strong DNI:
+          |  #{cliente.dni}
         p
-          strong Precio:
-          |  $#{producto.precio}
-      a(href="/productos")
+          strong Fecha de nacimiento:
+          | #{cliente.fecha_nacimiento}
+
+        p
+          strong Domicilio:
+          | #{cliente.domicilio}
+        
+      a(href="/clientes")
         button.btn Volver a la lista
