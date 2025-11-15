@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
@@ -45,6 +47,70 @@ header div {
 
 header span {
   color: rgb(190, 190, 190);
+}
+
+.div-index-block-content {
+  padding: 0;
+  margin-top: -2rem;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 2%,
+      rgba(255,255,255,0.3) 2%,
+      rgba(255,255,255,0.3) 100%  
+    ),
+    url(../images/banner.jpg);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 92vh;
+}
+
+.h1-banner {
+  margin: -2rem;
+  font-family: "Oswald", sans-serif;
+  font-size: 6rem;
+  font-weight: 500;
+  color: #2F2725;
+  background-color: #E99B36;
+  border: 8px solid #C37E32;
+}
+
+.menu-option {
+  width: 80vw;
+  height: 800px;
+  margin: auto;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.menu-option a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: black;
+  font-weight: 600;
+  display: block;
+  width: 25%;
+}
+
+.card-banner {
+  height: 80px;
+  background-color: #E99B36;
+  border: 5px solid #C37E32;
+  box-shadow: 1px 1px 10px 10px #2f272541;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card-banner:hover {
+  background-color: #C37E32;
 }
 
 .a-inicio {
@@ -474,7 +540,17 @@ hr {
   }
 }
 
+@media (max-width: 1050px){
+  .h1-banner {
+      display: none;
+  }
+}
+
 @media (max-width: 768px) {
+  .menu-option {
+    flex-direction: column;
+  }
+
   .ul-pedidos {
     display: flex;
     flex-direction: row;
