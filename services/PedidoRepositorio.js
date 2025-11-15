@@ -1,10 +1,16 @@
 const Pedido = require('../models/Pedido');
 
 class PedidoRepositorio {
-  async getPedidos() {
-    return await Pedido.find({ estado: { $in: ["pendiente", "preparando"] } })
+  async getPedidos({ estados = null, pagado = null } = {}) {
+    const filtro = {};
+
+    if (estados) filtro.estado = { $in: estados };
+    if (pagado !== null) filtro.pagado = pagado;
+    return await Pedido.find(filtro)
       .populate('id_cliente')
-      .populate('productos.producto');
+      .populate('productos.producto')
+      .populate('pago')
+      .sort({ fecha: -1 });
   }
 
   async getPedidoById(id) {
@@ -35,7 +41,9 @@ class PedidoRepositorio {
   }
 
   async getPedidosFinalizados() {
-    return await Pedido.find({ estado: 'finalizado' }).populate('id_cliente');
+    return await Pedido.find({ estado: 'finalizado' })
+      .populate('id_cliente')
+      .sort({ fecha: -1 });
   }
 }
 

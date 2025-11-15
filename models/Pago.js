@@ -22,7 +22,6 @@ const PagoSchema = new mongoose.Schema({
   nroComprobante: {
     type: String,
     required: true,
-    unique: true,
   },
 });
 
