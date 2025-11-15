@@ -33,14 +33,26 @@ const getClienteById = async (req,res) => {
 }
 
 const createCliente = async (req,res) => {
-
     try {
-        const cliente = await ClienteRepositorio.createCliente(req.body);
-        res.status(201).json(cliente);
-    } catch (error) {
-        res.status(500).json({message: error.message});
+    const clienteData = { ...req.body };
+
+    if (clienteData.fecha_nacimiento) {
+        clienteData.fecha_nacimiento = new Date(clienteData.fecha_nacimiento + "T00:00:00");
     }
 
+    const cliente = await ClienteRepositorio.createCliente({
+        nombre: clienteData.nombre,
+        apellido: clienteData.apellido,
+        fecha_nacimiento: clienteData.fecha_nacimiento,
+        dni: clienteData.dni,
+        domicilio: clienteData.domicilio,
+    });
+
+    res.redirect(`/clientes`);
+    } catch (error) {
+    console.error("Error al registrar al cliente:", error);
+    res.status(500).json({ message: error.message });
+    }
 }
 
 const deleteCliente = async (req,res) => {
@@ -55,13 +67,22 @@ const deleteCliente = async (req,res) => {
 
 const updateCliente = async (req,res) => {
     try {
-        const cliente = await ClienteRepositorio.updateCliente(req.params.id, req.body);
-        res.status(200).json(cliente);
-    } catch (error) {
-        res.status(500).json({message: error.message});
+        const clienteData = { ...req.body };
 
+    if (clienteData.fecha_nacimiento) {
+        clienteData.fecha_nacimiento = new Date(clienteData.fecha_nacimiento + "T00:00:00");
     }
 
+    const cliente = await ClienteRepositorio.updateCliente(
+        req.params.id,
+        clienteData
+    );
+    res.redirect(`/clientes`);
+    
+    } catch (error) {
+        console.error("Error al actualizar al cliente:", error);
+        res.status(500).json({ message: error.message });
+    }
 }
 
 

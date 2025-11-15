@@ -34,10 +34,12 @@ html
             
           span
             a(href=`/clientes/${cliente.id}`)
-              button.btn Ver Detalle
+              button.btn Ver Datos
 
             button.btn Ver Pedidos
-            img(src="../images/editar.png", alt="editar")
+            a(href=`/clientes/editar/${cliente.id}`)
+              img(src="../images/editar.png", alt="editar")
+              
             img(src="../images/eliminar.png", alt="eliminar" data-bs-toggle="modal", data-bs-target=`#modalEliminar-${cliente.id}`)
   
 
