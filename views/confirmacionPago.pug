@@ -9,6 +9,14 @@ html(lang="es")
     header
       h2 Pago confirmado
       div
+        if usuario === 'admin'
+                div.div-menu
+                a(href="/inicio").a-inicio Inicio
+                a(href="/productos").a-inicio Productos
+                a(href="/pedidos").a-inicio Pedidos
+                a(href="/clientes").a-inicio Clientes
+                a(href="/caja").a-inicio Pagos
+                a(href="/informe").a-inicio Informes
         span Bienvenido #{usuario}
         form(method="POST", action="/logout")
           button(type="submit") Cerrar sesión
@@ -20,7 +28,7 @@ html(lang="es")
                 div.pedido-column
                     div
                         strong Pedido:
-                        span #{pedido._id}
+                        span #{pedido._id.toString().slice(-4)}
                     div
                         strong Cliente: 
                         span #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}

@@ -11,6 +11,15 @@ html(lang="es")
     header
       h2 Módulo de Caja
       div
+        if usuario === 'admin'
+         div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/pedidos").a-inicio Pedidos
+          a(href="/clientes").a-inicio Clientes
+          a(href="/caja").a-inicio Pagos
+          a(href="/informe").a-inicio Informes
+          
         span Bienvenido #{usuario}
         form(method="POST", action="/logout")
           button(type="submit") Cerrar sesión
@@ -24,7 +33,7 @@ html(lang="es")
         if pedidos && pedidos.length
           each pedido in pedidos
             .pedido
-              h3 Pedido #{Math.floor(Math.random() * 1000000)} 
+              h3 Pedido #{pedido._id.toString().slice(-4)} 
               div.pedido-container
                 div.pedido-column
                     div
@@ -75,14 +84,14 @@ html(lang="es")
                 th Monto
                 th Comprobante
             tbody
-              each pago in historial
+              each pedido in historial
                 tr
-                  td #{pago.id_pedido._id}
-                  td #{pago.id_pedido.id_cliente.nombre}
-                  td #{new Date(pedido.pago.fecha).toLocaleDateString()}
-                  td #{pago.medio}
-                  td $#{pago.monto}
-                  td #{pago.tipoComprobante} Nº #{pago.nroComprobante}
+                  td #{pedido._id.toString().slice(-4)}
+                  td #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}
+                  td #{new Date(pedido.fecha).toLocaleDateString()}
+                  td #{pedido.pago.medio}
+                  td $#{pedido.pago.monto}
+                  td #{pedido.pago.tipoComprobante} Nº #{pedido.pago.nroComprobante}
         else
           p No hay pagos registrados aún.
 

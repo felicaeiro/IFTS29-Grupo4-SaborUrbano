@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title Nuevo Pedido
+    link(rel="stylesheet", href="/css/styles.css")
+
+  body
+    header.header
+      h2 Editar cliente
+      div
+        div.div-menu
+          a(href="/inicio").a-inicio Inicio
+          a(href="/productos").a-inicio Productos
+          a(href="/pedidos").a-inicio Pedidos
+          a(href="/clientes").a-inicio Clientes
+          a(href="/caja").a-inicio Pagos
+          a(href="/informe").a-inicio Informes
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
+
+    form.form-nuevoPedido(method="POST", action=`/clientes/${cliente._id}?_method=PUT`)
+      div.div-top
+        div.div-element
+          label(for="fecha") DNI
+          input.form-input(type="text", name="dni", minlength="7", maxlength="8", required, value=cliente.dni)
+
+        div.div-element
+          label(for="nombre") Nombre
+          input.form-input(type="text", name="nombre", required, value=cliente.nombre)
+
+        div.div-element
+          label(for="apellido") Apellido
+          input.form-input(type="text", name="apellido", required, value=cliente.apellido)
+
+        div.div-element
+          label(for="domicilio") Domicilio
+          input.form-input(type="text", name="domicilio", required, value=cliente.domicilio)
+
+        div.div-element
+          label(for="fecha_nacimiento") Fecha de nacimiento
+            - const fechaFormateada = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toISOString().substring(0, 10) : ''
+          input.form-input(type="date", name="fecha_nacimiento", required, value=fechaFormateada)
+
+      br
+
+      div.form-div-btn
+        button.btn(type="submit") Guardar cambios
+
+    a(href="/clientes")
+      button.btn.btn-last Volver a la lista de clientes

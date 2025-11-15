@@ -7,7 +7,6 @@ const PagoSchema = new mongoose.Schema({
   },
   monto: {
     type: Number,
-    required: true,
   },
   medio: {
     type: String,
@@ -22,7 +21,6 @@ const PagoSchema = new mongoose.Schema({
   nroComprobante: {
     type: String,
     required: true,
-    unique: true,
   },
 });
 

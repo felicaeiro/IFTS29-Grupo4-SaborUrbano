@@ -1,22 +1,24 @@
-const Pedido = require('../models/Pedido');
-const Pago = require('../models/Pago');
+const PedidoRepositorio = require('../services/PedidoRepositorio');
+const PagoService = require('../services/PagoService');
 
 const CajaController = {
   async mostrarVistaCaja(req, res) {
-    if (!req.session.usuario || req.session.rol !== 'caja') {
+    if (
+      !req.session.usuario ||
+      (req.session.rol !== 'caja' && req.session.rol !== 'admin')
+    ) {
       return res.redirect('/login');
     }
 
     try {
-      const pedidos = await Pedido.find({ pagado: false })
-        .populate('id_cliente')
-        .populate('pago');
+      const pedidos = await PedidoRepositorio.getPedidos({ pagado: false });
+      const historial = await PedidoRepositorio.getPedidos({ pagado: true });
 
       res.render('caja', {
         usuario: req.session.usuario,
         rol: req.session.rol,
         pedidos,
-        historial: [],
+        historial,
       });
     } catch (error) {
       console.error('Error al cargar vista de caja:', error);
@@ -26,9 +28,7 @@ const CajaController = {
 
   async verPedidosPendientes(req, res) {
     try {
-      const pedidos = await Pedido.find({ estado: 'pendiente' })
-        .populate('id_cliente')
-        .populate('pago');
+      const pedidos = await PedidoRepositorio.getPedidos('pendiente');
       res.json(pedidos);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -40,23 +40,29 @@ const CajaController = {
       const pedidoId = req.params.id;
       const { medio, tipoComprobante } = req.body;
 
-      const pedido = await Pedido.findById(pedidoId).populate('id_cliente');
-      if (!pedido) return res.status(404).send('Pedido no encontrado.');
-
-      pedido.pago = {
-        fecha: pedido.fecha,
-        monto: pedido.total,
+      const pagoData = {
+        fecha: new Date(),
+        monto: null,
         medio,
         tipoComprobante,
         nroComprobante: `C${Math.floor(Math.random() * 1000000)}`,
       };
-      pedido.pagado = true;
-      await pedido.save();
+
+      const pedidoActualizado = await PagoService.registrarPago(
+        pedidoId,
+        pagoData
+      );
+      if (!pedidoActualizado)
+        return res.status(404).send('Pedido no encontrado.');
+
+      pedidoActualizado.pago.monto = pedidoActualizado.total;
+      await pedidoActualizado.save();
+      console.log(pedidoActualizado);
 
       res.render('confirmacionPago', {
         usuario: req.session.usuario,
         rol: req.session.rol,
-        pedido,
+        pedido: pedidoActualizado,
         mensaje: `Pago registrado correctamente.`,
       });
     } catch (error) {
@@ -67,9 +73,8 @@ const CajaController = {
 
   async emitirFactura(req, res) {
     try {
-      const pedido = await Pedido.findById(req.params.id)
-        .populate('id_cliente')
-        .populate('productos.producto');
+      const pedido = await PedidoRepositorio.getPedidoById(req.params.id);
+
       if (!pedido) return res.status(404).send('Pedido no encontrado.');
 
       if (!pedido.pago) {
@@ -80,24 +85,6 @@ const CajaController = {
       res.render('factura', { pedido });
     } catch (error) {
       res.status(500).send('Error al generar factura.');
-    }
-  },
-
-  async verHistorial(req, res) {
-    try {
-      const pagos = await Pago.find().populate({
-        path: 'id_pedido',
-        populate: { path: 'id_cliente' },
-      });
-
-      res.render('caja', {
-        usuario: req.session.usuario,
-        rol: req.session.rol,
-        pedidos: [],
-        historial: pagos,
-      });
-    } catch (error) {
-      res.status(500).send('Error al cargar historial.');
     }
   },
 };
