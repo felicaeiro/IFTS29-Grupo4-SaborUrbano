@@ -2,7 +2,7 @@ const Pago = require('../models/Pago');
 const Pedido = require('../models/Pedido');
 
 class PagoService {
-  static async registrarPago(pedidoId, pagoData) {
+  async registrarPago(pedidoId, pagoData) {
     const pedido = await Pedido.findById(pedidoId).populate('id_cliente');
     if (!pedido) return null;
 
@@ -13,7 +13,7 @@ class PagoService {
     return pedido;
   }
 
-  static async getPagosCompleto() {
+  async getPagosCompleto() {
     return Pago.find().populate({
       path: 'id_pedido',
       populate: { path: 'id_cliente' },

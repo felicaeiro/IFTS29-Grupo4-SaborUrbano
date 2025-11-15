@@ -15,7 +15,10 @@ const getPedidos = async (req, res) => {
     const pedidosPendientes = await PedidoRepositorio.getPedidos({
       estados: ['pendiente', 'preparando'],
     });
-    res.render('pedidos', { pedidos: pedidosPendientes });
+    res.render('pedidos', {
+      pedidos: pedidosPendientes,
+      usuario: req.session.usuario,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -144,10 +147,8 @@ function calcularMontoTotal(productos) {
   return total;
 }
 
-// Finalizar pedido
 const finalizarPedido = async (req, res) => {
   try {
-    console.log('*** ID recibido ***:', req.params.id);
     const finalizar = await PedidoRepositorio.finalizarPedido(req.params.id);
     res.status(200).json({ message: 'Pedido finalizado', finalizar });
   } catch (error) {
@@ -164,10 +165,47 @@ const getPedidosFinalizados = async (req, res) => {
       pedidos: finalizados,
       clientes,
       productos: finalizados.productos,
+      usuario: req.session.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+const formNuevo = async (req, res) => {
+  const productos = await ProductoRepositorio.getProductos();
+  const clientes = await ClienteRepositorio.getClientes();
+
+  res.render('nuevoPedido', {
+    productos,
+    clientes,
+    usuario: req.session.usuario,
+  });
+};
+
+const formEditar = async (req, res) => {
+  const id = req.params.id;
+  const pedido = await PedidoRepositorio.getPedidoById(id);
+  const productos = await ProductoRepositorio.getProductos();
+  const clientes = await ClienteRepositorio.getClientes();
+
+  if (!pedido) return res.status(404).send('Pedido no encontrado');
+
+  res.render('editarPedido', {
+    pedido,
+    productos,
+    clientes,
+    usuario: req.session.usuario,
+  });
+};
+
+const ticketPedido = async (req, res) => {
+  const id = req.params.id;
+  const pedido = await PedidoRepositorio.getPedidoById(id);
+
+  if (!pedido) return res.status(404).send('Pedido no encontrado');
+
+  res.render('ticketPedido', { pedido, usuario: req.session.usuario });
 };
 
 module.exports = {
@@ -178,4 +216,7 @@ module.exports = {
   updatePedido,
   finalizarPedido,
   getPedidosFinalizados,
+  ticketPedido,
+  formEditar,
+  formNuevo,
 };

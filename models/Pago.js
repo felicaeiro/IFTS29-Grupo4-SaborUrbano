@@ -7,7 +7,6 @@ const PagoSchema = new mongoose.Schema({
   },
   monto: {
     type: Number,
-    required: true,
   },
   medio: {
     type: String,

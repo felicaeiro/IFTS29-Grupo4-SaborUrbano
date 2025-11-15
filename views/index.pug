@@ -12,8 +12,10 @@ html
         div.div-menu
           a(href="/inicio").a-inicio Inicio
           a(href="/productos").a-inicio Productos
+          a(href="/pedidos").a-inicio Pedidos
+          a(href="/clientes").a-inicio Clientes
+          a(href="/caja").a-inicio Pagos
           a(href="/informe").a-inicio Informes
-
         span Bienvenido #{usuario}
         form(method="POST", action="/logout")
           button(type="submit") Cerrar sesión
@@ -32,6 +34,9 @@ block content
 
       a(href="/pedidos")
         article.card-banner Pedidos
+
+      a(href="/caja")
+        article.card-banner Pagos
 
       a(href="/informe")
         article.card-banner Informe

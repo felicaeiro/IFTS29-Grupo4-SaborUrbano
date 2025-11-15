@@ -3,7 +3,10 @@ const PagoService = require('../services/PagoService');
 
 const CajaController = {
   async mostrarVistaCaja(req, res) {
-    if (!req.session.usuario || req.session.rol !== 'caja') {
+    if (
+      !req.session.usuario ||
+      (req.session.rol !== 'caja' && req.session.rol !== 'admin')
+    ) {
       return res.redirect('/login');
     }
 
@@ -49,17 +52,17 @@ const CajaController = {
         pedidoId,
         pagoData
       );
-
       if (!pedidoActualizado)
         return res.status(404).send('Pedido no encontrado.');
 
       pedidoActualizado.pago.monto = pedidoActualizado.total;
       await pedidoActualizado.save();
+      console.log(pedidoActualizado);
 
       res.render('confirmacionPago', {
         usuario: req.session.usuario,
         rol: req.session.rol,
-        pedidoActualizado,
+        pedido: pedidoActualizado,
         mensaje: `Pago registrado correctamente.`,
       });
     } catch (error) {
