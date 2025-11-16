@@ -8,6 +8,8 @@ router.get('/ticket/:id', PedidoController.ticketPedido);
 
 router.get('/finalizados', PedidoController.getPedidosFinalizados);
 router.put('/finalizar/:id', PedidoController.finalizarPedido);
+router.put('/cambiar-estado/:id', PedidoController.cambiarEstado);
+
 
 // CRUD API
 router.get('/', PedidoController.getPedidos);
