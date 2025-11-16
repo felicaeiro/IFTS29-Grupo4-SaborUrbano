@@ -147,6 +147,19 @@ function calcularMontoTotal(productos) {
   return total;
 }
 
+// Cambiar el estado de los pedidos a PREPARAR o FINALIZADO
+const cambiarEstado = async (req, res) => {
+  try {
+    const pedido = await PedidoRepositorio.updatePedido(req.params.id, {
+      estado: req.body.estado
+    });
+
+    res.json({ ok: true, pedido });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const finalizarPedido = async (req, res) => {
   try {
     const finalizar = await PedidoRepositorio.finalizarPedido(req.params.id);
@@ -219,4 +232,5 @@ module.exports = {
   ticketPedido,
   formEditar,
   formNuevo,
+  cambiarEstado,
 };

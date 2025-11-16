@@ -296,6 +296,14 @@ button.btn-finalizar:hover {
   background-color: rgb(6, 124, 63) !important;
 }
 
+button.btn-preparar {
+  background-color: #f28900 !important;
+}
+
+button.btn-preparar:hover {
+  background-color: #cb7300 !important;
+}
+
 /* NuevoPedido / EditarPedido */
 .form-nuevoPedido {
   display: flex;
@@ -511,9 +519,14 @@ hr {
   margin-left: 10px;
 }
 
-.li-clientes img:hover {
+.li-clientes img:hover, .div-btn img:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+.div-btn img {
+  width: 30px;
+  margin-left: 10px;
 }
 
 /* ___________________________________________________________________ */
