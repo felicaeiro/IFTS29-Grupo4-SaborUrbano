@@ -15,7 +15,7 @@ const getPedidos = async (req, res) => {
     const pedidosPendientes = await PedidoRepositorio.getPedidos({
       estados: ['pendiente', 'preparando'],
     });
-    res.render('pedidos', {
+    res.render('PedidosViews/pedidos', {
       pedidos: pedidosPendientes,
       usuario: req.user.usuario,
     });
@@ -35,7 +35,7 @@ const getPedidoById = async (req, res) => {
     const productosPedidoIds = Array.isArray(pedido.productos)
       ? pedido.productos.map((p) => p._id.toString())
       : [];
-    res.render('editarPedido', {
+    res.render('PedidosViews/editarPedido', {
       pedido,
       productos,
       clientes,
@@ -174,7 +174,7 @@ const getPedidosFinalizados = async (req, res) => {
     const finalizados = await PedidoRepositorio.getPedidosFinalizados();
     const clientes = await ClienteRepositorio.getClientes();
 
-    res.render('pedidosFinalizados', {
+    res.render('PedidosViews/pedidosFinalizados', {
       pedidos: finalizados,
       clientes,
       productos: finalizados.productos,
@@ -189,7 +189,7 @@ const formNuevo = async (req, res) => {
   const productos = await ProductoRepositorio.getProductos();
   const clientes = await ClienteRepositorio.getClientes();
 
-  res.render('nuevoPedido', {
+  res.render('PedidosViews/nuevoPedido', {
     productos,
     clientes,
     usuario: req.user.usuario,
@@ -204,7 +204,7 @@ const formEditar = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('editarPedido', {
+  res.render('PedidosViews/editarPedido', {
     pedido,
     productos,
     clientes,
@@ -218,7 +218,7 @@ const ticketPedido = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('ticketPedido', { pedido, usuario: req.user.usuario });
+  res.render('PedidosViews/ticketPedido', { pedido, usuario: req.user.usuario });
 };
 
 module.exports = {

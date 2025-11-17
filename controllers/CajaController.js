@@ -7,7 +7,7 @@ const CajaController = {
       const pedidos = await PedidoRepositorio.getPedidos({ pagado: false });
       const historial = await PedidoRepositorio.getPedidos({ pagado: true });
 
-      res.render('caja', {
+      res.render('CajaViews/caja', {
         usuario: req.user.usuario,
         rol: req.user.rol,
         pedidos,
@@ -52,7 +52,7 @@ const CajaController = {
       await pedidoActualizado.save();
       console.log(pedidoActualizado);
 
-      res.render('confirmacionPago', {
+      res.render('CajaViews/confirmacionPago', {
         usuario: req.user.usuario,
         rol: req.user.rol,
         pedido: pedidoActualizado,
@@ -75,7 +75,7 @@ const CajaController = {
           .status(400)
           .send('Este pedido aún no tiene un pago registrado.');
       }
-      res.render('factura', { pedido });
+      res.render('CajaViews/factura', { pedido });
     } catch (error) {
       res.status(500).send('Error al generar factura.');
     }
