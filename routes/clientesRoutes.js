@@ -6,6 +6,7 @@ const {
     createCliente,
     updateCliente,
     deleteCliente,
+    verPedidosCliente,
 } = require('../controllers/ClienteController');
 
 const router = express.Router();
@@ -36,5 +37,7 @@ router.get('/:id', getClienteById);
 router.post('/',createCliente);
 router.put('/:id',updateCliente);
 router.delete('/:id',deleteCliente);
+router.get('/:id/pedidos', verPedidosCliente);
+
 
 module.exports = router;
