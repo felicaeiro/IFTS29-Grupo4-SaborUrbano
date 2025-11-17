@@ -388,6 +388,10 @@ div.form-div-btn button {
   align-items: center;
 }
 
+.form-div-btn-nuevoCliente {
+  margin-top: 10rem;
+}
+
 .btn-last {
   width: 28%;
   margin: auto;
@@ -509,6 +513,7 @@ hr {
   width: 50%;
 }
 
+
 /* CLIENTES */
 .li-clientes {
   line-height: 30px;
@@ -527,6 +532,15 @@ hr {
 .div-btn img {
   width: 30px;
   margin-left: 10px;
+}
+
+
+/* MENSAJE DE ERROR */
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  font-weight: 600;
+  width: 80vw;
 }
 
 /* ___________________________________________________________________ */
