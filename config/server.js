@@ -46,8 +46,7 @@ app.use(express.json());
 
 // ROUTES
 app.use('/', authRoutes);
-app.use('/datos', datosRoutes); // Ruta pública para la base de datos
-// Proteger las rutas de la aplicación con el middleware authenticateJWT
+app.use('/datos', datosRoutes);
 app.use('/productos', authenticateJWT, productoRoutes);
 app.use('/pedidos', authenticateJWT, pedidoRoutes);
 app.use('/clientes', authenticateJWT, clientesRoutes);
@@ -57,14 +56,10 @@ app.use('/caja', authenticateJWT, cajaRoutes);
 
 
 app.get('/', (req, res) => {
-  // La lógica de redirección ahora puede ser más simple o incluso eliminarse
-  // si todas las rutas principales están protegidas.
-  // Por ahora, redirigimos a /inicio.
   return res.redirect('/inicio');
 });
 
 app.get('/inicio', authenticateJWT, (req, res) => {
-  // req.user es establecido por el middleware authenticateJWT
   res.render('index', {
     usuario: req.user.usuario,
     rol: req.user.rol,
