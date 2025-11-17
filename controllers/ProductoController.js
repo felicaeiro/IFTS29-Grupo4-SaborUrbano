@@ -11,7 +11,10 @@ connectDB();
 const getProductos = async (req, res) => {
   try {
     const productos = await ProductoRepositorio.getProductos();
-    res.render('ProductosViews/producto', { productos: productos });
+    res.render('ProductosViews/producto', {
+      productos: productos,
+      usuario: req.user.usuario,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -23,7 +26,10 @@ const getProductoById = async (req, res) => {
     if (!producto) {
       return res.status(404).json({ message: 'Producto no encontrado' });
     }
-    res.render('ProductosViews/detalleProducto', { producto });
+    res.render('ProductosViews/detalleProducto', {
+      producto,
+      usuario: req.user.usuario,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -31,8 +37,19 @@ const getProductoById = async (req, res) => {
 
 const createProducto = async (req, res) => {
   try {
+    const productoData = { ...req.body };
+    const productoExiste = await Producto.findOne({
+      nombre: productoData.nombre,
+    });
+
+    if (productoExiste) {
+      return res.status(400).render('ProductosViews/nuevoProducto', {
+        error: 'El producto ya existe',
+      });
+    }
+
     const producto = await ProductoRepositorio.createProducto(req.body);
-    res.status(201).json(producto);
+    res.redirect('/productos');
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -41,7 +58,7 @@ const createProducto = async (req, res) => {
 const deleteProducto = async (req, res) => {
   try {
     const producto = await ProductoRepositorio.deleteProducto(req.params.id);
-    res.status(200).json(producto);
+    res.redirect('/productos');
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -53,7 +70,7 @@ const updateProducto = async (req, res) => {
       req.params.id,
       req.body
     );
-    res.status(200).json(producto);
+    res.redirect('/productos');
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -61,11 +78,20 @@ const updateProducto = async (req, res) => {
 
 const formNuevo = async (req, res) => {
   const productos = await ProductoRepositorio.getProductos();
-  const clientes = await ClienteRepositorio.getClientes();
 
   res.render('ProductosViews/nuevoProducto', {
     productos,
-    clientes,
+    usuario: req.user.usuario,
+  });
+};
+
+const formEditar = async (req, res) => {
+  const id = req.params.id;
+  const producto = await ProductoRepositorio.getProductoById(id);
+  if (!producto) return res.status(404).send('Producto no encontrado');
+  console.log(producto);
+  res.render('ProductosViews/editarProducto', {
+    producto,
     usuario: req.user.usuario,
   });
 };
@@ -77,4 +103,5 @@ module.exports = {
   deleteProducto,
   updateProducto,
   formNuevo,
+  formEditar,
 };

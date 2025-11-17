@@ -1,0 +1,44 @@
+doctype html
+html
+    head
+        title Detalle del producto
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/styles.css")
+
+    body
+    header.header
+      h2 Nuevo producto
+      div
+        if usuario === 'admin'
+              div.div-menu
+                a(href="/inicio").a-inicio Inicio
+                a(href="/productos").a-inicio Productos
+                a(href="/pedidos").a-inicio Pedidos
+                a(href="/clientes").a-inicio Clientes
+                a(href="/caja").a-inicio Pagos
+                a(href="/informe").a-inicio Informes
+        span Bienvenido #{usuario}
+        form(method="POST", action="/logout")
+          button(type="submit") Cerrar sesión
+
+    form.form-nuevoPedido(method="POST", action=`/productos/${producto._id}?_method=PUT`)
+      div.div-top
+        div.div-element
+            label(for="nombre") Nombre
+            input#nombre(type="text", name="nombre", required=true, placeholder="Ej: Milanesa con fritas", value=producto.nombre)
+
+        div.div-element
+            label(for="descripcion") Descripción
+            textarea#descripcion(name="descripcion", rows="3", required=true, placeholder="Descripción del producto")=producto.descripcion
+
+        div.div-element
+            label(for="precio") Precio ($)
+            input#precio(type="number", step="0.01", name="precio", required=true, placeholder="Ej: 3500", value=producto.precio)
+        
+      br
+
+      div.form-div-btn.form-div-btn-nuevoCliente
+        button.btn(type="submit") Editar Producto
+    
+    a(href="/productos")
+      button.btn.btn-last Volver a la lista de productos

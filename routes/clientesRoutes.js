@@ -7,28 +7,16 @@ const {
   updateCliente,
   deleteCliente,
   verPedidosCliente,
+  formNuevo,
+  formEditar,
 } = require('../controllers/ClienteController');
 
 const router = express.Router();
 
-const ProductoRepositorio = require('../services/ProductoRepositorio');
-const PedidoRepositorio = require('../services/PedidoRepositorio');
-const ClienteRepositorio = require('../services/ClienteRepositorio');
-
-router.get('/nuevo', async (req, res) => {
-  const productos = await ProductoRepositorio.getProductos();
-  const clientes = await ClienteRepositorio.getClientes();
-  res.render('ClientesViews/nuevoCliente', { productos, clientes });
-});
-
-router.get('/editar/:id', async (req, res) => {
-  const id = req.params.id;
-  const cliente = await ClienteRepositorio.getClienteById(id);
-  if (!cliente) return res.status(404).send('Cliente no encontrado');
-  res.render('ClientesViews/editarCliente', { cliente });
-});
 
 router.get('/', getClientes);
+router.get('/nuevo', formNuevo);
+router.get('/editar/:id', formEditar);
 router.get('/:id', getClienteById);
 router.post('/', createCliente);
 router.put('/:id', updateCliente);

@@ -40,6 +40,7 @@ const getPedidoById = async (req, res) => {
       productos,
       clientes,
       productosPedidoIds,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -12,7 +12,10 @@ connectDB();
 const getClientes = async (req, res) => {
   try {
     const clientes = await ClienteRepositorio.getClientes();
-    res.render('ClientesViews/clientes', { clientes: clientes });
+    res.render('ClientesViews/clientes', {
+      clientes: clientes,
+      usuario: req.user.usuario,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -24,7 +27,10 @@ const getClienteById = async (req, res) => {
     if (!cliente) {
       return res.status(404).json({ message: 'Cliente no encontrado' });
     }
-    res.render('ClientesViews/detalleCliente', { cliente: cliente });
+    res.render('ClientesViews/detalleCliente', {
+      cliente: cliente,
+      usuario: req.user.usuario,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -43,11 +49,9 @@ const createCliente = async (req, res) => {
     const clienteExiste = await Cliente.findOne({ dni: clienteData.dni });
 
     if (clienteExiste) {
-      return res
-        .status(400)
-        .render('ClientesViews/nuevoCliente', {
-          error: 'El cliente ya está registrado',
-        });
+      return res.status(400).render('ClientesViews/nuevoCliente', {
+        error: 'El cliente ya está registrado',
+      });
     }
 
     await ClienteRepositorio.createCliente({
@@ -110,11 +114,32 @@ const verPedidosCliente = async (req, res) => {
     res.render('ClientesViews/pedidosDelCliente', {
       cliente,
       pedidos,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     console.error('Error al obtener pedidos del cliente:', error);
     res.status(500).send('Error en el servidor');
   }
+};
+
+const formNuevo = async (req, res) => {
+  const productos = await ProductoRepositorio.getProductos();
+  const clientes = await ClienteRepositorio.getClientes();
+  res.render('ClientesViews/nuevoCliente', {
+    productos,
+    clientes,
+    usuario: req.user.usuario,
+  });
+};
+
+const formEditar = async (req, res) => {
+  const id = req.params.id;
+  const cliente = await ClienteRepositorio.getClienteById(id);
+  if (!cliente) return res.status(404).send('Cliente no encontrado');
+  res.render('ClientesViews/editarCliente', {
+    cliente,
+    usuario: req.user.usuario,
+  });
 };
 
 module.exports = {
@@ -124,4 +149,6 @@ module.exports = {
   deleteCliente,
   updateCliente,
   verPedidosCliente,
+  formEditar,
+  formNuevo,
 };
