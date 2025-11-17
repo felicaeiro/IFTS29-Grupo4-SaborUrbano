@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Nuevo Cliente
+    title Nuevo Pedido
     link(rel="stylesheet", href="/css/styles.css")
 
   body
@@ -42,13 +42,9 @@ html
           label(for="fecha_nacimiento") Fecha de nacimiento 
           input.form-input(type="date", name="fecha_nacimiento", required)
 
-        if error
-          div.error-message
-            p #{error}
-
       br
 
-      div.form-div-btn.form-div-btn-nuevoCliente
+      div.form-div-btn
         button.btn(type="submit") Registrar cliente
 
     a(href="/clientes")
