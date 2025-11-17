@@ -6,6 +6,7 @@ const {
     createCliente,
     updateCliente,
     deleteCliente,
+    verPedidosCliente,
 } = require('../controllers/ClienteController');
 
 const router = express.Router();
@@ -32,10 +33,20 @@ router.get("/editar/:id", async (req, res) => {
 });
 
 
+<<<<<<< HEAD
 router.get('/',authorizeRole(['admin','caja']), getClientes);
 router.get('/:id',authorizeRole(['admin','caja']), getClienteById);
 router.post('/',authorizeRole(['admin','caja']),createCliente);
 router.put('/:id',authorizeRole(['admin','caja']),updateCliente);
 router.delete('/:id',authorizeRole(['admin','caja']),deleteCliente);
+=======
+router.get('/', getClientes);
+router.get('/:id', getClienteById);
+router.post('/',createCliente);
+router.put('/:id',updateCliente);
+router.delete('/:id',deleteCliente);
+router.get('/:id/pedidos', verPedidosCliente);
+
+>>>>>>> segunda-entrega
 
 module.exports = router;
