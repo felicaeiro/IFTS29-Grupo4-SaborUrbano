@@ -3,15 +3,16 @@ const app = express();
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
-const cookieParser = require('cookie-parser'); // Importar cookie-parser
-const { authenticateJWT } = require('../middleware/authMiddleware'); // Importar middleware
+const cookieParser = require('cookie-parser');
+const {
+  authenticateJWT,
+  authorizeRole,
+} = require('../middleware/authMiddleware');
 
-// Importar la configuración de passport
 require('../config/passport');
 
 const productoRoutes = require('../routes/productoRoutes');
 const pedidoRoutes = require('../routes/pedidoRoutes');
-const datosRoutes = require('../routes/dataRoutes');
 const informeRoutes = require('../routes/InformeRoutes');
 const usuarioRoutes = require('../routes/UsuarioRoutes');
 const authRoutes = require('../routes/authRoutes');
@@ -26,7 +27,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.static('public'));
 
-app.use(cookieParser()); // Usar cookie-parser
+app.use(cookieParser());
 
 app.use(
   session({
@@ -36,7 +37,6 @@ app.use(
   })
 );
 
-// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,14 +46,22 @@ app.use(express.json());
 
 // ROUTES
 app.use('/', authRoutes);
-app.use('/datos', datosRoutes);
-app.use('/productos', authenticateJWT, productoRoutes);
-app.use('/pedidos', authenticateJWT, pedidoRoutes);
-app.use('/clientes', authenticateJWT, clientesRoutes);
-app.use('/informe', authenticateJWT, informeRoutes);
+app.use(
+  '/productos',
+  authenticateJWT,
+  authorizeRole(['admin']),
+  productoRoutes
+);
+app.use(
+  '/pedidos',
+  authenticateJWT,
+  authorizeRole(['admin', 'cocina']),
+  pedidoRoutes
+);
+app.use('/clientes', authenticateJWT, authorizeRole(['admin']), clientesRoutes);
+app.use('/informe', authenticateJWT, authorizeRole(['admin']), informeRoutes);
 app.use('/usuarios', authenticateJWT, usuarioRoutes);
-app.use('/caja', authenticateJWT, cajaRoutes);
-
+app.use('/caja', authenticateJWT, authorizeRole(['admin', 'caja']), cajaRoutes);
 
 app.get('/', (req, res) => {
   return res.redirect('/inicio');
@@ -65,7 +73,6 @@ app.get('/inicio', authenticateJWT, (req, res) => {
     rol: req.user.rol,
   });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);

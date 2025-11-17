@@ -3,20 +3,13 @@ const PagoService = require('../services/PagoService');
 
 const CajaController = {
   async mostrarVistaCaja(req, res) {
-    if (
-      !req.session.usuario ||
-      (req.session.rol !== 'caja' && req.session.rol !== 'admin')
-    ) {
-      return res.redirect('/login');
-    }
-
     try {
       const pedidos = await PedidoRepositorio.getPedidos({ pagado: false });
       const historial = await PedidoRepositorio.getPedidos({ pagado: true });
 
       res.render('caja', {
-        usuario: req.session.usuario,
-        rol: req.session.rol,
+        usuario: req.user.usuario,
+        rol: req.user.rol,
         pedidos,
         historial,
       });
@@ -60,8 +53,8 @@ const CajaController = {
       console.log(pedidoActualizado);
 
       res.render('confirmacionPago', {
-        usuario: req.session.usuario,
-        rol: req.session.rol,
+        usuario: req.user.usuario,
+        rol: req.user.rol,
         pedido: pedidoActualizado,
         mensaje: `Pago registrado correctamente.`,
       });

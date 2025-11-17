@@ -20,6 +20,9 @@ html
           button(type="submit") Cerrar sesión
 
     h1= titulo
+    div.div-btn-pedidos-nuevo-finalizado
+      form(method="GET", action="/productos/nuevo")
+        button.btn-pedidos.btn-nuevo-pedido(type="submit") Nuevo producto
     ul
       each p in productos
         li

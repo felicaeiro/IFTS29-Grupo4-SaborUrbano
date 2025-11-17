@@ -5,7 +5,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 const Usuario = require('../models/Usuario');
 
-// Estrategia Local para login con usuario y contraseña
 passport.use(new LocalStrategy({
   usernameField: 'usuario',
   passwordField: 'clave'
@@ -27,13 +26,11 @@ passport.use(new LocalStrategy({
   }
 }));
 
-// Opciones para la estrategia JWT
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET || 'your_default_secret' // Deberías usar una variable de entorno
+  secretOrKey: process.env.JWT_SECRET || 'your_default_secret' 
 };
 
-// Estrategia JWT para proteger rutas
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
     const user = await Usuario.findById(jwt_payload.id);

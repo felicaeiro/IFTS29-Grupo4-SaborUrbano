@@ -15,7 +15,6 @@ const ProductoRepositorio = require('../services/ProductoRepositorio');
 const PedidoRepositorio = require('../services/PedidoRepositorio');
 const ClienteRepositorio = require('../services/ClienteRepositorio');
 
-// Formulario para crear nuevo cliente
 router.get("/nuevo", async (req, res) => {
     const productos = await ProductoRepositorio.getProductos();
     const clientes = await ClienteRepositorio.getClientes();
@@ -23,7 +22,6 @@ router.get("/nuevo", async (req, res) => {
 });
 
 
-// Formulario para editar cliente
 router.get("/editar/:id", async (req, res) => {
     const id = req.params.id;
     const cliente = await ClienteRepositorio.getClienteById(id);

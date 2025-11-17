@@ -17,7 +17,7 @@ const getPedidos = async (req, res) => {
     });
     res.render('pedidos', {
       pedidos: pedidosPendientes,
-      usuario: req.session.usuario,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -178,7 +178,7 @@ const getPedidosFinalizados = async (req, res) => {
       pedidos: finalizados,
       clientes,
       productos: finalizados.productos,
-      usuario: req.session.usuario,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -192,7 +192,7 @@ const formNuevo = async (req, res) => {
   res.render('nuevoPedido', {
     productos,
     clientes,
-    usuario: req.session.usuario,
+    usuario: req.user.usuario,
   });
 };
 
@@ -208,7 +208,7 @@ const formEditar = async (req, res) => {
     pedido,
     productos,
     clientes,
-    usuario: req.session.usuario,
+    usuario: req.user.usuario,
   });
 };
 
@@ -218,7 +218,7 @@ const ticketPedido = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('ticketPedido', { pedido, usuario: req.session.usuario });
+  res.render('ticketPedido', { pedido, usuario: req.user.usuario });
 };
 
 module.exports = {
