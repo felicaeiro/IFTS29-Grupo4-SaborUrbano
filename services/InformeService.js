@@ -38,7 +38,7 @@ class InformeService{
             { $limit: limit },
             {
                 $lookup: {
-                    from: 'productos', // nombre de la colección en MongoDB
+                    from: 'productos',
                     localField: '_id',
                     foreignField: '_id',
                     as: 'productoInfo'
@@ -59,14 +59,12 @@ class InformeService{
 
     async getTopClientesRecurrentes(limit = 3) {
         return Pedido.aggregate([
-            // Agrupa por cliente y cuenta sus pedidos
             { $group: { _id: '$id_cliente', totalPedidos: { $sum: 1 } } },
             { $sort: { totalPedidos: -1 } },
             { $limit: limit },
-            // Une con la colección de Clientes para obtener sus detalles
             {
                 $lookup: {
-                    from: 'clientes', // nombre de la colección en MongoDB
+                    from: 'clientes',
                     localField: '_id',
                     foreignField: '_id',
                     as: 'clienteInfo'

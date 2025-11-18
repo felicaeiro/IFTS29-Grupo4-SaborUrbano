@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('../config/db');
 const ClienteRepositorio = require('../services/ClienteRepositorio');
+const ProductoRepositorio = require('../services/ProductoRepositorio');
 const Cliente = require('../models/Cliente');
 const Pedido = require('../models/Pedido');
 

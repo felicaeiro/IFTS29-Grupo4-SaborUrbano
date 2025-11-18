@@ -704,6 +704,7 @@ textarea {
     background: white;
   }
 }
+
 #historial table {
   width: 100%;
   border-collapse: collapse;
@@ -715,7 +716,6 @@ textarea {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Encabezado */
 #historial thead {
   background: #2c3e50;
   color: #ffffff;
@@ -729,24 +729,20 @@ textarea {
   font-weight: 600;
 }
 
-/* Filas */
 #historial td {
   padding: 12px 10px;
   border-bottom: 1px solid #e8e8e8;
 }
 
-/* Alternancia de colores */
 #historial tbody tr:nth-child(even) {
   background: #f7f9fa;
 }
 
-/* Hover */
 #historial tbody tr:hover {
   background: #e8f4ff;
   transition: 0.2s;
 }
 
-/* Ajustes de columnas más estrechas */
 #historial td:nth-child(1),
 #historial th:nth-child(1) {
   width: 110px;
