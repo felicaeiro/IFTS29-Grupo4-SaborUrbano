@@ -2,24 +2,26 @@ doctype html
 html
   head
     title Iniciar sesión
-    script. 
-        async function inicializarBD() {
-            try {
-            const response = await fetch('/datos', {
-                method: 'GET'
-            });
+    
+    //- script. 
+    //-     async function inicializarBD() {
+    //-         try {
+    //-         const response = await fetch('/datos', {
+    //-             method: 'GET'
+    //-         });
 
-            if (response.ok) {
-                alert('Base de datos inicializada con éxito.');
-            } else {
-                const text = await response.text();
-                alert('Error: ' + text);
-            }
-            } catch (error) {
-            console.error(error);
-            alert('Ocurrió un error al inicializar la base de datos.');
-            }
-      }
+    //-         if (response.ok) {
+    //-             alert('Base de datos inicializada con éxito.');
+    //-         } else {
+    //-             const text = await response.text();
+    //-             alert('Error: ' + text);
+    //-         }
+    //-         } catch (error) {
+    //-         console.error(error);
+    //-         alert('Ocurrió un error al inicializar la base de datos.');
+    //-         }
+    //-   }
+
     link(rel="stylesheet", href="/css/login-styles.css")
   
   body
@@ -39,4 +41,4 @@ html
       if error
         p.error #{error}
 
-button(onclick="inicializarBD()").db-btn Popular base de datos
+//- button(onclick="inicializarBD()").db-btn Popular base de datos
