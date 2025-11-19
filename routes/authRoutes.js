@@ -20,7 +20,17 @@ router.post('/login', (req, res, next) => {
       const token = jwt.sign({ id: user._id, rol: user.rol }, process.env.JWT_SECRET || 'your_default_secret', { expiresIn: '1h' });
 
       res.cookie('jwt', token, { httpOnly: true, secure: false });
-      return res.redirect('/inicio');
+
+      switch (user.rol) {
+        case 'admin':
+          return res.redirect('/informe');
+        case 'caja':
+          return res.redirect('/caja');
+        case 'cocina':
+          return res.redirect('/pedidos');
+        default:
+          return res.redirect('/inicio');
+      }
     });
   })(req, res, next);
 });
