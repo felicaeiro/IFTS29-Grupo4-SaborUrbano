@@ -102,7 +102,6 @@ html
 script.
   document.addEventListener('DOMContentLoaded', () => {
 
-  //- Ocultar el pedido finalizado de la lista de pedidos
     document.querySelectorAll('.btn-finalizar').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = e.target.dataset.id;
@@ -124,7 +123,6 @@ script.
       });
     });
 
-    // Botón PREPARAR
     document.querySelectorAll('.btn-preparar').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = e.target.dataset.id;
@@ -137,7 +135,6 @@ script.
       });
     });
 
-    // Botón FINALIZAR
     document.querySelectorAll('.btn-finalizar').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = e.target.dataset.id;

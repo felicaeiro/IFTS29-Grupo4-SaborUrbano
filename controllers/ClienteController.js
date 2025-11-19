@@ -46,7 +46,6 @@ const createCliente = async (req, res) => {
         clienteData.fecha_nacimiento + 'T00:00:00'
       );
     }
-    // Buscar si existe un cliente con ese DNI
     const clienteExiste = await Cliente.findOne({ dni: clienteData.dni });
 
     if (clienteExiste) {

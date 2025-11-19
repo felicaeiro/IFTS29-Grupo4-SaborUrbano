@@ -11,7 +11,7 @@ router.put('/finalizar/:id', PedidoController.finalizarPedido);
 router.put('/cambiar-estado/:id', PedidoController.cambiarEstado);
 
 
-// CRUD API
+
 router.get('/', PedidoController.getPedidos);
 router.get('/:id', PedidoController.getPedidoById);
 router.post('/', PedidoController.createPedido);

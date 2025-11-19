@@ -139,7 +139,6 @@ const updatePedido = async (req, res) => {
   }
 };
 
-// Función para calcular el total de productos seleccionados
 function calcularMontoTotal(productos) {
   let total = 0;
   for (const p of productos) {
@@ -148,7 +147,6 @@ function calcularMontoTotal(productos) {
   return total;
 }
 
-// Cambiar el estado de los pedidos a PREPARAR o FINALIZADO
 const cambiarEstado = async (req, res) => {
   try {
     const pedido = await PedidoRepositorio.updatePedido(req.params.id, {

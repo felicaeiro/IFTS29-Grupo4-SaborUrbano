@@ -44,7 +44,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.json());
 
-// ROUTES
 app.use('/', authRoutes);
 app.use(
   '/productos',
