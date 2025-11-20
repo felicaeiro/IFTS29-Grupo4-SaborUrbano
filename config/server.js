@@ -63,7 +63,7 @@ app.use('/usuarios', authenticateJWT, usuarioRoutes);
 app.use('/caja', authenticateJWT, authorizeRole(['admin', 'caja']), cajaRoutes);
 
 app.get('/', (req, res) => {
-  return res.redirect('/inicio');
+  return res.redirect('/login');
 });
 
 app.get('/inicio', authenticateJWT, (req, res) => {

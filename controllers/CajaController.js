@@ -19,15 +19,6 @@ const CajaController = {
     }
   },
 
-  async verPedidosPendientes(req, res) {
-    try {
-      const pedidos = await PedidoRepositorio.getPedidos('pendiente');
-      res.json(pedidos);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  },
-
   async registrarPago(req, res) {
     try {
       const pedidoId = req.params.id;

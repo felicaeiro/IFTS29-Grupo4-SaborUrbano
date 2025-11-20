@@ -83,6 +83,7 @@ const createPedido = async (req, res) => {
       estado: pedidoData.estado || 'pendiente',
       id_cliente: pedidoData.id_cliente,
       productos: productosArray,
+      pagado: false,
     });
 
     res.redirect(`/pedidos/ticket/${pedido._id}`);
@@ -150,7 +151,7 @@ function calcularMontoTotal(productos) {
 const cambiarEstado = async (req, res) => {
   try {
     const pedido = await PedidoRepositorio.updatePedido(req.params.id, {
-      estado: req.body.estado
+      estado: req.body.estado,
     });
 
     res.json({ ok: true, pedido });
@@ -217,7 +218,10 @@ const ticketPedido = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('PedidosViews/ticketPedido', { pedido, usuario: req.user.usuario });
+  res.render('PedidosViews/ticketPedido', {
+    pedido,
+    usuario: req.user.usuario,
+  });
 };
 
 module.exports = {

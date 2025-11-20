@@ -38,7 +38,7 @@ html(lang="es")
                 div.pedido-column
                     div
                         strong Fecha:
-                        span #{new Date(pedido.fecha).toLocaleDateString()}
+                        span #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
                     div
                         strong Total: 
                         span $#{pedido.total}
@@ -88,7 +88,7 @@ html(lang="es")
                 tr
                   td #{pedido._id.toString().slice(-4)}
                   td #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}
-                  td #{new Date(pedido.fecha).toLocaleDateString()}
+                  td #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
                   td #{pedido.pago.medio}
                   td $#{pedido.pago.monto}
                   td #{pedido.pago.tipoComprobante} Nº #{pedido.pago.nroComprobante}

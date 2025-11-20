@@ -41,7 +41,7 @@ html(lang="es")
                     div
                     div
                         strong Fecha: 
-                        span #{new Date(pedido.pago.fecha).toLocaleDateString()}
+                        span #{new Date(pedido.pago.fecha).toLocaleDateString('es-AR')}
                     div
                         strong Comprobante: 
                         span #{pedido.pago.tipoComprobante} Nº #{pedido.pago.nroComprobante}

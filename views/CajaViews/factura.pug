@@ -66,7 +66,7 @@ html(lang="es")
         p.info Dirección: Av. del Sabor 123, Buenos Aires
         p.info Tel: (011) 5555-5555
         .linea
-        p.info Fecha: #{new Date(pedido.pago.fecha).toLocaleDateString()}
+        p.info Fecha: #{new Date(pedido.pago.fecha).toLocaleDateString('es-AR')}
         p.info Cliente: #{pedido.id_cliente.nombre} #{pedido.id_cliente.apellido}
         p.info Medio de pago: #{pedido.pago.medio}
         p.info Pedido N° #{pedido._id}
@@ -79,7 +79,7 @@ html(lang="es")
       .ticket
         h2 TICKET
         h3 Sabor Urbano
-        p.info Fecha: #{new Date(pedido.pago.fecha).toLocaleDateString()}
+        p.info Fecha: #{new Date(pedido.pago.fecha).toLocaleDateString('es-AR')}
         p.info Nro de comprobante: #{pedido.pago.nroComprobante}
         p.info Pedido N° #{pedido._id}
         p.info Medio de pago: #{pedido.pago.medio}
