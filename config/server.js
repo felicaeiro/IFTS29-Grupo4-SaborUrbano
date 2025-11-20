@@ -66,11 +66,13 @@ app.get('/', (req, res) => {
   return res.redirect('/inicio');
 });
 
-app.get('/inicio', authenticateJWT, authorizeRole(['admin']), (req, res) => {
+app.get('/inicio', authenticateJWT, (req, res) => {
   res.render('index', {
     usuario: req.user.usuario,
     rol: req.user.rol,
   });
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});

@@ -11,19 +11,27 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err || !user) {
-      return res.status(400).render('login', { error: info ? info.message : 'Error de autenticación' });
+      return res
+        .status(400)
+        .render('login', {
+          error: info ? info.message : 'Error de autenticación',
+        });
     }
     req.login(user, { session: false }, (err) => {
       if (err) {
         res.send(err);
       }
-      const token = jwt.sign({ id: user._id, rol: user.rol }, process.env.JWT_SECRET || 'your_default_secret', { expiresIn: '1h' });
+      const token = jwt.sign(
+        { id: user._id, rol: user.rol },
+        process.env.JWT_SECRET || 'your_default_secret',
+        { expiresIn: '1h' }
+      );
 
       res.cookie('jwt', token, { httpOnly: true, secure: false });
 
       switch (user.rol) {
         case 'admin':
-          return res.redirect('/informe');
+          return res.redirect('/inicio');
         case 'caja':
           return res.redirect('/caja');
         case 'cocina':
