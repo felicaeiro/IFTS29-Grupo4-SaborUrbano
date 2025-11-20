@@ -31,7 +31,7 @@ app.use(cookieParser());
 
 app.use(
   session({
-    secret: 'saborurbano_secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
