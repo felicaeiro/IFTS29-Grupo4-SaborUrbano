@@ -1,12 +1,12 @@
 doctype html
 html
   head
-    title Nuevo Pedido
+    title Nuevo Cliente
     link(rel="stylesheet", href="/css/styles.css")
 
   body
     header.header
-      h2 Editar cliente
+      h2 Nuevo cliente
       div
         div.div-menu
           a(href="/inicio").a-inicio Inicio
@@ -20,33 +20,36 @@ html
           button(type="submit") Cerrar sesión
 
 
-    form.form-nuevoPedido(method="POST", action=`/clientes/${cliente._id}?_method=PUT`)
+    form.form-nuevoPedido(method="POST", action="/clientes")
       div.div-top
         div.div-element
           label(for="fecha") DNI
-          input.form-input(type="text", name="dni", minlength="7", maxlength="8", required, value=cliente.dni)
+          input.form-input(type="text", name="dni", minlength="7", maxlength="8", required)
 
         div.div-element
           label(for="nombre") Nombre
-          input.form-input(type="text", name="nombre", required, value=cliente.nombre)
+          input.form-input(type="text", name="nombre", required)
 
         div.div-element
           label(for="apellido") Apellido
-          input.form-input(type="text", name="apellido", required, value=cliente.apellido)
+          input.form-input(type="text", name="apellido", required)
 
         div.div-element
           label(for="domicilio") Domicilio
-          input.form-input(type="text", name="domicilio", required, value=cliente.domicilio)
+          input.form-input(type="text", name="domicilio", required)
 
         div.div-element
-          label(for="fecha_nacimiento") Fecha de nacimiento
-            - const fechaFormateada = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toISOString().substring(0, 10) : ''
-          input.form-input(type="date", name="fecha_nacimiento", required, value=fechaFormateada)
+          label(for="fecha_nacimiento") Fecha de nacimiento 
+          input.form-input(type="date", name="fecha_nacimiento", required)
+
+        if error
+          div.error-message
+            p #{error}
 
       br
 
-      div.form-div-btn
-        button.btn(type="submit") Guardar cambios
+      div.form-div-btn.form-div-btn-nuevoCliente
+        button.btn(type="submit") Registrar cliente
 
     a(href="/clientes")
       button.btn.btn-last Volver a la lista de clientes

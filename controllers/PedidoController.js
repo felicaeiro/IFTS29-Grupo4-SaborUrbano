@@ -15,9 +15,9 @@ const getPedidos = async (req, res) => {
     const pedidosPendientes = await PedidoRepositorio.getPedidos({
       estados: ['pendiente', 'preparando'],
     });
-    res.render('pedidos', {
+    res.render('PedidosViews/pedidos', {
       pedidos: pedidosPendientes,
-      usuario: req.session.usuario,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -35,11 +35,12 @@ const getPedidoById = async (req, res) => {
     const productosPedidoIds = Array.isArray(pedido.productos)
       ? pedido.productos.map((p) => p._id.toString())
       : [];
-    res.render('editarPedido', {
+    res.render('PedidosViews/editarPedido', {
       pedido,
       productos,
       clientes,
       productosPedidoIds,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -138,7 +139,6 @@ const updatePedido = async (req, res) => {
   }
 };
 
-// Función para calcular el total de productos seleccionados
 function calcularMontoTotal(productos) {
   let total = 0;
   for (const p of productos) {
@@ -146,6 +146,18 @@ function calcularMontoTotal(productos) {
   }
   return total;
 }
+
+const cambiarEstado = async (req, res) => {
+  try {
+    const pedido = await PedidoRepositorio.updatePedido(req.params.id, {
+      estado: req.body.estado
+    });
+
+    res.json({ ok: true, pedido });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 const finalizarPedido = async (req, res) => {
   try {
@@ -161,11 +173,11 @@ const getPedidosFinalizados = async (req, res) => {
     const finalizados = await PedidoRepositorio.getPedidosFinalizados();
     const clientes = await ClienteRepositorio.getClientes();
 
-    res.render('pedidosFinalizados', {
+    res.render('PedidosViews/pedidosFinalizados', {
       pedidos: finalizados,
       clientes,
       productos: finalizados.productos,
-      usuario: req.session.usuario,
+      usuario: req.user.usuario,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -176,10 +188,10 @@ const formNuevo = async (req, res) => {
   const productos = await ProductoRepositorio.getProductos();
   const clientes = await ClienteRepositorio.getClientes();
 
-  res.render('nuevoPedido', {
+  res.render('PedidosViews/nuevoPedido', {
     productos,
     clientes,
-    usuario: req.session.usuario,
+    usuario: req.user.usuario,
   });
 };
 
@@ -191,11 +203,11 @@ const formEditar = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('editarPedido', {
+  res.render('PedidosViews/editarPedido', {
     pedido,
     productos,
     clientes,
-    usuario: req.session.usuario,
+    usuario: req.user.usuario,
   });
 };
 
@@ -205,7 +217,7 @@ const ticketPedido = async (req, res) => {
 
   if (!pedido) return res.status(404).send('Pedido no encontrado');
 
-  res.render('ticketPedido', { pedido, usuario: req.session.usuario });
+  res.render('PedidosViews/ticketPedido', { pedido, usuario: req.user.usuario });
 };
 
 module.exports = {
@@ -219,4 +231,5 @@ module.exports = {
   ticketPedido,
   formEditar,
   formNuevo,
+  cambiarEstado,
 };

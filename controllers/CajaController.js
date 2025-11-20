@@ -3,20 +3,13 @@ const PagoService = require('../services/PagoService');
 
 const CajaController = {
   async mostrarVistaCaja(req, res) {
-    if (
-      !req.session.usuario ||
-      (req.session.rol !== 'caja' && req.session.rol !== 'admin')
-    ) {
-      return res.redirect('/login');
-    }
-
     try {
       const pedidos = await PedidoRepositorio.getPedidos({ pagado: false });
       const historial = await PedidoRepositorio.getPedidos({ pagado: true });
 
-      res.render('caja', {
-        usuario: req.session.usuario,
-        rol: req.session.rol,
+      res.render('CajaViews/caja', {
+        usuario: req.user.usuario,
+        rol: req.user.rol,
         pedidos,
         historial,
       });
@@ -59,9 +52,9 @@ const CajaController = {
       await pedidoActualizado.save();
       console.log(pedidoActualizado);
 
-      res.render('confirmacionPago', {
-        usuario: req.session.usuario,
-        rol: req.session.rol,
+      res.render('CajaViews/confirmacionPago', {
+        usuario: req.user.usuario,
+        rol: req.user.rol,
         pedido: pedidoActualizado,
         mensaje: `Pago registrado correctamente.`,
       });
@@ -82,7 +75,7 @@ const CajaController = {
           .status(400)
           .send('Este pedido aún no tiene un pago registrado.');
       }
-      res.render('factura', { pedido });
+      res.render('CajaViews/factura', { pedido });
     } catch (error) {
       res.status(500).send('Error al generar factura.');
     }

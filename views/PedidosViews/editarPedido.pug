@@ -84,12 +84,10 @@ html
 
 
 
-    //--------------------------------------------------------------------------
     script.
         document.addEventListener('DOMContentLoaded', () => {
             const totalInput = document.getElementById('total');
 
-            // Actualizar el total en tiempo real
             function calcularTotal() {
                 let total = 0;
                 document.querySelectorAll('.producto-item').forEach(item => {
@@ -104,7 +102,6 @@ html
             totalInput.value = total.toFixed(2);
             }
 
-            // Activar/desactivar cantidad según checkbox
             function toggleCantidad(checkbox) {
                 const cantidadInput = checkbox.closest('.producto-item').querySelector('.cantidad-producto');
                 cantidadInput.disabled = !checkbox.checked;

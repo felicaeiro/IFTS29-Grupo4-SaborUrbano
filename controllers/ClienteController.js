@@ -1,7 +1,9 @@
 const express = require('express');
 const connectDB = require('../config/db');
 const ClienteRepositorio = require('../services/ClienteRepositorio');
+const ProductoRepositorio = require('../services/ProductoRepositorio');
 const Cliente = require('../models/Cliente');
+const Pedido = require('../models/Pedido');
 
 const app = express();
 app.use(express.json());
@@ -9,81 +11,144 @@ app.use(express.json());
 connectDB();
 
 const getClientes = async (req, res) => {
-    try {
-        const clientes = await ClienteRepositorio.getClientes();
-        res.render("clientes", {clientes: clientes});
+  try {
+    const clientes = await ClienteRepositorio.getClientes();
+    res.render('ClientesViews/clientes', {
+      clientes: clientes,
+      usuario: req.user.usuario,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-    } catch (error) {
-        res.status(500).json({message: error.message});
+const getClienteById = async (req, res) => {
+  try {
+    const cliente = await ClienteRepositorio.getClienteById(req.params.id);
+    if (!cliente) {
+      return res.status(404).json({ message: 'Cliente no encontrado' });
     }
-}
+    res.render('ClientesViews/detalleCliente', {
+      cliente: cliente,
+      usuario: req.user.usuario,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-const getClienteById = async (req,res) => {
-    try {
-        const cliente = await ClienteRepositorio.getClienteById(req.params.id);
-        if (!cliente) {
-            return res.status(404).json({message: 'Cliente no encontrado'});
-        }
-        res.render("detalleCliente", {cliente: cliente});
-    } catch (error) {
-        res.status(500).json({message: error.message});
-
-    }
-
-}
-
-const createCliente = async (req,res) => {
-    try {
+const createCliente = async (req, res) => {
+  try {
     const clienteData = { ...req.body };
 
     if (clienteData.fecha_nacimiento) {
-        clienteData.fecha_nacimiento = new Date(clienteData.fecha_nacimiento + "T00:00:00");
+      clienteData.fecha_nacimiento = new Date(
+        clienteData.fecha_nacimiento + 'T00:00:00'
+      );
+    }
+    const clienteExiste = await Cliente.findOne({ dni: clienteData.dni });
+
+    if (clienteExiste) {
+      return res.status(400).render('ClientesViews/nuevoCliente', {
+        error: 'El cliente ya está registrado',
+      });
     }
 
-    const cliente = await ClienteRepositorio.createCliente({
-        nombre: clienteData.nombre,
-        apellido: clienteData.apellido,
-        fecha_nacimiento: clienteData.fecha_nacimiento,
-        dni: clienteData.dni,
-        domicilio: clienteData.domicilio,
+    await ClienteRepositorio.createCliente({
+      nombre: clienteData.nombre,
+      apellido: clienteData.apellido,
+      fecha_nacimiento: clienteData.fecha_nacimiento,
+      dni: clienteData.dni,
+      domicilio: clienteData.domicilio,
     });
 
     res.redirect(`/clientes`);
-    } catch (error) {
-    console.error("Error al registrar al cliente:", error);
+  } catch (error) {
+    console.error('Error al registrar al cliente:', error);
     res.status(500).json({ message: error.message });
-    }
-}
+  }
+};
 
-const deleteCliente = async (req,res) => {
-    try{
-        const cliente = await ClienteRepositorio.deleteCliente(req.params.id);
-        res.redirect("/clientes");
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-}
+const deleteCliente = async (req, res) => {
+  try {
+    const cliente = await ClienteRepositorio.deleteCliente(req.params.id);
+    res.redirect('/clientes');
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-
-const updateCliente = async (req,res) => {
-    try {
-        const clienteData = { ...req.body };
+const updateCliente = async (req, res) => {
+  try {
+    const clienteData = { ...req.body };
 
     if (clienteData.fecha_nacimiento) {
-        clienteData.fecha_nacimiento = new Date(clienteData.fecha_nacimiento + "T00:00:00");
+      clienteData.fecha_nacimiento = new Date(
+        clienteData.fecha_nacimiento + 'T00:00:00'
+      );
     }
 
     const cliente = await ClienteRepositorio.updateCliente(
-        req.params.id,
-        clienteData
+      req.params.id,
+      clienteData
     );
     res.redirect(`/clientes`);
-    
-    } catch (error) {
-        console.error("Error al actualizar al cliente:", error);
-        res.status(500).json({ message: error.message });
+  } catch (error) {
+    console.error('Error al actualizar al cliente:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const verPedidosCliente = async (req, res) => {
+  try {
+    const clienteId = req.params.id;
+    const cliente = await Cliente.findById(clienteId);
+    if (!cliente) {
+      return res.status(404).send('Cliente no encontrado');
     }
-}
 
+    const pedidos = await Pedido.find({ id_cliente: clienteId })
+      .populate('productos.producto')
+      .lean();
 
-module.exports = { getClientes ,getClienteById, createCliente,deleteCliente,updateCliente};
+    res.render('ClientesViews/pedidosDelCliente', {
+      cliente,
+      pedidos,
+      usuario: req.user.usuario,
+    });
+  } catch (error) {
+    console.error('Error al obtener pedidos del cliente:', error);
+    res.status(500).send('Error en el servidor');
+  }
+};
+
+const formNuevo = async (req, res) => {
+  const productos = await ProductoRepositorio.getProductos();
+  const clientes = await ClienteRepositorio.getClientes();
+  res.render('ClientesViews/nuevoCliente', {
+    productos,
+    clientes,
+    usuario: req.user.usuario,
+  });
+};
+
+const formEditar = async (req, res) => {
+  const id = req.params.id;
+  const cliente = await ClienteRepositorio.getClienteById(id);
+  if (!cliente) return res.status(404).send('Cliente no encontrado');
+  res.render('ClientesViews/editarCliente', {
+    cliente,
+    usuario: req.user.usuario,
+  });
+};
+
+module.exports = {
+  getClientes,
+  getClienteById,
+  createCliente,
+  deleteCliente,
+  updateCliente,
+  verPedidosCliente,
+  formEditar,
+  formNuevo,
+};

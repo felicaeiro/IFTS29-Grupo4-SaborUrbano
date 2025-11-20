@@ -296,6 +296,14 @@ button.btn-finalizar:hover {
   background-color: rgb(6, 124, 63) !important;
 }
 
+button.btn-preparar {
+  background-color: #f28900 !important;
+}
+
+button.btn-preparar:hover {
+  background-color: #cb7300 !important;
+}
+
 /* NuevoPedido / EditarPedido */
 .form-nuevoPedido {
   display: flex;
@@ -378,6 +386,10 @@ div.form-div-btn button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form-div-btn-nuevoCliente {
+  margin-top: 10rem;
 }
 
 .btn-last {
@@ -511,9 +523,23 @@ hr {
   margin-left: 10px;
 }
 
-.li-clientes img:hover {
+.li-clientes img:hover,
+.div-btn img:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+.div-btn img {
+  width: 30px;
+  margin-left: 10px;
+}
+
+/* MENSAJE DE ERROR */
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  font-weight: 600;
+  width: 80vw;
 }
 
 /* ___________________________________________________________________ */
@@ -609,7 +635,8 @@ form.pago-form {
 
 select,
 button,
-input {
+input,
+textarea {
   padding: 0.5rem;
   margin: 0.3rem 0;
   border-radius: 4px;
@@ -677,6 +704,7 @@ input {
     background: white;
   }
 }
+
 #historial table {
   width: 100%;
   border-collapse: collapse;
@@ -688,7 +716,6 @@ input {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Encabezado */
 #historial thead {
   background: #2c3e50;
   color: #ffffff;
@@ -702,24 +729,20 @@ input {
   font-weight: 600;
 }
 
-/* Filas */
 #historial td {
   padding: 12px 10px;
   border-bottom: 1px solid #e8e8e8;
 }
 
-/* Alternancia de colores */
 #historial tbody tr:nth-child(even) {
   background: #f7f9fa;
 }
 
-/* Hover */
 #historial tbody tr:hover {
   background: #e8f4ff;
   transition: 0.2s;
 }
 
-/* Ajustes de columnas más estrechas */
 #historial td:nth-child(1),
 #historial th:nth-child(1) {
   width: 110px;

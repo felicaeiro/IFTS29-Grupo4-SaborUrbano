@@ -1,11 +1,11 @@
 doctype html
 html
   head
+    title Detalle del cliente
     link(rel="stylesheet", href="/css/styles.css")
-    title= titulo
   body
     header.header
-      h2 Productos
+      h2 Clientes
       div
         div.div-menu
           a(href="/inicio").a-inicio Inicio
@@ -19,12 +19,22 @@ html
         form(method="POST", action="/logout")
           button(type="submit") Cerrar sesión
 
-    h1= titulo
-    ul
-      each p in productos
-        li
-          |#{p.nombre} ($#{p.precio}) 
-          a(href=`/productos/${p.id}`)
-            button Ver Detalle
-          form(action=`/productos/${p.id}?_method=DELETE`, method="POST", style="display:inline")
-            button(type="submit") Eliminar Producto
+    .container
+      h1 Datos del cliente
+      .card
+        p
+          strong Nombre completo:
+          |  #{cliente.nombre} #{cliente.apellido}
+        p
+          strong DNI:
+          |  #{cliente.dni}
+        p
+          strong Fecha de nacimiento:
+          | #{cliente.fecha_nacimiento}
+
+        p
+          strong Domicilio:
+          | #{cliente.domicilio}
+        
+      a(href="/clientes")
+        button.btn Volver a la lista
