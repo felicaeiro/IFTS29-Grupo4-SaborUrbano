@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../views'));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(cookieParser());
 
@@ -66,13 +66,11 @@ app.get('/', (req, res) => {
   return res.redirect('/inicio');
 });
 
-app.get('/inicio', authenticateJWT, (req, res) => {
+app.get('/inicio', authenticateJWT, authorizeRole(['admin']), (req, res) => {
   res.render('index', {
     usuario: req.user.usuario,
     rol: req.user.rol,
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
+module.exports = app;
