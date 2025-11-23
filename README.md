@@ -98,9 +98,9 @@ npm run dev
 
 ## Bibliografía
 
-[Node.js Docs](https://nodejs.org/docs/latest/api/)
-[Express Docs](https://expressjs.com/)
-[Pug Docs](https://pugjs.org/api/getting-started.html)
-[Mongo Docs](https://www.mongodb.com/docs/)
-[Mongoose Docs](https://mongoosejs.com/docs/guide.html)
-[Passport-JWT Docs](https://www.passportjs.org/packages/passport-jwt/)
+* [Node.js Docs](https://nodejs.org/docs/latest/api/)
+* [Express Docs](https://expressjs.com/)
+* [Pug Docs](https://pugjs.org/api/getting-started.html)
+* [Mongo Docs](https://www.mongodb.com/docs/)
+* [Mongoose Docs](https://mongoosejs.com/docs/guide.html)
+* [Passport-JWT Docs](https://www.passportjs.org/packages/passport-jwt/)
