@@ -20,50 +20,42 @@ El proyecto incluye integración con **Pug** para vistas dinámicas.
 - **Node.js** v22  
 - **Express** v5  
 - **Pug** v3  
-- **MongoDB + Mongoose** 
+- **MongoDB + Mongoose**
+- **MongoDB Atlas**
+- **JWT + Passport**
 
 ---
 
+## 💡 Funcionalidades principales
 
-## 🧠 Funcionalidades principales
-
-- 🔐 **Autenticación y sesiones de usuario**
+- **Autenticación y sesiones de usuario**
   - Inicio y cierre de sesión con control de acceso según rol.
   - Protección de rutas y persistencia de sesión mediante `express-session`.
 
-- 🧾 **Gestión de productos**
+- **Gestión de productos**
   - Alta, baja, modificación y consulta de productos.
 
-- 👥 **Gestión de clientes**
+- **Gestión de clientes**
   - Registro, actualización y eliminación de clientes.
   - Asociación de clientes a pedidos existentes.
 
-- 🍽️ **Gestión de pedidos**
+- **Gestión de pedidos**
   - Creación y edición de pedidos.
   - Control de estados: `pendiente`, `preparando`, `finalizado`.
   - Actualización visual en Pug mediante `fetch()` y recarga dinámica.
 
-- 📊 **Módulo de informes**
+- **Módulo de informes**
   - Reportes automáticos de:
     - *Productos más vendidos*
     - *Clientes más recurrentes*
   - Datos generados a partir de los pedidos realizados.
 
-- 💾 **Persistencia de datos**
+- **Persistencia de datos**
   - Manejo de información mediante **MongoDB**.
 
-- 💡 **Interfaz dinámica con Pug**
+- **Interfaz dinámica con Pug**
   - Vistas limpias.
   - Integración con formularios.
-
----
-
-## ⚙️ Funcionamiento
-- Ejecutar:  
-```bash
-npm install
-npm run dev
-```
 
 ---
 
@@ -93,6 +85,32 @@ npm run dev
 `/caja`
   - GET → Obtener pagos
   - POST → Registrar pago
+
+---
+
+## ⚙️ Funcionamiento
+Ejecutar:  
+```bash
+npm install
+npm run dev
+```
+## 🔗 Probar la demo online: 
+```
+https://saborurbano.vercel.app/login
+```
+
+## 🔐 Usuarios de prueba por rol
+**Administrador**:
+* Usuario: admin
+* Contraseña: admin123
+
+**Cocina**:
+* Usuario: cocina
+* Contraseña: cocina123
+
+**Caja**:
+* Usuario: caja
+* Contraseña: caja123
 
 ---
 
