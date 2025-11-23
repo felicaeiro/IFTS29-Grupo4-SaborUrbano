@@ -64,19 +64,35 @@ El proyecto incluye integración con **Pug** para vistas dinámicas.
 npm install
 npm run dev
 ```
-Antes de iniciar sesión, asegurate de tener la base de datos poblada con usuarios y datos de ejemplo.
 
 ---
 
 ## 📦 Endpoints principales:
 
-/api/productos
-
-/api/clientes
-
-/api/pedidos
-
-Operaciones: GET, POST, PUT, PATCH, DELETE
+`/clientes`
+  - GET → Obtener clientes
+  - POST → Registrar cliente
+  - PUT → Actualizar cliente
+  - DELETE → Eliminar cliente
+    
+`/pedidos`
+  - GET → Obtener pedidos
+  - POST → Registrar pedido
+  - PUT → Actualizar pedido
+  - DELETE → Eliminar pedido
+    
+`/productos`
+  - GET → Obtener productos
+  - POST → Registrar producto
+  - PUT → Actualizar producto
+  - DELETE → Eliminar producto
+    
+`/informe`
+  - GET → Obtener informe
+  
+`/caja`
+  - GET → Obtener pagos
+  - POST → Registrar pago
 
 ---
 
@@ -86,3 +102,5 @@ Operaciones: GET, POST, PUT, PATCH, DELETE
 [Express Docs](https://expressjs.com/)
 [Pug Docs](https://pugjs.org/api/getting-started.html)
 [Mongo Docs](https://www.mongodb.com/docs/)
+[Mongoose Docs](https://mongoosejs.com/docs/guide.html)
+[Passport-JWT Docs](https://www.passportjs.org/packages/passport-jwt/)
